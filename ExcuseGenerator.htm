@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<script src="ExcuseGenerator.js"></script>
+<script src="BaseExcuseData.js"></script>
+<script src="MaulingSnarksExcuseData.js"></script>
+<script src="TaylorVargaExcuseData.js"></script>
+<script src="TechnoQueenExcuseData.js"></script>
+<script src="ConstellationsExcuseData.js"></script>
+<title>Armsmaster's Random Excuse Generator and other things</title>
+<style>
+#top h3, #top p {
+	margin: 0;
+	padding: 0;
+}
+.custom_selector {
+	float: left;
+	margin-right: 10px;
+}
+#buildStatsOutput {
+	float: right;
+	text-align: right;
+}
+</style>
+</head>
+
+<body onload="loadData();">
+<div id="top">
+	<div id="buildStatsOutput" style="display: none"></div>
+	<h3>Armsmaster's Random Excuse Generator and other things</h3>
+	<p>Version CmptrWz</p>
+</div>
+<div id="fandoms">Fandoms:<br/>
+</div>
+<div><a href="#" onclick="toggleDiv('advanced')">Show/Hide Advanced Options</a> <a href="#" onclick="toggleDiv('buildStatsOutput')">Show/Hide Stats</a>
+	<div id="advanced" style="display: none">
+	</div>
+</div>
+<hr style="clear:both"/>
+<div id="modeContainer">
+Mode:
+</div>
+<hr/>
+<div id="outputContainer"/>
+</body>
+</html>
