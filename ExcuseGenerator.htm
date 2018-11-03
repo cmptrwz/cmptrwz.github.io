@@ -21,26 +21,32 @@
 	float: right;
 	text-align: right;
 }
+#modeContainer button {
+	margin-left: 5px;
+}
+.pagetab {
+	line-height: 1.5;
+}
 </style>
 </head>
 
 <body onload="loadData();">
-<div id="top">
-	<div id="buildStatsOutput" style="display: none"></div>
-	<h3>Armsmaster's Random Excuse Generator and other things</h3>
-	<p>Version CmptrWz</p>
-</div>
-<div id="fandoms">Fandoms:<br/>
-</div>
-<div><a href="#" onclick="toggleDiv('advanced')">Show/Hide Advanced Options</a> <a href="#" onclick="toggleDiv('buildStatsOutput')">Show/Hide Stats</a>
-	<div id="advanced" style="display: none">
+	<div id="top">
+		<div id="buildStatsOutput" style="display: none"></div>
+		<h3>Armsmaster's Random Excuse Generator and other things</h3>
+		<p>Version CmptrWz</p>
 	</div>
-</div>
-<hr style="clear:both"/>
-<div id="modeContainer">
-Mode:
-</div>
-<hr/>
-<div id="outputContainer"/>
+	<div id="fandoms">
+		Fandoms:<br/>
+	</div>
+	<div><a href="#" onclick="toggleDiv('advanced')">Show/Hide Advanced Options</a> <a href="#" onclick="toggleDiv('buildStatsOutput')">Show/Hide Stats</a>
+		<div id="advanced" style="display: none"/>
+	</div>
+	<hr style="clear:both"/>
+	<div id="modeContainer">
+		Mode:
+	</div>
+	<hr/>
+	<div id="outputContainer"/>
 </body>
 </html>

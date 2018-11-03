@@ -465,7 +465,7 @@ function buildMode(modediv, outputdiv, entry, entrynum) {
 		outputTab.appendChild(document.createElement('br'));
 		outputTab.appendChild(document.createTextNode('Search for: '));
 		outputTab.appendChild(searchBox);
-		outputTab.appendChild(document.createTextNode(' (regexp, limit ' + maxAttempts + ' attempts'));
+		outputTab.appendChild(document.createTextNode(' (regexp, limit ' + maxAttempts + ' attempts)'));
 	}
 	outputTab.appendChild(document.createElement('hr'));
 	if (entry.intro)
