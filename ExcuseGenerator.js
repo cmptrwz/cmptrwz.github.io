@@ -303,7 +303,7 @@ function buildNew(basetype,outElement,count,searchfor) {
 	}
 	var re = RegExp('.');
 	if (typeof searchfor !== 'undefined') {
-		re = RegExp(searchfor);
+		re = RegExp(searchfor,'i');
 	}
 	while (outElement.hasChildNodes()) {
 		outElement.removeChild(outElement.lastChild);
@@ -465,7 +465,13 @@ function buildMode(modediv, outputdiv, entry, entrynum) {
 		outputTab.appendChild(document.createElement('br'));
 		outputTab.appendChild(document.createTextNode('Search for: '));
 		outputTab.appendChild(searchBox);
-		outputTab.appendChild(document.createTextNode(' (regexp, limit ' + maxAttempts + ' attempts)'));
+		outputTab.appendChild(document.createTextNode(' ('));
+		var regexplink = document.createElement('a');
+		regexplink.href = 'https://www.w3schools.com/jsref/jsref_obj_regexp.asp';
+		regexplink.target = '_blank';
+		regexplink.appendChild(document.createTextNode('regexp'));
+		outputTab.appendChild(regexplink);
+		outputTab.appendChild(document.createTextNode(', case insensitive, limit ' + maxAttempts + ' attempts)'));
 	}
 	outputTab.appendChild(document.createElement('hr'));
 	if (entry.intro)

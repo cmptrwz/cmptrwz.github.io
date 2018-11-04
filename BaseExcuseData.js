@@ -396,6 +396,7 @@ basetypes.substance = [
 	"terracotta",
 	BS(["powdered",{search:"endbringer",property:"name",filter:{type:"nomatch",property:"plural",value:"yes"}},"figurines"]),
 	BS(["liquified",{search:"critter",property:"name"},"flesh"]),
+	"thioacetone",
 ];
 basetypes.thirdparty = [
 	BS(["my pet",{search:"critter",property:"name"}]),
