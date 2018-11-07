@@ -631,9 +631,22 @@ basetypes.untypedpowers = [
 	"of Trolling",
 	"to die",
 ];
+basetypes.changepeopleto = [
+	"emos",
+	"goths",
+	"grandparents",
+	"line dancers",
+	"lizard people",
+	"mimes",
+	"opera singers",
+	"toddlers",
+	"unathletic nerds",
+	"yodellers",
+];
 basetypes.power = [
 	{pc:"blaster",text:BS(["of slaughtering firstborn",{search:"firstborns"}])},
 	{pc:"blaster",text:BS(["to shoot",{search:"substance"},"out of",{saved:"triggered",property:"possessive"},{search:"bodypart"}])},
+	{pc:"blaster",text:BS(["to temporarily turn people into",{search:"changepeopleto"}])},
 	{pc:"breaker",text:BS(["to turn into a living mass of",{search:"substance"}])},
 	{pc:"changer",text:BS(["to exactly impersonate",{search:"hero",property:"name"},"whenever",{saved:"triggered",property:"nominative"},{saved:"triggered",property:"consumes"},{search:"substance"}])},
 	{pc:"changer",text:BS(["to grow",{search:"grow"},"out of",{saved:"triggered",property:"possessive"},{search:"bodypart"}])},
