@@ -653,6 +653,17 @@ basetypes.speechtype = [
 	"in meaningless gibberish",
 	"in hissing noises",
 ];
+basetypes.beatvalues = [
+	"at an eating contest",
+	"at four dimensional chess",
+	"into a bloody mess",
+	"into submission",
+	"on a gameshow",
+	"to a pulp",
+	"to the last discounted lunch",
+	"with a man-portable wave motion gun",
+	BS(["with",{search:"swingthing",property:"name",wantarticle:true}]),
+];
 basetypes.power = [
 	{pc:"blaster",text:BS(["of slaughtering firstborn",{search:"firstborns"}])},
 	{pc:"blaster",text:BS(["to shoot",{search:"substance"},"out of",{saved:"triggered",property:"possessive"},{search:"bodypart"}])},
@@ -662,6 +673,7 @@ basetypes.power = [
 	{pc:"changer",text:BS(["to exactly impersonate",{search:"hero",property:"name"},"whenever",{saved:"triggered",property:"nominative"},{saved:"triggered",property:"consumes"},{search:"substance"}])},
 	{pc:"changer",text:BS(["to grow",{search:"grow"},"out of",{saved:"triggered",property:"possessive"},{search:"bodypart"}])},
 	{pc:"changer",text:BS(["to turn into a giant",{search:"crittertrait",property:"text",filter:{type:"nomatch",property:"text",value:"gargantuan"}},{search:"critter",property:"name"}])},
+	{pc:"master",text:BS(["to befriend people by beating them",{search:"beatvalues"}])},
 	{pc:"master",text:BS(["to cause people to speak",{search:"speechtype"},"until",{search:"time"}])},
 	{pc:"master",text:BS(["to create golems made of",{search:"substance"}])},
 	{pc:"master",text:BS(["to project",{search:"thingy",saveas:"thingy",property:"article",checkfor:"yes",forcea_an:"an"},"indestructible animate",{search:"thingytrait",property:"text"},{saved:"thingy",property:"name"}])},
