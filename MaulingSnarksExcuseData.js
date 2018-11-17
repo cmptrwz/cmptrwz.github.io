@@ -5,7 +5,7 @@ fantypes["Mauling Snarks"].hero = [
 	{name:"Hulder",article:"a",possessive:"her",item:"chocolate",itemarticle:"some chocolate",group:basetypes.hero_group[1]},
 ];
 fantypes["Mauling Snarks"].villain = [
-	{name:"Ekaki",article:"an",posessive:"her",item:["paintbrush","paint"],itemarticle:["a paintbrush","some paint"],group:basetypes.villain_group[1]},
+	{name:"Ekaki",article:"an",possessive:"her",item:["paintbrush","paint"],itemarticle:["a paintbrush","some paint"],group:basetypes.villain_group[1]},
 ];
 fantypes["Mauling Snarks"].contessa = [
 	"an unnaturally competent woman in a bathing suit and fedora",
