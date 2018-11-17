@@ -36,6 +36,7 @@ basetypes.base_excuse = [
 	[2,BS(["I have a message from",{search:"nonhero_group",property:"name"},"which says that",{search:"hero",saveas:"hero",property:"name"},"won't see",{saved:"hero",property:"possessive"},{saved:"hero",property:"item"},"again unless",{search:"ransom"},"delivered to",{search:"locations",property:"name"},"by",{search:"time"}]),"Messenger"],
 	[2,BS(["I'm a repairman. I'm here to fix the damage from the recent fight between",{search:"any_group",saveas:"any_group1",property:"name"},"and",{search:"any_group",notmatch:"any_group1",property:"name"}]),"Repairman"],
 	[10,BS(["I'm the chosen representative of an angry mob. We're here to",{search:"angrymob"}]),"Angry Mob"],
+	[10,BS(["I'm a member of a gang. I'm here to turn myself in",{search:"gangmember"}]),"Gang Member"],
 ];
 basetypes.someparahumanorgroup = [
 	BS([{search:"someparahuman",property:"name",notmatch:["villain","hero"]}]),
@@ -85,23 +86,23 @@ basetypes.villain_group = [
 	{name:"an independent villain",tested:"no",simple_name:"Independent",article:"an"},
 ];
 basetypes.villain = [
-	{name:"Lung",article:"a",posessive:"his",item:["dragon mask","La-Z-Boy"],itemarticle:["a dragon mask","a La-Z-Boy"],group:basetypes.villain_group[1]},
-	{name:"Oni Lee",article:"an",posessive:"his",item:"grenade",itemarticle:"a grenade",group:basetypes.villain_group[1]},
-	{name:"Bakuda",article:"a",posessive:"her",item:BS([{search:"bomb_property",property:"text"},"bomb"]),itemarticle:BS([{search:"bomb_property",property:"text",wantarticle:true},"bomb"]),group:basetypes.villain_group[1]},
-	{name:"Kaiser",article:"a",posessive:"his",item:"throne",itemarticle:"a throne",group:basetypes.villain_group[0]},
-	{name:"Hookwolf",article:"a",posessive:"his",item:"kicked puppy",itemarticle:"a kicked puppy",group:basetypes.villain_group[0]},
-	{name:"Stormtiger",article:"a",posessive:"his",item:"tiger mask",itemarticle:"a tiger mask",group:basetypes.villain_group[0]},
-	{name:"Rune",article:"a",posessive:"her",item:"stone slab",itemarticle:"a stone slab",group:basetypes.villain_group[0]},
-	{name:"Night",article:"a",posessive:"her",item:"cloak",itemarticle:"a cloak",group:basetypes.villain_group[0]},
-	{name:"Fog",article:"a",posessive:"his",item:"blazer",itemarticle:"a blazer",group:basetypes.villain_group[0]},
-	{name:"Skidmark",article:"a",posessive:"his",item:"bong",itemarticle:"a bong",group:basetypes.villain_group[2]},
-	{name:"Squealer",article:"a",posessive:"her",item:"tank",itemarticle:"a tank",group:basetypes.villain_group[2]},
-	{name:"Mush",article:"a",posessive:"his",item:"garbage pile",itemarticle:"a garbage pile",group:basetypes.villain_group[2]},
-	{name:"Bonesaw",article:"a",posessive:"her",item:"spider-bot",itemarticle:"a spider-bot",group:basetypes.villain_group[3]},
-	{name:"Jack Slash",article:"a",posessive:"his",item:"pocket knife",itemarticle:"a pocket knife",group:basetypes.villain_group[3]},
-	{name:"Saint",article:"a",posessive:"his",item:"control console",itemarticle:"a control console",group:basetypes.villain_group[4]},
-	{name:"Über",article:"an",posessive:"his",item:"whatchamacallit",itemarticle:"a whatchamacallit",group:basetypes.villain_group[6]},
-	{name:"Leet",article:"a",posessive:"his",item:"gizmo",itemarticle:"a gizmo",group:basetypes.villain_group[6]},
+	{name:"Lung",article:"a",possessive:"his",item:["dragon mask","La-Z-Boy"],itemarticle:["a dragon mask","a La-Z-Boy"],group:basetypes.villain_group[1]},
+	{name:"Oni Lee",article:"an",possessive:"his",item:"grenade",itemarticle:"a grenade",group:basetypes.villain_group[1]},
+	{name:"Bakuda",article:"a",possessive:"her",item:BS([{search:"bomb_property",property:"text"},"bomb"]),itemarticle:BS([{search:"bomb_property",property:"text",wantarticle:true},"bomb"]),group:basetypes.villain_group[1]},
+	{name:"Kaiser",article:"a",possessive:"his",item:"throne",itemarticle:"a throne",group:basetypes.villain_group[0]},
+	{name:"Hookwolf",article:"a",possessive:"his",item:"kicked puppy",itemarticle:"a kicked puppy",group:basetypes.villain_group[0]},
+	{name:"Stormtiger",article:"a",possessive:"his",item:"tiger mask",itemarticle:"a tiger mask",group:basetypes.villain_group[0]},
+	{name:"Rune",article:"a",possessive:"her",item:"stone slab",itemarticle:"a stone slab",group:basetypes.villain_group[0]},
+	{name:"Night",article:"a",possessive:"her",item:"cloak",itemarticle:"a cloak",group:basetypes.villain_group[0]},
+	{name:"Fog",article:"a",possessive:"his",item:"blazer",itemarticle:"a blazer",group:basetypes.villain_group[0]},
+	{name:"Skidmark",article:"a",possessive:"his",item:"bong",itemarticle:"a bong",group:basetypes.villain_group[2]},
+	{name:"Squealer",article:"a",possessive:"her",item:"tank",itemarticle:"a tank",group:basetypes.villain_group[2]},
+	{name:"Mush",article:"a",possessive:"his",item:"garbage pile",itemarticle:"a garbage pile",group:basetypes.villain_group[2]},
+	{name:"Bonesaw",article:"a",possessive:"her",item:"spider-bot",itemarticle:"a spider-bot",group:basetypes.villain_group[3]},
+	{name:"Jack Slash",article:"a",possessive:"his",item:"pocket knife",itemarticle:"a pocket knife",group:basetypes.villain_group[3]},
+	{name:"Saint",article:"a",possessive:"his",item:"control console",itemarticle:"a control console",group:basetypes.villain_group[4]},
+	{name:"Über",article:"an",possessive:"his",item:"whatchamacallit",itemarticle:"a whatchamacallit",group:basetypes.villain_group[6]},
+	{name:"Leet",article:"a",possessive:"his",item:"gizmo",itemarticle:"a gizmo",group:basetypes.villain_group[6]},
 ];
 // And other groups
 basetypes.other_group = [
@@ -113,7 +114,7 @@ basetypes.other_group = [
 	{name:"an angry swarm of BEES",member:"a member of",supermembers:"superpowered members of",simple_name:"Bee"},
 ];
 basetypes.other_parahuman = [
-	{name:"Parian",article:"an",posessive:"her",item:"giant plush doll",itemarticle:"a giant plush doll",group:undefined},
+	{name:"Parian",article:"an",possessive:"her",item:"giant plush doll",itemarticle:"a giant plush doll",group:undefined},
 ];
 basetypes.endbringer = [
 	[100,{name:BS([{search:"zizname"}])},"Ziz/Smirgh"],
@@ -599,6 +600,7 @@ basetypes.dance = [
 	"samba dancing",
 	"conga dancing",
 	"breakdancing",
+	"interpretive dancing",
 ];
 basetypes.grow = [
 	"tentacles",
@@ -666,6 +668,7 @@ basetypes.beatvalues = [
 ];
 basetypes.power = [
 	{pc:"blaster",text:BS(["of slaughtering firstborn",{search:"firstborns"}])},
+	{pc:"blaster",text:BS(["to disintegrate any",{search:"thingy",property:"name"},"in",{saved:"triggered",property:"possessive"},"attack's blast radius"])},
 	{pc:"blaster",text:BS(["to shoot",{search:"substance"},"out of",{saved:"triggered",property:"possessive"},{search:"bodypart"}])},
 	{pc:"blaster",text:BS(["to temporarily turn people into",{search:"changepeopleto"}])},
 	{pc:"breaker",text:BS(["to turn into a living mass of",{search:"substance"}])},
@@ -778,6 +781,7 @@ basetypes.citizenexcuse = [
 		{saved:"villain3",property:"itemarticle",append:","}, "and", {saved:"villain1",property:"itemarticle",append:","},"respectively"]),
 	BS(["turn myself in for Master/Stranger screening after seeing",{search:"masterstranger"}]),
 	BS(["report",{search:"shrine_type",property:"text",wantarticle:true},"shrine to",{search:"someparahumanendbringerorgroup"},{search:"locations",saveas:"location",property:"at"},{saved:"location",property:"name"}]),
+	BS(["report spotting",{search:"someparahuman",property:"name"},"going on an enthusiastic walk",{search:"locations",saveas:"loc",property:"at"},{saved:"loc",property:"name"}]),
 ];
 basetypes.masterstranger = [
 	BS([{search:"someparahuman",property:"name"},"bathing in",{search:"substance"}]),
@@ -812,6 +816,7 @@ basetypes.reporterreason = [
 	BS(["do research for a human interest piece to",{search:"humaninterest"},"behind",{search:"hero",property:"name",append:"'s"},"mask"]),
 	BS(["investigate the hint of a rumor of",{search:"hero",property:"name"},"having possibly dropped",{search:"thingy",property:"name",wantarticle:true}]),
 	BS(["investigate the hint of a rumor of",{search:"hero",property:"name",saveas:"hero"},"having possibly dropped",{saved:"hero",property:"possessive"},{saved:"hero",property:"item"}]),
+	BS(["inquire about",{search:"hero",property:"name",append:"'s"},"motivations for going on an enthusiastic walk",{search:"locations",saveas:"loc",property:"at"},{saved:"loc",property:"name"}]),
 ];
 basetypes.villainbehavior = [
 	BS(["hit me with",{search:"swingthing",property:"name",wantarticle:true}]),
@@ -860,4 +865,9 @@ basetypes.itemaction = [
 	"examination",
 	"radiation testing",
 	"DNA testing",
+];
+basetypes.gangmember = [
+	BS(["after seeing",{search:"someparahumanendbringerorgroup"},"going on an enthusiastic walk through our territory"]),
+	BS(["to avoid the wrath of",{search:"somevillain",property:"name",saveas:"villain"},"after another member of the gang stole",{saved:"villain",property:"possessive"},{saved:"villain",property:"item"}]),
+	BS(["to throw myself on your mercy after another member of the gang stole",{search:"hero",property:"name",append:"'s",saveas:"hero"},{saved:"hero",property:"item"}]),
 ];
