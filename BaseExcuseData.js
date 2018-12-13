@@ -101,7 +101,7 @@ basetypes.villain = [
 	{name:"Bonesaw",article:"a",possessive:"her",item:"spider-bot",itemarticle:"a spider-bot",group:basetypes.villain_group[3]},
 	{name:"Jack Slash",article:"a",possessive:"his",item:"pocket knife",itemarticle:"a pocket knife",group:basetypes.villain_group[3]},
 	{name:"Saint",article:"a",possessive:"his",item:"control console",itemarticle:"a control console",group:basetypes.villain_group[4]},
-	{name:"Über",article:"an",possessive:"his",item:"whatchamacallit",itemarticle:"a whatchamacallit",group:basetypes.villain_group[6]},
+	{name:"Uber",article:"an",possessive:"his",item:"whatchamacallit",itemarticle:"a whatchamacallit",group:basetypes.villain_group[6]},
 	{name:"Leet",article:"a",possessive:"his",item:"gizmo",itemarticle:"a gizmo",group:basetypes.villain_group[6]},
 ];
 // And other groups
@@ -340,28 +340,29 @@ basetypes.swingthing = [
 	{name:"rolled-up newspaper",article:"a"},
 ];
 basetypes.critter = [
-	{name:"kitten",article:"a"},
-	{name:"squirrel",article:"a"},
-	{name:"puppy",article:"a"},
-	{name:"hedgehog",article:"a"},
-	{name:"pony",article:"a"},
-	{name:"unicorn",article:"an"},
-	{name:"bullet ant",article:"a"},
-	{name:"antelope",article:"an"},
-	{name:"sugar ant",article:"a"},
-	{name:"black widow spider",article:"a"},
-	{name:"bear cub",article:"a"},
-	{name:"honey badger",article:"a"},
-	{name:"tentacle monster",article:"a"},
-	{name:"patented Blasto monstrosity",article:"a"},
-	{name:"platypus",article:"a"},
-	{name:"pegasus",article:"a"},
-	{name:"parrot",article:"a"},
-	{name:"eagle",article:"an"},
-	{name:"armadillo",article:"an"},
-	{name:"pet rock",article:"a"},
-	{name:"turtle",article:"a"},
-	{name:"shark",article:"a"},
+	{name:"kitten",plural:"kittens",article:"a"},
+	{name:"squirrel",plural:"squirrels",article:"a"},
+	{name:"puppy",plural:"puppies",article:"a"},
+	{name:"hedgehog",plural:"hedgehogs",article:"a"},
+	{name:"pony",plural:"ponies",article:"a"},
+	{name:"unicorn",plural:"unicorns",article:"an"},
+	{name:"bullet ant",plural:"bullet ants",article:"a"},
+	{name:"antelope",plural:"antelopes",article:"an"},
+	{name:"sugar ant",plural:"sugar ants",article:"a"},
+	{name:"black widow spider",plural:"black widow spiders",article:"a"},
+	{name:"bear cub",plural:"bear cubs",article:"a"},
+	{name:"honey badger",plural:"honey badgers",article:"a"},
+	{name:"tentacle monster",plural:"tentacle monsters",article:"a"},
+	{name:"patented Blasto monstrosity",plural:"patented Blasto monstrosities",article:"a"},
+	{name:"platypus",plural:["platypus","platypuses","platypi","platypodes"],article:"a"},
+	{name:"pegasus",plural:"pegasi",article:"a"},
+	{name:"parrot",plural:"parrots",article:"a"},
+	{name:"eagle",plural:"eagles",article:"an"},
+	{name:"armadillo",plural:"armadillos",article:"an"},
+	{name:"pet rock",plural:"pet rocks",article:"a"},
+	{name:"turtle",plural:"turtles",article:"a"},
+	{name:"shark",plural:"sharks",article:"a"},
+	{name:["rabbit","wabbit"],plural:["rabbits","wabbits"],article:"a"},
 ];
 basetypes.crittertrait = [
 	{text:"pink",article:"a"},
@@ -672,6 +673,7 @@ basetypes.power = [
 	{pc:"blaster",text:BS(["to shoot",{search:"substance"},"out of",{saved:"triggered",property:"possessive"},{search:"bodypart"}])},
 	{pc:"blaster",text:BS(["to temporarily turn people into",{search:"changepeopleto"}])},
 	{pc:"breaker",text:BS(["to turn into a living mass of",{search:"substance"}])},
+	{pc:"breaker",text:BS(["to",{search:"while_effect"},"while",{search:"while_action"}])},
 	{pc:"brute",text:BS(["to be usable as a battering ram when held by",{saved:"triggered",property:"possessive"},{search:"bodypart"}])},
 	{pc:"changer",text:BS(["to exactly impersonate",{search:"hero",property:"name"},"whenever",{saved:"triggered",property:"nominative"},{saved:"triggered",property:"consumes"},{search:"substance"}])},
 	{pc:"changer",text:BS(["to grow",{search:"grow"},"out of",{saved:"triggered",property:"possessive"},{search:"bodypart"}])},
@@ -787,6 +789,7 @@ basetypes.masterstranger = [
 	BS([{search:"someparahuman",property:"name"},"bathing in",{search:"substance"}]),
 	BS([{search:"hero",property:"name"},"making out with",{search:"villain",property:"name"},{search:"locations",saveas:"location",property:"at"},{saved:"location",property:"name"}]),
 	BS([{search:"endbringer",saveas:"endbringer1",property:"name",filter:{type:"nomatch",property:"plural",value:"yes"}},{search:"dance"},"with",{search:"endbringer",notmatch:"endbringer1",property:"name",filter:{type:"nomatch",property:"plural",value:"yes"}},{search:"locations",saveas:"location",property:"at"},{saved:"location",property:"name"}]),
+	BS([{search:"someparahuman",property:"name",saveas:"parahuman"},"go by with",{search:"gobywith"}]),
 ];
 basetypes.shrine_type = [
 	{text:"creepy",article:"a"},
@@ -870,4 +873,24 @@ basetypes.gangmember = [
 	BS(["after seeing",{search:"someparahumanendbringerorgroup"},"going on an enthusiastic walk through our territory"]),
 	BS(["to avoid the wrath of",{search:"somevillain",property:"name",saveas:"villain"},"after another member of the gang stole",{saved:"villain",property:"possessive"},{saved:"villain",property:"item"}]),
 	BS(["to throw myself on your mercy after another member of the gang stole",{search:"hero",property:"name",append:"'s",saveas:"hero"},{saved:"hero",property:"item"}]),
+];
+basetypes.while_effect = [
+	"walk up the side of buildings",
+	"perform incredible feats of acrobatics",
+	"become immune to environmental extremes",
+	BS(["spontaneously end up wearing",{search:"clothing"}]),
+];
+basetypes.while_action = [
+	"singing",
+	"engaging in a filibuster",
+	"chasing road runners",
+	BS(["hunting",{search:"critter",property:"plural"}]),
+];
+basetypes.gobywith = [
+	BS([{search:"shoveitem",property:"name",wantarticle:true},"shoved up",{saved:"parahuman",property:"possessive"},"ass"]),
+	BS(["a large number of",{search:"dance"},{search:"critter",property:"plural"}]),
+];
+basetypes.shoveitem = [
+	{name:BS([{search:"crittertrait",property:"text"},{search:"critter",property:"name"}])},
+	{name:BS([{search:"swingthing",property:"name"}])},
 ];
