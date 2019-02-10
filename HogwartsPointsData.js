@@ -96,12 +96,12 @@ basetypes.fromto = [
 			{saved:"student",property:BS([
 				{saved:"staff",property:"fromprop",checkfor:"yes",ifnot:"house"}
 			]),checkfor:"yes",ifnot:BS([{saved:"student",property:"house"}])
-			},"for",{saved:"student",property:"name"},{search:"bad_action"}]),
+			},"for",{saved:"student",property:"name"},{search:"bad_action",property:"text",filter:{type:"match",property:"staff",value:["Any",BS([{saved:"staff",property:"name"}])]}}]),
 	BS([{search:"points"},"to",
 			{saved:"student",property:BS([
 				{saved:"staff",property:"toprop",checkfor:"yes",ifnot:"house"}
 			]),checkfor:"yes",ifnot:BS([{saved:"student",property:"house"}])
-			},"for",{saved:"student",property:"name"},{search:"good_action"}]),
+			},"for",{saved:"student",property:"name"},{search:"good_action",property:"text",filter:{type:"match",property:"staff",value:["Any",BS([{saved:"staff",property:"name"}])]}}]),
 ];
 
 basetypes.points = [
@@ -114,13 +114,50 @@ basetypes.points = [
 ];
 
 basetypes.bad_action = [
-	'being out after curfew',
-	'smuggling a dragon into school',
-	'goofing off in class',
+	{text:"being out after curfew",staff:"Any"},
+	{text:BS(["smuggling",{search:"smuggling"},"into school"]),staff:"Any"},
+	{text:"goofing off in class",staff:"Any"},
+	{text:"smuggling forbidden items into school",staff:"Any"},
+	{text:BS(["providing an incredibly stupid answer to a question about",{search:"classes"}]),staff:"Any"},
+	{text:BS(["disrupting class",{search:"class_disrupt"}]),staff:"Any"},
+	{text:BS(["entering",{search:"forbidden_location"},"without permission"]),staff:"Any"},
+	{text:"escaping Madam Pomphrey while still injured",staff:"Any"},
+	{text:"for an obviously incorrect answer",staff:"Any"},
+	{text:"breathing too loud",staff:"Snape"},
+	{text:"acting like a dunderhead",staff:"Snape"},
 ];
 
 basetypes.good_action = [
-	'helping other students',
-	'saving the school from disaster',
-	'cleaning up after themselves',
+	{text:"helping other students",staff:"Any"},
+	{text:"saving the school from disaster",staff:"Any"},
+	{text:"cleaning up after themselves",staff:"Any"},
+	{text:BS(["providing a well-researched answer to a question about",{search:"classes"}]),staff:"Any"},
+	{text:"for a correct answer",staff:"Any"},
+];
+
+basetypes.smuggling = [
+	"a dragon",
+	"forbidden items",
+	"alcohol",
+];
+
+basetypes.classes = [
+	"potions",
+	"transfiguration",
+	"charms",
+	"history of magic",
+	"muggle studies",
+	"defense against the dark arts",
+];
+
+basetypes.class_disrupt = [
+	BS(["by asking an incredibly stupid question about",{search:"classes"}]),
+	"through sabotaging others",
+	"via dancing across the room",
+];
+
+basetypes.forbidden_location = [
+	"the forbidden forest",
+	"the forbidden section of the library",
+	BS(["Professor",{search:"staff",notmatch:"staff",property:"name",append:"'s"},"office"]),
 ];
