@@ -151,12 +151,12 @@ BuildString.prototype.toString = function() {
 							buildTemp['want.article'] = tempArticle;
 						}
 						if (element.checkfor == 'yes') {
-							if (typeof newElement[element.property] !== 'undefined') {
-								if (Array.isArray(newElement[element.property])) {
-									var arr = newElement[element.property];
+							if (typeof newElement[element.property.toString().trim()] !== 'undefined') {
+								if (Array.isArray(newElement[element.property.toString().trim()])) {
+									var arr = newElement[element.property.toString().trim()];
 									outproperty = arr[Math.floor(Math.random()*arr.length)];
 								} else {
-									outproperty = newElement[element.property];
+									outproperty = newElement[element.property.toString().trim()];
 								}
 								if (typeof element.subproperty !== 'undefined') {
 									if (typeof outproperty.article !== 'undefined') {
@@ -191,11 +191,11 @@ BuildString.prototype.toString = function() {
 								append = false;
 							}
 						} else {
-							if (Array.isArray(newElement[element.property])) {
-								var arr = newElement[element.property];
+							if (Array.isArray(newElement[element.property.toString().trim()])) {
+								var arr = newElement[element.property.toString().trim()];
 								outproperty = arr[Math.floor(Math.random()*arr.length)];
 							} else {
-								outproperty = newElement[element.property];
+								outproperty = newElement[element.property.toString().trim()];
 							}
 							if (typeof element.subproperty !== 'undefined') {
 								if (typeof outproperty.article !== 'undefined') {
@@ -254,7 +254,7 @@ function filterCheck(filter, element) {
 		return false;
 	var elementvalue = element;
 	if (typeof filter.property !== 'undefined')
-		elementvalue = element[filter.property];
+		elementvalue = element[filter.property.toString().trim()];
 	if (!Array.isArray(elementvalue)) {
 		elementvalue = [elementvalue];
 	}

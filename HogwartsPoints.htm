@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<script src="ExcuseGenerator.js"></script>
+<script src="HogwartsPointsData.js"></script>
+<title>Hogwarts Points Random Generator</title>
+<style>
+#top h3, #top p {
+	margin: 0;
+	padding: 0;
+}
+.custom_selector {
+	float: left;
+	margin-right: 10px;
+}
+#buildStatsOutput {
+	float: right;
+	text-align: right;
+}
+#modeContainer button {
+	margin-left: 5px;
+}
+.pagetab {
+	line-height: 1.5;
+}
+</style>
+</head>
+
+<body onload="loadData();">
+	<div id="top">
+		<div id="buildStatsOutput" style="display: none"></div>
+		<h3>Hogwarts Points Random Generator</h3>
+		<p>Version CmptrWz</p>
+	</div>
+	<!--
+	<div id="fandoms">
+		Fandoms:<br/>
+	</div>
+	<div><a href="#" onclick="toggleDiv('advanced')">Show/Hide Advanced Options</a> <a href="#" onclick="toggleDiv('buildStatsOutput')">Show/Hide Stats</a>
+		<div id="advanced" style="display: none"/>
+	</div>
+	-->
+	<hr style="clear:both"/>
+	<div id="modeContainer">
+		Mode:
+	</div>
+	<hr/>
+	<div id="outputContainer"/>
+</body>
+</html>
