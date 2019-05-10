@@ -29,14 +29,14 @@ dynamic_types = {
 basetypes.base_excuse = [
 	[100,BS(["I'm a concerned citizen. I'm here to",{search:"citizenexcuse"}]),"Concerned Citizen"],
 	[100,BS(["I'm a victim of crime. I'm here to",{search:"victimcomplaint"}]),"Victim of Crime"],
-	[8,BS(["I'm a marketing consultant. I'm here to discuss the design of the new",{search:"theme"},{search:"thingy",property:"name"}]),"Marketing Consultant"],
+	[8,BS(["I'm a marketing consultant. I'm here to",{search:"marketingreason"}]),"Marketing Consultant"],
 	[10,BS(["I'm a reporter. I'm here to",{search:"reporterreason"}]),"Reporter"],
-	[5,BS(["I'm a writer. I'm here to ask some questions about",{search:"somehero",property:"name"},"as research for",{search:"writtenwork"},"I'm writing"]),"Writer"],
-	[2,BS(["I'm a janitor. I'm here to clean up a mass of",{search:"substance"},"which was spilled by",{search:"hero",property:"name"}]),"Janitor"],
+	[5,BS(["I'm a writer. I'm here to",{search:"writerreason"}]),"Writer"],
+	[2,BS(["I'm a janitor. I'm here to",{search:"janitorreason"}]),"Janitor"],
 	[2,BS(["I have a message from",{search:"nonhero_group",property:"name"},"which says that",{search:"hero",saveas:"hero",property:"name"},"won't see",{saved:"hero",property:"possessive"},{saved:"hero",property:"item"},"again unless",{search:"ransom"},"delivered to",{search:"locations",property:"name"},"by",{search:"time"}]),"Messenger"],
-	[2,BS(["I'm a repairman. I'm here to fix the damage from the recent fight between",{search:"any_group",saveas:"any_group1",property:"name"},"and",{search:"any_group",notmatch:"any_group1",property:"name"}]),"Repairman"],
+	[2,BS(["I'm a repairman. I'm here to",{search:"repairmanreason"}]),"Repairman"],
 	[10,BS(["I'm the chosen representative of an angry mob. We're here to",{search:"angrymob"}]),"Angry Mob"],
-	[10,BS(["I'm a member of a gang. I'm here to turn myself in",{search:"gangmember"}]),"Gang Member"],
+	[10,BS(["I'm",{search:"memberofgang",append:"."},"I'm here to",{search:"gangmemberreason"}]),"Gang Member"],
 ];
 basetypes.someparahumanorgroup = [
 	BS([{search:"someparahuman",property:"name",notmatch:["villain","hero"]}]),
@@ -44,7 +44,7 @@ basetypes.someparahumanorgroup = [
 ];
 basetypes.someparahumanendbringerorgroup = [
 	BS([{search:"someparahuman",property:"name",notmatch:["villain","hero"]}]),
-	BS([{search:"any_group",property:"name",notmatch:["villain","hero"],notmatchproperty:"group"}]),
+	BS([{search:"any_group",property:"name",notmatch:["villain","hero"],notmatchproperty:"group",filter:{type:"nomatch",property:"name",value:BS([{saved:"mygang",property:"name"}])}}]), //edit was required to prevent "I'm a member of x, I'm here to turn myself in after seeing x going on an enthusiastic[...]". There's probably a better way to do it. -94000130FFF70000
 	BS([{search:"endbringer",property:"name"}]),
 ];
 // Ok, this is before hero so that we can reference it in hero
@@ -74,15 +74,21 @@ basetypes.hero = [
 	{name:"Velocity",article:"a",possessive:"his",item:"coffee mug",itemarticle:"a coffee mug",group:basetypes.hero_group[0]},
 	{name:"Dragon",article:"a",possessive:"her",item:"top secret suit",itemarticle:"a top secret suit",mask:"no",group:basetypes.hero_group[4]},
 	{name:"Panacea",article:"a",possessive:"her",item:"robe",itemarticle:"a robe",mask:"no",group:basetypes.hero_group[3]},
+	{name:"Triumph",article:"a",possessive:"his",item:"megaphone",itemarticle:"a megaphone",group:basetypes.hero_group[0]},
+	{name:"Aegis",article:"an",possessive:"his",item:"redundancy",itemarticle:"a redundancy",group:basetypes.hero_group[1]},
+	{name:"Clockblocker",article:"a",possessive:"his",item:["paper","stopwatch"],itemarticle:["some paper","a stopwatch"],group:basetypes.hero_group[1]},
+	{name:"Kid Win",article:"a",possessive:"his",item:["hoverboard","Alternator Cannon"],itemarticle:["a hoverboard","an Alternator Cannon"],group:basetypes.hero_group[1]},
+	{name:"Gallant",article:"a",possessive:"his",item:"power armor",itemarticle:"some power armor",group:basetypes.hero_group[1]},
+	{name:"Vista",article:"a",possessive:"her",item:"artwork",itemarticle:"some artwork",mask:"no",group:basetypes.hero_group[1]},
 ];
 // And this is before villain so that we can reference it in villain
 basetypes.villain_group = [
-	{name:"the Empire 88",member:"a member of",supermembers:"superpowered members of",simple_name:"Nazi",article:"a"},
-	{name:"the Azn Bad Boys",member:"a member of",supermembers:"superpowered members of",simple_name:"Asian",article:"an"},
-	{name:"the Merchants",member:"a member of",supermembers:"superpowered members of",simple_name:"Merchant",article:"a"},
+	{name:"the Empire 88",member:"a member of",supermembers:"superpowered members of",simple_name:"Nazi",article:"a",type:"gang"},
+	{name:"the Azn Bad Boys",member:"a member of",supermembers:"superpowered members of",simple_name:"Asian",article:"an",type:"gang"},
+	{name:"the Merchants",member:"a member of",supermembers:"superpowered members of",simple_name:"Merchant",article:"a",type:"gang"},
 	{name:"the Slaughterhouse 9",member:"a member of",supermembers:"members of",simple_name:"Slaughterhouse",article:"a"},
-	{name:"the Dragonslayers",member:"a member of",supermembers:"superpowered members of",simple_name:"Dragonslayer",article:"a"},
-	{name:"the Teeth",member:"a member of",supermembers:"superpowered members of",simple_name:"Teeth",article:"a"},
+	{name:"the Dragonslayers",member:"a member of",supermembers:"superpowered members of",simple_name:"Dragonslayer",article:"a",type:"gang"},
+	{name:"the Teeth",member:"a member of",supermembers:"superpowered members of",simple_name:"Teeth",article:"a",type:"gang"},
 	{name:"an independent villain",tested:"no",simple_name:"Independent",article:"an"},
 ];
 basetypes.villain = [
@@ -95,6 +101,7 @@ basetypes.villain = [
 	{name:"Rune",article:"a",possessive:"her",item:"stone slab",itemarticle:"a stone slab",group:basetypes.villain_group[0]},
 	{name:"Night",article:"a",possessive:"her",item:"cloak",itemarticle:"a cloak",group:basetypes.villain_group[0]},
 	{name:"Fog",article:"a",possessive:"his",item:"blazer",itemarticle:"a blazer",group:basetypes.villain_group[0]},
+	{name:"Crusader",article:"a",possessive:"his",item:"ghost",itemarticle:"a ghost",group:basetypes.villain_group[0]},
 	{name:"Skidmark",article:"a",possessive:"his",item:"bong",itemarticle:"a bong",group:basetypes.villain_group[2]},
 	{name:"Squealer",article:"a",possessive:"her",item:"tank",itemarticle:"a tank",group:basetypes.villain_group[2]},
 	{name:"Mush",article:"a",possessive:"his",item:"garbage pile",itemarticle:"a garbage pile",group:basetypes.villain_group[2]},
@@ -103,14 +110,22 @@ basetypes.villain = [
 	{name:"Saint",article:"a",possessive:"his",item:"control console",itemarticle:"a control console",group:basetypes.villain_group[4]},
 	{name:"Uber",article:"an",possessive:"his",item:"whatchamacallit",itemarticle:"a whatchamacallit",group:basetypes.villain_group[6]},
 	{name:"Leet",article:"a",possessive:"his",item:"gizmo",itemarticle:"a gizmo",group:basetypes.villain_group[6]},
+	{name:"Crawler",article:"a",possessive:"his",item:"tentacles",itemarticle:"some tentacles",group:basetypes.villain_group[3]},
+	{name:"Mannequin",article:"a",possessive:"his",item:"chains",itemarticle:"some chains",group:basetypes.villain_group[3]},
+	{name:"the Siberian",article:"a",possessive:"her",item:"stripes",itemarticle:"some stripes",group:basetypes.villain_group[3]},
+	{name:"Shatterbird",article:"a",possessive:"her",item:"wings",itemarticle:"some wings",group:basetypes.villain_group[3]},
+	{name:"Burnscar",article:"a",possessive:"her",item:"lighter",itemarticle:"a lighter",group:basetypes.villain_group[3]},
+	{name:"Hatchet Face",article:"a",possessive:"his",item:"axe",itemarticle:"an axe",group:basetypes.villain_group[3]},
+	{name:"Purity",article:"a",possessive:"her",item:"corona",itemarticle:"a corona",group:basetypes.villain_group[6]},
+	//todo: Alabaster (what item?), Victor, Othala, Krieg, whoever else is in the E88 i forgot, cherish? (save for Canon?) Might want to use weighting on some of these. -94000130FFF70000
 ];
 // And other groups
 basetypes.other_group = [
 	{name:BS([{search:"contessa"}]),displayname:"Contessa",simple_name:"Mysterious Woman",pronoun:"her"}, // No members or supermembers intentionally here
 	{name:"some meddling teenagers in a van",member:"a member of",supermembers:"superpowered members of",simple_name:"Teenager"},
-	{name:"the local chapter of the Hell's Angels",member:"a member of",supermembers:"superpowered members of",simple_name:"Biker"},
-	{name:"the Girl Scouts' cookie-selling brigade",member:"a member of",supermembers:"superpowered members of",simple_name:"Girl Scout"},
-	{name:"the League of Door to Door Salesmen",member:"a member of",supermembers:"superpowered members of",simple_name:"Salesmen"},
+	{name:"the local chapter of the Hell's Angels",member:"a member of",supermembers:"superpowered members of",simple_name:"Biker",type:"gang"},
+	{name:"the Girl Scouts' cookie-selling brigade",member:"a member of",supermembers:"superpowered members of",simple_name:"Girl Scout",type:"gang"},
+	{name:"the League of Door to Door Salesmen",member:"a member of",supermembers:"superpowered members of",simple_name:"Salesmen",type:"gang"},
 	{name:"an angry swarm of BEES",member:"a member of",supermembers:"superpowered members of",simple_name:"Bee"},
 ];
 basetypes.other_parahuman = [
@@ -123,10 +138,11 @@ basetypes.endbringer = [
 	[10,{name:"Khonsu"},"Khonsu"],
 	[10,{name:"Tohu"},"Tohu"],
 	[10,{name:"Bohu"},"Bohu"],
+	[10,{name:"Tohu and Bohu",has:"have",plural:"yes"},"The Twins"],
 	[25,{name:"all three Endbringers",has:"have",plural:"yes"},"All Three"],
 ];
 basetypes.zizname = [
-	[75,"Simurgh"],
+	[75,"the Simurgh"],
 	[25,"Ziz"],
 ];
 basetypes.leviname = [
@@ -151,6 +167,7 @@ basetypes.bomb_property = [
 	{text:"shrapnel",article:"a"},
 	{text:"time loop",article:"a"},
 	{text:"tinkertech",article:"a"},
+	{text:"EMP",article:"an"},
 ];
 basetypes.professional = [
 	"accountants",
@@ -170,6 +187,7 @@ basetypes.professional = [
 	"burger flippers",
 	"dock workers",
 	"single parents",
+	"PHO spammers",
 ];
 basetypes.contessa = [
 	"a mysterious unnaturally competent woman in a suit",
@@ -207,7 +225,9 @@ basetypes.locations = [
 	{name:"the Boardwalk",at:"at",to:"to"},
 	{name:"the Docks",at:"at",to:"to"},
 	{name:"my street",at:"on",to:"onto"},
+	{name:"Brockton General Hospital",at:"at",to:"to"},
 ];
+//todo: at/to pairs like i did with swingverbs -94000130FFF70000
 basetypes.schools = [
 	"Winslow High",
 	"Arcadia High",
@@ -310,6 +330,8 @@ basetypes.clothing = [
 	BS([{search:"critter",property:"name",wantarticle:true},"mask"]),
 	"nothing but heart-print underwear",
 ];
+//verb usage: {search:"swingthing",saveas:"swingthingy"},{search:"swingverbs",filter:{type:"match",property:"verb",value:BS([{saved:"swingthingy",property:"verb",checkfor:"yes",ifnot:"swinging"}])},saveas:"swingverb"}
+//then pull the verb's associated words from swingverb. -94000130FFF70000
 basetypes.swingthing = [
 	{name:"fish",article:"a"},
 	{name:"backpack",article:"a"},
@@ -330,14 +352,22 @@ basetypes.swingthing = [
 	{name:"folding chair",article:"a"},
 	{name:"brick",article:"a"},
 	{name:BS([{search:"critter",saved:"swingcritter",saveas:"swingcritter",property:"name"}])},
-	{name:"laser pointer",article:"a"},
+	{name:"laser pointer",article:"a",verb:["swinging","pointing"]},
 	{name:"math textbook",article:"a"},
 	{name:"impractically huge anime sword",article:"an"},
-	{name:"fake magic wand",article:"a"},
-	{name:"real magic wand",article:"a"},
+	{name:"fake magic wand",article:"a",verb:["swinging","pointing"]},
+	{name:"real magic wand",article:"a",verb:["swinging","pointing","aiming"]},
 	{name:"waffle iron",article:"a"},
 	{name:"number 2 pencil",article:"a"},
 	{name:"rolled-up newspaper",article:"a"},
+	{name:"revolver",article:"a",verb:["swinging","aiming","firing"]},
+	{name:"shotgun",article:"a",verb:["swinging","aiming","firing"]},
+];
+basetypes.swingverbs = [
+	{verb:"swinging",range:"anyone within reach",hit:"hit"},
+	{verb:"pointing",range:"everyone in sight",hit:["hit","threatened","attacked"]},
+	{verb:"aiming",range:"everyone in sight",hit:["threatened","shot"]},
+	{verb:"firing",range:["everyone in sight","everything that moves"],hit:"shot"},
 ];
 basetypes.critter = [
 	{name:"kitten",plural:"kittens",article:"a"},
@@ -399,6 +429,8 @@ basetypes.substance = [
 	BS(["powdered",{search:"endbringer",property:"name",filter:{type:"nomatch",property:"plural",value:"yes"}},"figurines"]),
 	BS(["liquified",{search:"critter",property:"name"},"flesh"]),
 	"thioacetone",
+	"blood",
+	"knives",
 ];
 basetypes.thirdparty = [
 	BS(["my pet",{search:"critter",property:"name"}]),
@@ -457,6 +489,7 @@ basetypes.valuemodifier = [
 	{text:"unique",article:"a"},
 	{text:"authorized",article:"an"},
 	{text:"unauthorized",article:"an"},
+	{text:"authentic",article:"an"},
 ];
 basetypes.qualitymodifier = [
 	{text:"tinkertech",article:"a"},
@@ -589,10 +622,15 @@ basetypes.bodypart = [
 	"elbows",
 	"ponytail",
 	"back hair",
+	"fingers",
+	"palms",
+	"forehead",
+	"fists",
 ];
 basetypes.firstborns = [
 	"sons",
 	"daughters",
+	"children",
 ];
 basetypes.dance = [
 	"flamenco dancing",
@@ -610,6 +648,10 @@ basetypes.grow = [
 	"eyestalks",
 	"an epic beard",
 	BS([{search:"substance"},"spikes"]),
+	"extra arms",
+	"extra legs",
+	"extra heads",
+	"horns",
 ];
 basetypes.hair = [
 	"redheaded",
@@ -645,6 +687,7 @@ basetypes.changepeopleto = [
 	"toddlers",
 	"unathletic nerds",
 	"yodellers",
+	"fanfiction writers",
 ];
 basetypes.speechtype = [
 	"in puns",
@@ -757,6 +800,11 @@ basetypes.someheroproblemlist = [
 	BS(["is being controlled by",{search:"master"}]),
 	"never existed",
 	BS(["is a Time Lord and",{saved:"hero",property:"possessive"},{saved:"hero",property:"item"},"is",{saved:"hero",property:"possessive"},"TARDIS"]),
+	"died in the last Endbringer battle",
+	"is the Butcher",
+	"is an AI",
+	"is an S-class threat",
+	"was a Ziz-bomb all along",
 ];
 basetypes.someheroproblem = [
 	BS([{search:"somehero",saveas:"hero",property:"name"},{search:"someheroproblemlist"}]),
@@ -768,7 +816,8 @@ basetypes.citizenexcuse = [
 	BS([{search:"any_group",saveas:"any_group"},"report",{saved:"any_group",property:"supermembers",checkfor:"yes"},{saved:"any_group",property:"name"},"loitering",{search:"locations",saveas:"loc",property:"at"},{saved:"loc",property:"name"}]),
 	BS(["report that",{search:"triggered",saveas:"triggered",property:"name"},{saved:"triggered",property:"has"},"triggered with the",{search:"power",saveas:"power",property:"pc",checkfor:"yes",append:" type power",ifnot:"Power"},{saved:"power",property:"text"}]),
 	BS(["report that",{search:"endbringer",property:"name",saveas:"endbringer"},{saved:"endbringer",property:"has",checkfor:"yes",ifnot:"has"},"been sighted",{search:"locations",saveas:"loc",property:"at"},{saved:"loc",property:"name"}]),
-	BS(["report that",{search:"endbringer",property:"name",saveas:"endbringer"},{saved:"endbringer",property:"has",checkfor:"yes",ifnot:"has"},"been sighted",{search:"locations",saveas:"loc",property:"at"},{saved:"loc",property:"name"},"wearing",{search:"clothing"}]),
+	BS(["report that",{search:"endbringer",property:"name",filter:{type:"nomatch",property:"plural",value:"yes"},saveas:"endbringer"},{saved:"endbringer",property:"has",checkfor:"yes",ifnot:"has"},"been sighted",{search:"locations",saveas:"loc",property:"at"},{saved:"loc",property:"name"},"wearing",{search:"clothing"}]),//"I'm a concerned citizen. I'm here to report that all three Endbringers have been sighted in the Rig wearing a topless bikini." <- this will no longer happen. -94000130FFF70000
+	//That being said, perhaps it would work better if clothing was adjusted to support singular and plural. Can probably use a BS in ifnot: to make it singular if the endbringer isn't tagged as plural.
 	BS(["report overhearing a suspicious conversation between",{search:"somehero",property:"name"},"and",{search:"nonhero_group",property:"member",checkfor:"yes",saveas:"nonhero_group"},{saved:"nonhero_group",property:"name"},{search:"locations",saveas:"loc",property:"at"},{saved:"loc",property:"name"}]),
 	BS(["report a",{search:"game"},"between",{search:"hero",property:"name",saveas:"hero1"},"and",{search:"hero",property:"name",notmatch:"hero1",saveas:"hero2"},"over which of them gets to fight",{search:"any_group",property:"name",notmatch:["hero1","hero2"],notmatchproperty:"group",}]),
 	BS(["report that",{search:"hero",saveas:"hero1",property:"name",append:","},
@@ -790,6 +839,11 @@ basetypes.masterstranger = [
 	BS([{search:"hero",property:"name"},"making out with",{search:"villain",property:"name"},{search:"locations",saveas:"location",property:"at"},{saved:"location",property:"name"}]),
 	BS([{search:"endbringer",saveas:"endbringer1",property:"name",filter:{type:"nomatch",property:"plural",value:"yes"}},{search:"dance"},"with",{search:"endbringer",notmatch:"endbringer1",property:"name",filter:{type:"nomatch",property:"plural",value:"yes"}},{search:"locations",saveas:"location",property:"at"},{saved:"location",property:"name"}]),
 	BS([{search:"someparahuman",property:"name",saveas:"parahuman"},"go by with",{search:"gobywith"}]),
+];
+//not currently used
+basetypes.bathsubstance = [
+	[100,BS([{search:"substance"}])],
+	[1,"an unrealistically sensual way"],
 ];
 basetypes.shrine_type = [
 	{text:"creepy",article:"a"},
@@ -822,8 +876,8 @@ basetypes.reporterreason = [
 	BS(["inquire about",{search:"hero",property:"name",append:"'s"},"motivations for going on an enthusiastic walk",{search:"locations",saveas:"loc",property:"at"},{saved:"loc",property:"name"}]),
 ];
 basetypes.villainbehavior = [
-	BS(["hit me with",{search:"swingthing",property:"name",wantarticle:true}]),
-	BS(["was last seen",{search:"locations",saveas:"loc",property:"at"},{saved:"loc",property:"name"},"and is swinging",{search:"swingthing",property:"name",wantarticle:true},"at anyone within reach"]),
+	BS([{search:"swingthing",saveas:"swingthingy"},{search:"swingverbs",filter:{type:"match",property:"verb",value:BS([{saved:"swingthingy",property:"verb",checkfor:"yes",ifnot:"swinging"}])},saveas:"swingverb"},{saved:"swingverb",property:"hit"},"me with",{saved:"swingthingy",property:"name",wantarticle:true}]),
+	BS(["was last seen",{search:"locations",saveas:"loc",property:"at"},{saved:"loc",property:"name"},"and is",{search:"swingthing",saveas:"swingthingy"},{search:"swingverbs",filter:{type:"match",property:"verb",value:BS([{saved:"swingthingy",property:"verb",checkfor:"yes",ifnot:"swinging"}])},saveas:"swingverb"},{saved:"swingverb",property:"verb"},{saved:"swingthingy",property:"name",wantarticle:true},"at",{saved:"swingverb",property:"range"}]),
 ];
 basetypes.victimcomplaint = [
 	BS(["complain that my",{search:"moddedthingy"},"has been",{search:"propertycrimepast"},"by",{search:"nonhero_group",property:"name"}]),
@@ -870,10 +924,12 @@ basetypes.itemaction = [
 	"DNA testing",
 ];
 basetypes.gangmember = [
-	BS(["after seeing",{search:"someparahumanendbringerorgroup"},"going on an enthusiastic walk through our territory"]),
+	BS(["after seeing",{search:"someparahumanendbringerorgroup",notmatch:"mygang",notmatchproperty:"name"},"going on an enthusiastic walk through our territory"]),
 	BS(["to avoid the wrath of",{search:"somevillain",property:"name",saveas:"villain"},"after another member of the gang stole",{saved:"villain",property:"possessive"},{saved:"villain",property:"item"}]),
 	BS(["to throw myself on your mercy after another member of the gang stole",{search:"hero",property:"name",append:"'s",saveas:"hero"},{saved:"hero",property:"item"}]),
 ];
+
+
 basetypes.while_effect = [
 	"walk up the side of buildings",
 	"perform incredible feats of acrobatics",
@@ -894,3 +950,23 @@ basetypes.shoveitem = [
 	{name:BS([{search:"crittertrait",property:"text"},{search:"critter",property:"name"}])},
 	{name:BS([{search:"swingthing",property:"name"}])},
 ];
+basetypes.marketingreason = [
+	BS(["discuss the design of the new",{search:"theme"},{search:"thingy",property:"name"}]),
+];
+basetypes.writerreason = [
+	BS(["ask some questions about",{search:"somehero",property:"name"},"as research for",{search:"writtenwork"},"I'm writing"]),
+];
+basetypes.janitorreason = [
+	BS(["clean up a mass of",{search:"substance"},"which was spilled by",{search:"hero",property:"name"}]),
+];
+basetypes.repairmanreason = [
+	BS(["fix the damage from the recent fight between",{search:"any_group",saveas:"any_group1",property:"name"},"and",{search:"any_group",notmatch:"any_group1",property:"name"}]),
+];
+basetypes.memberofgang = [
+	BS([{search:"nonhero_group",filter:{type:"match",property:"type",value:"gang"},saveas:"mygang"},{saved:"mygang",property:"member",checkfor:"yes"},{saved:"mygang",property:"name"}]),
+	"a member of a gang",
+];
+basetypes.gangmemberreason = [
+	BS(["turn myself in",{search:"gangmember"}]),
+];
+

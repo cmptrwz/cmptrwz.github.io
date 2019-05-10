@@ -51,7 +51,8 @@ fantypes["Constellations"].swingthing = [
 	{name:"giant paintbrush",article:"a"},
 	{name:"string of rosary beads",article:"a"},
 	{name:"invisible cutting tool or something",article:"an"},
-	{name:"lightning bolt",article:"a"},
+	{name:"lightning bolt",article:"a",verb:["swinging","pointing"]},
+	{name:"sniper rifle",article:"a",verb:["swinging","aiming","firing"]},
 ];
 fantypes["Constellations"].crittertrait = [
 	{text:"paint-covered",article:"a"},
@@ -67,6 +68,7 @@ fantypes["Constellations"].substance = [
 fantypes["Constellations"].thirdparty = [
 	"my local gang boss",
 	"my canine archnemesis",
+	"my assassin bodyguard",
 ];
 fantypes["Constellations"].personcrimepast = [
 	"given a friendship bracelet by",
