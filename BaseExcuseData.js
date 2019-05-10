@@ -924,7 +924,7 @@ basetypes.itemaction = [
 	"DNA testing",
 ];
 basetypes.gangmember = [
-	BS(["after seeing",{search:"someparahumanendbringerorgroup",notmatch:"mygang",notmatchproperty:"name"},"going on an enthusiastic walk through our territory"]),
+	BS(["after seeing",{search:"someparahumanendbringerorgroup"},"going on an enthusiastic walk through our territory"]),
 	BS(["to avoid the wrath of",{search:"somevillain",property:"name",saveas:"villain"},"after another member of the gang stole",{saved:"villain",property:"possessive"},{saved:"villain",property:"item"}]),
 	BS(["to throw myself on your mercy after another member of the gang stole",{search:"hero",property:"name",append:"'s",saveas:"hero"},{saved:"hero",property:"item"}]),
 ];
