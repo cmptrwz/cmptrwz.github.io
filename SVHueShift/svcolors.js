@@ -1,109 +1,480 @@
 var SVColorSet = {
-	"01":{"original":"#007aff"},
-	"02":{"original":"#020304"},
-	"03":{"original":"#131c26"},
-	"04":{"original":"#131e28"},
-	"05":{"original":"#15293b"},
-	"06":{"original":"#1b2938"},
-	"07":{"original":"#1f2327"},
-	"08":{"original":"#203142"},
-	"09":{"original":"#212830"},
-	"10":{"original":"#223346"},
-	"11":{"original":"#233649"},
-	"12":{"original":"#24282b"},
-	"13":{"original":"#243548"},
-	"14":{"original":"#253b4f"},
-	"15":{"original":"#283e54"},
-	"16":{"original":"#28a1dd"},
-	"17":{"original":"#2b2d2f"},
-	"18":{"original":"#2b3846"},
-	"19":{"original":"#2c4259"},
-	"20":{"original":"#2c465e"},
-	"21":{"original":"#2c557d"},
-	"22":{"original":"#2f4a64"},
-	"23":{"original":"#324c68"},
-	"24":{"original":"#33495e"},
-	"25":{"original":"#375573"},
-	"26":{"original":"#375775"},
-	"27":{"original":"#395b7c"},
-	"28":{"original":"#3b4754"},
-	"29":{"original":"#3c5f80"},
-	"30":{"original":"#3e6386"},
-	"31":{"original":"#3f658a"},
-	"32":{"original":"#406588"},
-	"33":{"original":"#4091fd"},
-	"34":{"original":"#416486"},
-	"35":{"original":"#464646"},
-	"36":{"original":"#477198"},
-	"37":{"original":"#486e94"},
-	"38":{"original":"#496d90"},
-	"39":{"original":"#49759f"},
-	"40":{"original":"#4f7fad"},
-	"41":{"original":"#5d8bb4"},
-	"42":{"original":"#618bb4"},
-	"43":{"original":"#6495c1"},
-	"44":{"original":"#90a4ae"},
-	"45":{"original":"#b8bbbe"},
-	"46":{"original":"#afc5da"},
-	"47":{"original":"#304b65"},
+	"14":{
+		"000":{"original":"#00090f"},
+		"001":{"original":"#0009f7"},
+		"002":{"original":"#00111f"},
+		"003":{"original":"#001f39"},
+		"004":{"original":"#002d52"},
+		"005":{"original":"#003b6c"},
+		"006":{"original":"#00669c"},
+		"007":{"original":"#0084c9"},
+		"008":{"original":"#0088cf"},
+		"009":{"original":"#009400"},
+		"010":{"original":"#00a8d9"},
+		"011":{"original":"#00b300"},
+		"012":{"original":"#00c700"},
+		"013":{"original":"#02172d"},
+		"014":{"original":"#04264a"},
+		"015":{"original":"#052d59"},
+		"016":{"original":"#05305d"},
+		"017":{"original":"#053262"},
+		"018":{"original":"#063a71"},
+		"019":{"original":"#073f7a"},
+		"020":{"original":"#07c8ff"},
+		"021":{"original":"#08498e"},
+		"022":{"original":"#084b93"},
+		"023":{"original":"#0b2139"},
+		"024":{"original":"#0c95ea"},
+		"025":{"original":"#0dc9ff"},
+		"026":{"original":"#131e28"},
+		"027":{"original":"#15293b"},
+		"028":{"original":"#171b1f"},
+		"029":{"original":"#171fff"},
+		"030":{"original":"#191c1d"},
+		"031":{"original":"#1d1e1f"},
+		"032":{"original":"#1d2122"},
+		"033":{"original":"#1f2224"},
+		"034":{"original":"#212425"},
+		"035":{"original":"#24292a"},
+		"036":{"original":"#25acff"},
+		"037":{"original":"#274a6d"},
+		"038":{"original":"#283e54"},
+		"039":{"original":"#292e30"},
+		"040":{"original":"#2b33ff"},
+		"041":{"original":"#2c465e"},
+		"042":{"original":"#2c547c"},
+		"043":{"original":"#2c557d"},
+		"044":{"original":"#303638"},
+		"045":{"original":"#304b65"},
+		"046":{"original":"#32393b"},
+		"047":{"original":"#335db5"},
+		"048":{"original":"#344e86"},
+		"049":{"original":"#353b3e"},
+		"050":{"original":"#35abf4"},
+		"051":{"original":"#36007a"},
+		"052":{"original":"#368dd8"},
+		"053":{"original":"#375573"},
+		"054":{"original":"#383d3e"},
+		"055":{"original":"#385876"},
+		"056":{"original":"#40484c"},
+		"057":{"original":"#406588"},
+		"058":{"original":"#4264aa"},
+		"059":{"original":"#474b4d"},
+		"060":{"original":"#496d90"},
+		"061":{"original":"#4a00a7"},
+		"062":{"original":"#4a5357"},
+		"063":{"original":"#4c00ac"},
+		"064":{"original":"#5377e4"},
+		"065":{"original":"#5d8bb4"},
+		"066":{"original":"#5e78d5"},
+		"067":{"original":"#618bb4"},
+		"068":{"original":"#6495c1"},
+		"069":{"original":"#6d8ce8"},
+		"070":{"original":"#7991e8"},
+		"071":{"original":"#7e6363"},
+		"072":{"original":"#7f9aeb"},
+		"073":{"original":"#7fb900"},
+		"074":{"original":"#869adf"},
+		"075":{"original":"#8ccbe4"},
+		"076":{"original":"#949400"},
+		"077":{"original":"#a5d6ea"},
+		"078":{"original":"#b3b300"},
+		"079":{"original":"#b6ddee"},
+		"080":{"original":"#bee8ba"},
+		"081":{"original":"#c7c700"},
+		"082":{"original":"#c84448"},
+		"083":{"original":"#ccedc9"},
+		"084":{"original":"#cd5457"},
+		"085":{"original":"#ddfbda"},
+		"086":{"original":"#e6e687"},
+		"087":{"original":"#eaea98"},
+		"088":{"original":"#f60000"},
+		"089":{"original":"#f7fef6"},
+		"090":{"original":"#fdfeff"},
+		"091":{"original":"#ff0c0c"},
+		"092":{"original":"#ff1616"},
+		"093":{"original":"#ff2a2a"},
+		"094":{"original":"#ffcf14"},
+		"095":{"original":"#ffd533"},
+		"096":{"original":"#ffda47"},
+		"097":{"original":"#fffcfc"},
+		"098":{"original":"#ffffa5"},
+		"099":{"original":"#ffffc4"},
+		"100":{"original":"#ffffd8"}
+	},
+	"18":{
+		"000":{"original":"#0009f7"},
+		"001":{"original":"#00111f"},
+		"002":{"original":"#00669c"},
+		"003":{"original":"#0084c9"},
+		"004":{"original":"#0088cf"},
+		"005":{"original":"#009400"},
+		"006":{"original":"#00a8d9"},
+		"007":{"original":"#00b300"},
+		"008":{"original":"#00c700"},
+		"009":{"original":"#011b32"},
+		"010":{"original":"#02172d"},
+		"011":{"original":"#023664"},
+		"012":{"original":"#031a32"},
+		"013":{"original":"#03374a"},
+		"014":{"original":"#03447d"},
+		"015":{"original":"#04264a"},
+		"016":{"original":"#052d59"},
+		"017":{"original":"#05305d"},
+		"018":{"original":"#053262"},
+		"019":{"original":"#061d35"},
+		"020":{"original":"#073f7a"},
+		"021":{"original":"#07c8ff"},
+		"022":{"original":"#08498e"},
+		"023":{"original":"#084b93"},
+		"024":{"original":"#0c95ea"},
+		"025":{"original":"#0dc9ff"},
+		"026":{"original":"#0e1217"},
+		"027":{"original":"#0f1216"},
+		"028":{"original":"#131a22"},
+		"029":{"original":"#131e28"},
+		"030":{"original":"#15293b"},
+		"031":{"original":"#171fff"},
+		"032":{"original":"#1a1d1e"},
+		"033":{"original":"#1b1e20"},
+		"034":{"original":"#1b2938"},
+		"035":{"original":"#1d2122"},
+		"036":{"original":"#203142"},
+		"037":{"original":"#223346"},
+		"038":{"original":"#233649"},
+		"039":{"original":"#25acff"},
+		"040":{"original":"#274a6d"},
+		"041":{"original":"#283e54"},
+		"042":{"original":"#28a1dd"},
+		"043":{"original":"#292e30"},
+		"044":{"original":"#2b33ff"},
+		"045":{"original":"#2b3846"},
+		"046":{"original":"#2c425a"},
+		"047":{"original":"#2c465e"},
+		"048":{"original":"#2c547c"},
+		"049":{"original":"#2c557d"},
+		"050":{"original":"#304b65"},
+		"051":{"original":"#32393b"},
+		"052":{"original":"#324c68"},
+		"053":{"original":"#335db5"},
+		"054":{"original":"#344e86"},
+		"055":{"original":"#353b3e"},
+		"056":{"original":"#35abf4"},
+		"057":{"original":"#36007a"},
+		"058":{"original":"#375573"},
+		"059":{"original":"#385876"},
+		"060":{"original":"#3b4754"},
+		"061":{"original":"#40484c"},
+		"062":{"original":"#406588"},
+		"063":{"original":"#4264aa"},
+		"064":{"original":"#496d90"},
+		"065":{"original":"#4a00a7"},
+		"066":{"original":"#4a5357"},
+		"067":{"original":"#4c00ac"},
+		"068":{"original":"#5377e4"},
+		"069":{"original":"#5d8bb4"},
+		"070":{"original":"#5e78d5"},
+		"071":{"original":"#618bb4"},
+		"072":{"original":"#6495c1"},
+		"073":{"original":"#6d8ce8"},
+		"074":{"original":"#7991e8"},
+		"075":{"original":"#7e6363"},
+		"076":{"original":"#7f9aeb"},
+		"077":{"original":"#7fb900"},
+		"078":{"original":"#869adf"},
+		"079":{"original":"#8ccbe4"},
+		"080":{"original":"#949400"},
+		"081":{"original":"#a5d6ea"},
+		"082":{"original":"#b3b300"},
+		"083":{"original":"#b6ddee"},
+		"084":{"original":"#bee8ba"},
+		"085":{"original":"#c7c700"},
+		"086":{"original":"#c84448"},
+		"087":{"original":"#ccedc9"},
+		"088":{"original":"#cd5457"},
+		"089":{"original":"#ddfbda"},
+		"090":{"original":"#e6e687"},
+		"091":{"original":"#eaea98"},
+		"092":{"original":"#f60000"},
+		"093":{"original":"#f7fef6"},
+		"094":{"original":"#fdfeff"},
+		"095":{"original":"#ff0c0c"},
+		"096":{"original":"#ff1616"},
+		"097":{"original":"#ff2a2a"},
+		"098":{"original":"#ffcf14"},
+		"099":{"original":"#ffd533"},
+		"100":{"original":"#ffda47"},
+		"101":{"original":"#fffcfc"},
+		"102":{"original":"#ffffa5"},
+		"103":{"original":"#ffffc4"},
+		"104":{"original":"#ffffd8"}
+	},
+	"19":{
+		"000":{"original":"#00059c"},
+		"001":{"original":"#0006b0"},
+		"002":{"original":"#0007cf"},
+		"003":{"original":"#003900"},
+		"004":{"original":"#004d00"},
+		"005":{"original":"#00669c"},
+		"006":{"original":"#006aa1"},
+		"007":{"original":"#006c00"},
+		"008":{"original":"#0088cf"},
+		"009":{"original":"#009bfc"},
+		"010":{"original":"#00a8d9"},
+		"011":{"original":"#00acde"},
+		"012":{"original":"#0c95ea"},
+		"013":{"original":"#0dc9ff"},
+		"014":{"original":"#172a3d"},
+		"015":{"original":"#1e46bd"},
+		"016":{"original":"#201807"},
+		"017":{"original":"#214cce"},
+		"018":{"original":"#254462"},
+		"019":{"original":"#2a4c95"},
+		"020":{"original":"#2f5bde"},
+		"021":{"original":"#344e86"},
+		"022":{"original":"#35abf4"},
+		"023":{"original":"#36007a"},
+		"024":{"original":"#38007f"},
+		"025":{"original":"#393900"},
+		"026":{"original":"#4264aa"},
+		"027":{"original":"#42a9d2"},
+		"028":{"original":"#4c00ac"},
+		"029":{"original":"#4d4d00"},
+		"030":{"original":"#53b0d6"},
+		"031":{"original":"#5675e2"},
+		"032":{"original":"#5e78d5"},
+		"033":{"original":"#675151"},
+		"034":{"original":"#6c6c00"},
+		"035":{"original":"#6cbbdc"},
+		"036":{"original":"#7e93a6"},
+		"037":{"original":"#7fb900"},
+		"038":{"original":"#869adf"},
+		"039":{"original":"#90a2b3"},
+		"040":{"original":"#90f288"},
+		"041":{"original":"#92add6"},
+		"042":{"original":"#9b0000"},
+		"043":{"original":"#9cacbb"},
+		"044":{"original":"#a1f49a"},
+		"045":{"original":"#a50000"},
+		"046":{"original":"#a78c55"},
+		"047":{"original":"#acc5d8"},
+		"048":{"original":"#af0000"},
+		"049":{"original":"#b0becf"},
+		"050":{"original":"#b0e3ab"},
+		"051":{"original":"#b6c8dd"},
+		"052":{"original":"#b7c9e4"},
+		"053":{"original":"#b89200"},
+		"054":{"original":"#b9c6d4"},
+		"055":{"original":"#bacfdf"},
+		"056":{"original":"#bbf7b6"},
+		"057":{"original":"#bee8ba"},
+		"058":{"original":"#bf383c"},
+		"059":{"original":"#c0a164"},
+		"060":{"original":"#c0cbe8"},
+		"061":{"original":"#c7ac76"},
+		"062":{"original":"#c84448"},
+		"063":{"original":"#c9d3de"},
+		"064":{"original":"#cad7eb"},
+		"065":{"original":"#cbdeed"},
+		"066":{"original":"#cca200"},
+		"067":{"original":"#ccdbe7"},
+		"068":{"original":"#ce0000"},
+		"069":{"original":"#cea75b"},
+		"070":{"original":"#ceb788"},
+		"071":{"original":"#cfd7ed"},
+		"072":{"original":"#cfdde8"},
+		"073":{"original":"#d3dee7"},
+		"074":{"original":"#d3e0ea"},
+		"075":{"original":"#d8e2eb"},
+		"076":{"original":"#d9bc82"},
+		"077":{"original":"#d9e0e8"},
+		"078":{"original":"#dce2ea"},
+		"079":{"original":"#dce5f2"},
+		"080":{"original":"#dde7ef"},
+		"081":{"original":"#dec492"},
+		"082":{"original":"#dee7f6"},
+		"083":{"original":"#e1e7f4"},
+		"084":{"original":"#e2e276"},
+		"085":{"original":"#e5eaf6"},
+		"086":{"original":"#e6e687"},
+		"087":{"original":"#e9edf1"},
+		"088":{"original":"#ebbb00"},
+		"089":{"original":"#ecc16e"},
+		"090":{"original":"#eec980"},
+		"091":{"original":"#eef3f7"},
+		"092":{"original":"#eff3f9"},
+		"093":{"original":"#f0f2f3"},
+		"094":{"original":"#f1f5f8"},
+		"095":{"original":"#f2d49b"},
+		"096":{"original":"#f2d6a0"},
+		"097":{"original":"#f4dcad"},
+		"098":{"original":"#f4f6fb"},
+		"099":{"original":"#f6f4f4"},
+		"100":{"original":"#f6f8fa"},
+		"101":{"original":"#f7a8a8"},
+		"102":{"original":"#f8e8c9"},
+		"103":{"original":"#f9baba"},
+		"104":{"original":"#f9fafd"},
+		"105":{"original":"#fbd6d6"},
+		"106":{"original":"#fbfcfe"},
+		"107":{"original":"#ffff4a"},
+		"108":{"original":"#ffff5e"},
+		"109":{"original":"#ffff7d"}
+	},
+	"20":{
+		"000":{"original":"#0009f7"},
+		"001":{"original":"#00669c"},
+		"002":{"original":"#0084c9"},
+		"003":{"original":"#0088cf"},
+		"004":{"original":"#009400"},
+		"005":{"original":"#00a8d9"},
+		"006":{"original":"#00b300"},
+		"007":{"original":"#00c700"},
+		"008":{"original":"#07c8ff"},
+		"009":{"original":"#0c95ea"},
+		"010":{"original":"#0dc9ff"},
+		"011":{"original":"#131c26"},
+		"012":{"original":"#131e28"},
+		"013":{"original":"#15293b"},
+		"014":{"original":"#171fff"},
+		"015":{"original":"#1b2938"},
+		"016":{"original":"#1f2327"},
+		"017":{"original":"#203142"},
+		"018":{"original":"#212830"},
+		"019":{"original":"#223346"},
+		"020":{"original":"#233649"},
+		"021":{"original":"#24282b"},
+		"022":{"original":"#243548"},
+		"023":{"original":"#253b4f"},
+		"024":{"original":"#25acff"},
+		"025":{"original":"#283e54"},
+		"026":{"original":"#28a1dd"},
+		"027":{"original":"#2b2d2f"},
+		"028":{"original":"#2b33ff"},
+		"029":{"original":"#2b3846"},
+		"030":{"original":"#2c4259"},
+		"031":{"original":"#2c425a"},
+		"032":{"original":"#2c465e"},
+		"033":{"original":"#2c557d"},
+		"034":{"original":"#2f4a64"},
+		"035":{"original":"#304b65"},
+		"036":{"original":"#324c68"},
+		"037":{"original":"#33495e"},
+		"038":{"original":"#335db5"},
+		"039":{"original":"#344e86"},
+		"040":{"original":"#35abf4"},
+		"041":{"original":"#36007a"},
+		"042":{"original":"#375573"},
+		"043":{"original":"#375775"},
+		"044":{"original":"#385876"},
+		"045":{"original":"#395b7c"},
+		"046":{"original":"#3b4754"},
+		"047":{"original":"#3c5f80"},
+		"048":{"original":"#3e6386"},
+		"049":{"original":"#3f658a"},
+		"050":{"original":"#406588"},
+		"051":{"original":"#416486"},
+		"052":{"original":"#4264aa"},
+		"053":{"original":"#477198"},
+		"054":{"original":"#486e94"},
+		"055":{"original":"#496d90"},
+		"056":{"original":"#49759f"},
+		"057":{"original":"#4a00a7"},
+		"058":{"original":"#4c00ac"},
+		"059":{"original":"#4f7fad"},
+		"060":{"original":"#5377e4"},
+		"061":{"original":"#5d8bb4"},
+		"062":{"original":"#5e78d5"},
+		"063":{"original":"#618bb4"},
+		"064":{"original":"#6d8ce8"},
+		"065":{"original":"#7991e8"},
+		"066":{"original":"#7e6363"},
+		"067":{"original":"#7f9aeb"},
+		"068":{"original":"#7fb900"},
+		"069":{"original":"#869adf"},
+		"070":{"original":"#8ccbe4"},
+		"071":{"original":"#949400"},
+		"072":{"original":"#a5d6ea"},
+		"073":{"original":"#b3b300"},
+		"074":{"original":"#b6ddee"},
+		"075":{"original":"#bee8ba"},
+		"076":{"original":"#c7c700"},
+		"077":{"original":"#c84448"},
+		"078":{"original":"#ccedc9"},
+		"079":{"original":"#cd5457"},
+		"080":{"original":"#ddfbda"},
+		"081":{"original":"#e6e687"},
+		"082":{"original":"#eaea98"},
+		"083":{"original":"#f60000"},
+		"084":{"original":"#f7fef6"},
+		"085":{"original":"#fdfeff"},
+		"086":{"original":"#ff0c0c"},
+		"087":{"original":"#ff1616"},
+		"088":{"original":"#ff2a2a"},
+		"089":{"original":"#ffcf14"},
+		"090":{"original":"#ffd533"},
+		"091":{"original":"#ffda47"},
+		"092":{"original":"#fffcfc"},
+		"093":{"original":"#ffffa5"},
+		"094":{"original":"#ffffc4"},
+		"095":{"original":"#ffffd8"}
+	}
 };
 
-function setupSVColor() {
-	var colorlist = document.getElementById('colorlist');
-	Object.keys(SVColorSet).sort().forEach(function(key) {
-		SVColorSet[key]["w3color"] = w3color(SVColorSet[key]["original"]);
-		var tr = document.createElement('tr');
-		var orgtd = document.createElement('td');
-		orgtd.style.background = SVColorSet[key]["original"];
-		var newtd = document.createElement('td');
-		newtd.style.background = SVColorSet[key]["original"];
-		SVColorSet[key]["output"] = newtd;
-		tr.appendChild(orgtd);
-		tr.appendChild(newtd);
-		colorlist.appendChild(tr);
-	});
-	rotateSVColor();
+function setupSVColor(theme) {
+	if (SVColorSet["current"] != theme) {
+		var colorlist = document.getElementById('colorlist');
+		var child = colorlist.lastElementChild;
+		while (child) {
+			colorlist.removeChild(child);
+			child = colorlist.lastElementChild;
+		}
+		Object.keys(SVColorSet[theme]).sort().forEach(function(key) {
+			if (SVColorSet[theme][key]["w3color"] == undefined) {
+				SVColorSet[theme][key]["w3color"] = w3color(SVColorSet[theme][key]["original"]);
+			}
+			var tr = document.createElement('tr');
+			var orgtd = document.createElement('td');
+			orgtd.style.background = SVColorSet[theme][key]["original"];
+			var newtd = document.createElement('td');
+			newtd.style.background = SVColorSet[theme][key]["original"];
+			SVColorSet[theme][key]["output"] = newtd;
+			tr.appendChild(orgtd);
+			tr.appendChild(newtd);
+			colorlist.appendChild(tr);
+		});
+		SVColorSet["current"] = theme;
+	}
 }
 function rotateSVColor() {
+	var theme = document.getElementById('basetheme').value;
+	setupSVColor(theme);
 	var cssout = document.getElementById('cssout');
-	var cssin = document.getElementById('cssin');
+	var cssin = document.getElementById('cssin' + theme);
 	var rotate = Number(document.getElementById('rotdeg').value);
 	var tempcss = cssin.value;
 	tempcss = tempcss.replace(new RegExp('\\$ROTNUM', 'g'), rotate);
-	Object.keys(SVColorSet).sort().forEach(function(key) {
-		var oldcolor = SVColorSet[key]["w3color"].toHsl();
+	Object.keys(SVColorSet[theme]).sort().forEach(function(key) {
+		var oldcolor = SVColorSet[theme][key]["w3color"].toHsl();
 		var newcolor = w3color("hsl(" + (oldcolor.h + rotate) + "," + oldcolor.s + "," + oldcolor.l + ")");
 		var newcolorhex = newcolor.toHexString();
 		var newcolorrgb = newcolor.toRgb();
-		// The opacity component is left in the CSS file
-		var newcolorrgba = "rgba(" + newcolorrgb.r + "," + newcolorrgb.g + "," + newcolorrgb.b;
-		SVColorSet[key]["output"].style.background = newcolorhex;
+		// The opacity and () are left in the CSS file
+		var newcolorrgba = newcolorrgb.r + "," + newcolorrgb.g + "," + newcolorrgb.b;
+		SVColorSet[theme][key]["output"].style.background = newcolorhex;
 		tempcss = tempcss.replace(new RegExp('\\$HEX' + key, 'g'), newcolorhex);
 		tempcss = tempcss.replace(new RegExp('\\$RGB' + key, 'g'), newcolorrgba);
 	});
-	cssout.value = tempcss;
+	// Building CSS!
+	var cssbase = document.getElementById('cssinheader').value + "\n";
+	if (document.getElementById('avatarfloat').checked) {
+		cssbase += document.getElementById('cssinavatarfloat').value + "\n";
+	}
+	if (document.getElementById('navbarfloat').checked) {
+		cssbase += document.getElementById('cssinnavbarfloat').value + "\n";
+	}
+	if (document.getElementById('onlineind').checked) {
+		cssbase += document.getElementById('cssinonlineind').value + "\n";
+	}
+	cssout.value = cssbase + tempcss;
 }
-function myLoad() {
-			var trs = document.getElementsByTagName('tr');
-			for (i = 0; i < trs.length; i++) {
-				var tds = trs[i].getElementsByTagName('td');
-				var startcolor = tds[0].textContent;
-				var c = w3color(startcolor);
-				if (!c.valid) {
-					console.log(startcolor + " is not a valid color");
-				}
-				else {
-					var newcolor = c.toHsl();
-					newcolor.h -= 149;
-					var nc = w3color("hsla(" + newcolor.h.toString() + "," + newcolor.s.toString() + "," + newcolor.l.toString() + "," + newcolor.a.toString() + ")");
-					if (startcolor[0] == "#") {
-						tds[1].textContent = nc.toHexString();
-						tds[1].style = "background: " + nc.toHexString() + ";";
-					}
-					else {
-						tds[1].textContent = nc.toRgbaString();
-						tds[1].style = "background: " + nc.toRgbaString() + ";";
-					}
-				}
-			}
-		}

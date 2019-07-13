@@ -14,11 +14,22 @@
 			}
 		</style>
 	</head>
-	<body onload="setupSVColor()">
+	<body onload="rotateSVColor()">
 		<h1>SufficientVelocity Color Rotator</h1>
 		<p>Updated 2019-07-13</p>
 		<p>No guarantee of completeness or suitability provided.</p>
+		<p>Base theme: <select id="basetheme" onchange="rotateSVColor()">
+			<option value="14">FlexDark</option>
+			<option value="18">Starscape</option>
+			<option value="19">Sunlight</option>
+			<option value="20">Industrial</option>
+		</select></p>
 		<p>Current Rotation: <input id="rotdeg" type="number" step="1" min="-360" max="360" value="-149" onchange="rotateSVColor()"/><input type="button" value="Update" onclick="rotateSVColor()"/></p>
+		<p>Other Options: <ul>
+			<li><input id="avatarfloat" type="checkbox" value="1" onchange="rotateSVColor()"/> Disable Avatar Float</li>
+			<li><input id="navbarfloat" type="checkbox" value="1" onchange="rotateSVColor()"/> Disable Navbar Float</li>
+			<li><input id="onlineind" type="checkbox" value="1" onchange="rotateSVColor()"/> Old-Style Online Indicator</li>
+		</ul></p>
 		<h2>Color Swatches</h2>
 		<table>
 			<thead>
@@ -29,27 +40,43 @@
 		<h2>Output</h2>
 		<textarea id="cssout" rows="25" cols="80" readonly></textarea>
 		<!-- Hidden raw CSS file -->
-		<textarea id="cssin" style="display: none">
+		<textarea id="cssinheader" style="display: none">
 /* Change Blue to Something Else. Kinda.
  * Courtesy of CmptrWz
- * Intended for use over a dark theme
  *
  * Warning:
  * Brute-force hacked together, for the most part
  * No guarantee that everything has been taken into account
  */
-
-/* Optional CSS. Remove /* from first lines of each block to activate. Don't remove ** entries after. */
-/* MEMBER AVATARS DON'T FLOAT DOWN POSTS. */
-/*section.message-user { position: static; }
-/**/
+</textarea>
+		<textarea id="cssinavatarfloat" style="display:none">
+/* Disable Member Avatar Float */
+section.message-user { position: static; }
+</textarea>
+		<textarea id="cssinnavbarfloat" style="display:none">
 /* Top Nav Bar doesn't float down page */
-/*.p-navSticky.p-navSticky--primary.is-sticky {
+.p-navSticky.p-navSticky--primary.is-sticky {
   position: static;
   box-shadow: none;
 }
-/**/
-
+</textarea>
+		<textarea id="cssinonlineind" style="display:none">
+/* Online Indicator corner of avatar */
+.message-avatar-wrapper .message-avatar-online {
+left: 4.65em;
+font-size: 20px;
+border: transparent;
+background: transparent;
+bottom: -.34em;
+}
+.message-avatar-wrapper .message-avatar-online:before {
+color: #61ca04;
+content: "\25e2";
+border: inherit;
+background: inherit;
+}
+</textarea>
+		<textarea id="cssinbase" style="display:none">
 /* Adjust blue rating icons with the hue-rotate filter */
 .sv-rating-type-icon1,
 .sv-rating-type-icon2,
@@ -63,1099 +90,4435 @@
 .sv-rating-type-icon13 {
     filter: hue-rotate($ROTNUMdeg);
 }
-
-/********* public:core.less ********/
-a {
-  color: $HEX16;
-}
-a:hover {
-  color: $HEX16;
-}
-a.u-concealed:hover .fa,
-.u-concealed a:hover .fa {
-  color: $HEX16;
-}
-.u-featuredText {
-  color: $HEX41;
-}
-.categoryList-header {
-  color: $HEX41;
-}
-.block-header {
-  background: $HEX06;
-  background: linear-gradient(to bottom, $HEX36 0%, $HEX26 20%, $HEX22 100%);
-}
-.block-minorHeader {
-  border-bottom-color: $HEX22;
-}
-.block-tabHeader {
-  background: $HEX22;
-}
-.block-tabHeader .hScroller-action.hScroller-action--start {
-  background: $HEX22;
-  background: linear-gradient(to right, $HEX22 66%, $RGB22, 0) 100%);
-}
-.block-tabHeader .hScroller-action.hScroller-action--end {
-  background: $HEX22;
-  background: linear-gradient(to right, $RGB22, 0) 0%, $HEX22 33%);
-}
-.block-minorTabHeader .tabs-tab:hover {
-  color: $HEX41;
-}
-.block-minorTabHeader .tabs-tab.is-active {
-  color: $HEX41;
-  border-color: $HEX22;
-}
-.block-minorTabHeader .hScroller-action:hover {
-  color: $HEX41;
-}
-.block-filterBar {
-  background: $HEX06;
-  background: linear-gradient(0deg, $HEX03, $HEX13);
-}
-.block-filterBar .filterBar-filterToggle {
-  background: $HEX18;
-}
-.block-filterBar .filterBar-filterToggle:hover,
-.block-filterBar .filterBar-menuTrigger:hover {
-  background: $HEX28;
-}
-.block-formSectionHeader {
-  color: $HEX41;
-}
-.block-row.block-row--highlighted {
-  background: $HEX06;
-}
-.block-row.block-row--clickable:hover {
-  background: $HEX06;
-}
-.block-row.is-mod-selected {
-  background: $HEX24;
-}
-.block-rowMessage.block-rowMessage--highlight {
-  background: $HEX06;
-}
-.block-rowMessage.block-rowMessage--important {
-  background: $HEX27;
-  border-left-color: $HEX38;
-}
-.block-rowMessage--important.block-rowMessage--iconic:before {
-  color: $HEX38;
-}
-.blockMessage.blockMessage--highlight {
-  background: $HEX06;
-}
-.blockMessage.blockMessage--important {
-  background: $HEX27;
-  border-left-color: $HEX38;
-}
-.blockMessage--important.blockMessage--iconic:before {
-  color: $HEX38;
-}
-.blockStatus {
-  border-left-color: $HEX38;
-}
-.blockStatus.blockStatus--info {
-  border-left-color: $HEX22;
-}
-.blockLink.is-selected {
-  background: $HEX06;
-  border-left-color: $HEX22;
-}
-.blockLink:hover {
-  background: $HEX06;
-}
-.blockLinkSplitToggle.is-selected {
-  background: $HEX06;
-}
-.blockLinkSplitToggle:hover {
-  background: $HEX06;
-}
-.blockLinkSplitToggle.is-selected .blockLinkSplitToggle-link {
-  border-left-color: $HEX22;
-}
-.button,
-a.button {
-  background: $HEX22;
-  border-color: $HEX15 $HEX26 $HEX26 $HEX15;
-}
-.button.button--splitTrigger > .button-text,
-a.button.button--splitTrigger > .button-text {
-  border-right-color: $HEX26;
-}
-.button.button--splitTrigger > .button-menu,
-a.button.button--splitTrigger > .button-menu {
-  border-left-color: $HEX15;
-}
-.button:not(.button--splitTrigger):hover,
-a.button:not(.button--splitTrigger):hover,
-.button.button--splitTrigger > .button-text:hover,
-a.button.button--splitTrigger > .button-text:hover,
-.button.button--splitTrigger > .button-menu:hover,
-a.button.button--splitTrigger > .button-menu:hover,
-.button:not(.button--splitTrigger):focus,
-a.button:not(.button--splitTrigger):focus,
-.button.button--splitTrigger > .button-text:focus,
-a.button.button--splitTrigger > .button-text:focus,
-.button.button--splitTrigger > .button-menu:focus,
-a.button.button--splitTrigger > .button-menu:focus,
-.button:not(.button--splitTrigger):active,
-a.button:not(.button--splitTrigger):active,
-.button.button--splitTrigger > .button-text:active,
-a.button.button--splitTrigger > .button-text:active,
-.button.button--splitTrigger > .button-menu:active,
-a.button.button--splitTrigger > .button-menu:active {
-  background-color: $HEX21;
-}
-.button.button--primary,
-a.button.button--primary {
-  background: $HEX22;
-  border-color: $HEX15 $HEX26 $HEX26 $HEX15;
-}
-.button.button--primary.button--splitTrigger > .button-text,
-a.button.button--primary.button--splitTrigger > .button-text {
-  border-right-color: $HEX26;
-}
-.button.button--primary.button--splitTrigger > .button-menu,
-a.button.button--primary.button--splitTrigger > .button-menu {
-  border-left-color: $HEX15;
-}
-.button.button--primary:not(.button--splitTrigger):hover,
-a.button.button--primary:not(.button--splitTrigger):hover,
-.button.button--primary.button--splitTrigger > .button-text:hover,
-a.button.button--primary.button--splitTrigger > .button-text:hover,
-.button.button--primary.button--splitTrigger > .button-menu:hover,
-a.button.button--primary.button--splitTrigger > .button-menu:hover,
-.button.button--primary:not(.button--splitTrigger):focus,
-a.button.button--primary:not(.button--splitTrigger):focus,
-.button.button--primary.button--splitTrigger > .button-text:focus,
-a.button.button--primary.button--splitTrigger > .button-text:focus,
-.button.button--primary.button--splitTrigger > .button-menu:focus,
-a.button.button--primary.button--splitTrigger > .button-menu:focus,
-.button.button--primary:not(.button--splitTrigger):active,
-a.button.button--primary:not(.button--splitTrigger):active,
-.button.button--primary.button--splitTrigger > .button-text:active,
-a.button.button--primary.button--splitTrigger > .button-text:active,
-.button.button--primary.button--splitTrigger > .button-menu:active,
-a.button.button--primary.button--splitTrigger > .button-menu:active {
-  background-color: $HEX21;
-}
-.button.button--cta,
-a.button.button--cta {
-  background: $HEX22;
-  border-color: $HEX15 $HEX26 $HEX26 $HEX15;
-}
-.button.button--cta.button--splitTrigger > .button-text,
-a.button.button--cta.button--splitTrigger > .button-text {
-  border-right-color: $HEX26;
-}
-.button.button--cta.button--splitTrigger > .button-menu,
-a.button.button--cta.button--splitTrigger > .button-menu {
-  border-left-color: $HEX15;
-}
-.button.button--cta:not(.button--splitTrigger):hover,
-a.button.button--cta:not(.button--splitTrigger):hover,
-.button.button--cta.button--splitTrigger > .button-text:hover,
-a.button.button--cta.button--splitTrigger > .button-text:hover,
-.button.button--cta.button--splitTrigger > .button-menu:hover,
-a.button.button--cta.button--splitTrigger > .button-menu:hover,
-.button.button--cta:not(.button--splitTrigger):focus,
-a.button.button--cta:not(.button--splitTrigger):focus,
-.button.button--cta.button--splitTrigger > .button-text:focus,
-a.button.button--cta.button--splitTrigger > .button-text:focus,
-.button.button--cta.button--splitTrigger > .button-menu:focus,
-a.button.button--cta.button--splitTrigger > .button-menu:focus,
-.button.button--cta:not(.button--splitTrigger):active,
-a.button.button--cta:not(.button--splitTrigger):active,
-.button.button--cta.button--splitTrigger > .button-text:active,
-a.button.button--cta.button--splitTrigger > .button-text:active,
-.button.button--cta.button--splitTrigger > .button-menu:active,
-a.button.button--cta.button--splitTrigger > .button-menu:active {
-  background-color: $HEX21;
-}
-.button.button--link,
-a.button.button--link {
-  color: $HEX16;
-}
-.button.button--link:hover,
-a.button.button--link:hover,
-.button.button--link:active,
-a.button.button--link:active,
-.button.button--link:focus,
-a.button.button--link:focus {
-  background: $HEX06;
-}
-.button.button--scroll,
-a.button.button--scroll {
-  background: $RGB47, 0.75);
-}
-.toggleButton > input:checked + span {
-  background: $HEX22;
-  border-color: $HEX15 $HEX26 $HEX26 $HEX15;
-}
-.toggleButton > input:checked + span.button--splitTrigger > .button-text {
-  border-right-color: $HEX26;
-}
-.toggleButton > input:checked + span.button--splitTrigger > .button-menu {
-  border-left-color: $HEX15;
-}
-.toggleButton > input:checked + span:not(.button--splitTrigger):hover,
-.toggleButton > input:checked + span.button--splitTrigger > .button-text:hover,
-.toggleButton > input:checked + span.button--splitTrigger > .button-menu:hover,
-.toggleButton > input:checked + span:not(.button--splitTrigger):focus,
-.toggleButton > input:checked + span.button--splitTrigger > .button-text:focus,
-.toggleButton > input:checked + span.button--splitTrigger > .button-menu:focus,
-.toggleButton > input:checked + span:not(.button--splitTrigger):active,
-.toggleButton > input:checked + span.button--splitTrigger > .button-text:active,
-.toggleButton > input:checked + span.button--splitTrigger > .button-menu:active {
-  background-color: $HEX21;
-}
-.input {
-  background: $HEX07;
-}
-.input:focus,
-.input.is-focused {
-  background: $HEX04;
-}
-.input[readonly],
-.input.is-readonly {
-  background: $HEX17;
-}
-label.iconic:hover > input + i:before {
-  color: $HEX42;
-}
-label.iconic > input + i:before {
-  color: $HEX22;
-}
-label.iconic.iconic--toggle > input + i:before {
-  color: $RGB47, 0.5);
-}
-label.iconic.iconic--toggle > input:checked + i:before {
-  color: $HEX22;
-}
-label.iconic.iconic--toggle > input:hover + i:before {
-  color: $HEX42;
-}
-.dataList-cell.dataList-cell--iconic > label.iconic,
-.dataList-cell.dataList-cell--iconic > a.dataList-delete {
-  color: $HEX22;
-}
-.dataList-cell.dataList-cell--iconic > label.iconic:hover,
-.dataList-cell.dataList-cell--iconic > a.dataList-delete:hover {
-  color: $HEX42;
-}
-.inputGroup.inputGroup--joined .inputGroup-text {
-  background: $HEX04;
-}
-.inputNumber-button {
-  color: $HEX22;
-}
-.inputGroup.inputGroup--joined .inputNumber-button:hover,
-.inputGroup.inputGroup--joined .inputNumber-button:active,
-.inputGroup.inputGroup--joined .inputNumber-button:focus {
-  background-color: $HEX05;
-  color: $HEX42;
-}
-.input.input--number[readonly] ~ .inputNumber-button {
-  background: $HEX17;
-}
-.inputDate .inputDate-icon {
-  color: $HEX16;
-}
-.formRow .formRow-hint .formRow-hint-featured {
-  color: $HEX41;
-}
-.formSubmitRow-bar {
-  background: $HEX06;
-}
-.badge,
-.badgeContainer:after {
-  background: $HEX27;
-}
-.tooltip--basic .tooltip-content {
-  background: $HEX27;
-}
-.tooltip--basic.tooltip--top .tooltip-arrow {
-  border-top-color: $HEX27;
-}
-.tooltip--basic.tooltip--bottom .tooltip-arrow {
-  border-bottom-color: $HEX27;
-}
-.tooltip--basic.tooltip--right .tooltip-arrow {
-  border-right-color: $HEX27;
-}
-.tooltip--basic.tooltip--left .tooltip-arrow {
-  border-left-color: $HEX27;
-}
-.tooltip--member.tooltip--bottom .tooltip-arrow:after {
-  border-bottom-color: $HEX06;
-}
-.menu-arrow {
-  border-bottom-color: $HEX22;
-}
-.menu-content {
-  border-top-color: $HEX22 !important;
-}
-.menu-header {
-  background: $HEX06;
-}
-.menu-tabHeader {
-  color: $HEX22;
-  background: $HEX06;
-  background: linear-gradient(0deg, $HEX06, $HEX09);
-}
-.menu-tabHeader .tabs-tab:hover {
-  color: $HEX41;
-}
-.menu-tabHeader .tabs-tab.is-active {
-  color: $HEX41;
-  border-color: $HEX22;
-}
-.menu-tabHeader .hScroller-action {
-  color: $HEX22;
-}
-.menu-tabHeader .hScroller-action:hover {
-  color: $HEX41;
-}
-.menu-tabHeader .hScroller-action.hScroller-action--start {
-  background: $HEX06;
-  background: linear-gradient(to right, $HEX06 66%, $RGB06, 0) 100%);
-}
-.menu-tabHeader .hScroller-action.hScroller-action--end {
-  background: $HEX06;
-  background: linear-gradient(to right, $RGB06, 0) 0%, $HEX06 33%);
-}
-.menu-row.menu-row--highlighted {
-  background: $HEX06;
-}
-.menu-row.menu-row--clickable:hover {
-  background: $HEX06;
-}
-.menu-linkRow.is-selected,
-.menu-linkRow:hover,
-.menu-linkRow:focus {
-  color: $HEX16;
-  background: $HEX06;
-  border-left-color: $RGB47, 0.5);
-}
-.menu-linkRow.is-selected.is-selected,
-.menu-linkRow:hover.is-selected,
-.menu-linkRow:focus.is-selected {
-  border-left-color: $HEX22;
-}
-.menu-linkRow:hover i[aria-hidden=true]:after {
-  color: $HEX16;
-}
-.offCanvasMenu--blocks .offCanvasMenu-header {
-  background: $HEX06;
-}
-.offCanvasMenu--nav .offCanvasMenu-content {
-  background: $HEX03;
-}
-.offCanvasMenu--nav .offCanvasMenu-linkHolder.is-selected {
-  background: $HEX22;
-  background: linear-gradient(to bottom, $HEX36 0%, $HEX26 20%, $HEX22 100%);
-}
-.tabs--standalone .tabs-tab:hover {
-  color: $HEX41;
-}
-.tabs--standalone .tabs-tab.is-active {
-  color: $HEX41;
-  border-color: $HEX22;
-}
-.tabs--standalone .hScroller-action:hover {
-  color: $HEX41;
-}
-.overlay-title {
-  background: $HEX06;
-  background: linear-gradient(0deg, $HEX06, $HEX09);
-}
-.globalAction-bar {
-  background: $HEX38;
-}
-.globalAction-bar:before {
-  box-shadow: 0 0 10px 2px $HEX38;
-}
-.globalAction-block i {
-  background-color: $HEX38;
-}
-.dataList-row:hover:not(.dataList-row--noHover):not(.dataList-row--header) {
-  background: $RGB06, 0.5);
-}
-.dataList-row.dataList-row--header .dataList-cell {
-  background: $HEX06;
-}
-.dataList-row.dataList-row--subSection .dataList-cell {
-  background: $HEX06;
-}
-.dataList-row.dataList-row--subSection:hover:not(.dataList-row--noHover) .dataList-cell {
-  background: $HEX06;
-}
-.dataList-row.dataList-row--protected > .dataList-cell:first-child {
-  border-left-color: $HEX22;
-}
-.dataList-cell.dataList-cell--action.dataList-cell--alt:hover,
-.dataList-cell.dataList-cell--link.dataList-cell--alt:hover,
-.dataList-cell.dataList-cell--action.dataList-cell--action:hover,
-.dataList-cell.dataList-cell--link.dataList-cell--action:hover {
-  background: $HEX06;
-}
-.dataList-cell.dataList-cell--highlighted {
-  background: $HEX06;
-}
-.quickFilter .js-filterClear {
-  color: $HEX22;
-}
-.quickFilter .js-filterClear:hover {
-  color: $HEX42;
-}
-.contentRow-figureIcon {
-  color: $HEX41;
-}
-.pageNav-jump {
-  background: linear-gradient(0deg, $HEX06, $HEX12);
-  color: $HEX16;
-}
-.pageNav-jump:hover,
-.pageNav-jump:active {
-  background: $HEX08;
-}
-.pageNav-page {
-  background: linear-gradient(0deg, $HEX06, $HEX12);
-  color: $HEX16;
-}
-.pageNav-page:hover,
-.pageNav-page:active {
-  background: $HEX08;
-}
-.pageNav-page.pageNav-page--current {
-  background: $HEX27;
-  border-color: $HEX34;
-}
-.pageNav-page.pageNav-page--current:hover,
-.pageNav-page.pageNav-page--current:active {
-  background: $HEX30;
-}
-.pageNavSimple-el.pageNavSimple-el--current {
-  background: $HEX27;
-}
-.pageNavSimple-el.pageNavSimple-el--current:hover,
-.pageNavSimple-el.pageNavSimple-el--current:active {
-  background: $HEX30;
-}
-.pageNavSimple-el.pageNavSimple-el--prev,
-.pageNavSimple-el.pageNavSimple-el--next {
-  background: linear-gradient(0deg, $HEX06, $HEX12);
-  color: $HEX16;
-}
-.pageNavSimple-el.pageNavSimple-el--prev:hover,
-.pageNavSimple-el.pageNavSimple-el--next:hover,
-.pageNavSimple-el.pageNavSimple-el--prev:active,
-.pageNavSimple-el.pageNavSimple-el--next:active {
-  background: $HEX08;
-}
-.pageNavSimple-el.pageNavSimple-el--first,
-.pageNavSimple-el.pageNavSimple-el--last {
-  color: $RGB16, 0.6);
-}
-.pageNavSimple-el.pageNavSimple-el--first:hover,
-.pageNavSimple-el.pageNavSimple-el--last:hover,
-.pageNavSimple-el.pageNavSimple-el--first:active,
-.pageNavSimple-el.pageNavSimple-el--last:active {
-  background: $HEX08;
-  color: $HEX16;
-}
-.autoCompleteList {
-  border-top-color: $HEX22 !important;
-}
-.autoCompleteList li.is-selected {
-  background: $HEX06;
-}
-.likesBar {
-  border-left-color: $HEX22;
-}
-.likeIcon:before {
-  color: $HEX41;
-}
-.actionBar-action.actionBar-action--mq.is-selected {
-  background-color: $HEX06;
-  border-color: $HEX22;
-}
-.label.label--primary {
-  color: $HEX16;
-  background: $HEX06;
-  border-color: $HEX19;
-  border-color: $HEX22;
-}
-a.label.label--primary:hover,
-a:hover .label.label--primary {
-  background: $HEX10;
-  border-color: $HEX23;
-  border-color: $HEX25;
-}
-.label.label--accent {
-  background: $HEX27;
-  border-color: $HEX39;
-  border-color: $HEX34;
-}
-a.label.label--accent:hover,
-a:hover .label.label--accent {
-  background: $HEX31;
-  border-color: $HEX40;
-  border-color: $HEX37;
-}
-.pika-button {
-  background: $HEX06;
-}
-.is-today .pika-button {
-  color: $HEX41;
-}
-.is-selected .pika-button {
-  background: $HEX41;
-}
-.pika-button:hover {
-  background: $HEX11;
-}
-.bbTable>table>thead>tr>th,
-.bbTable>table>tbody>tr>th {
-  background: $HEX04;
-  border-bottom-color: $HEX47;
-}
-
+</textarea>
+		<textarea id="cssin14" style="display:none">
 /********* public:app.less ********/
 .p-staffBar {
-  background: $HEX22;
-  border-bottom-color: $HEX22;
+  color:$HEX090;
+  background:$HEX014;
+  border-bottom:1px solid $HEX045;
+}
+.p-staffBar .hScroller-action {
+  color:$HEX090;
 }
 .p-staffBar .hScroller-action.hScroller-action--start {
-  background: $HEX22;
-  background: linear-gradient(to right, $HEX22 66%, $RGB22, 0) 100%);
+  background:$HEX014;
+  background:linear-gradient(to right, $HEX014 66%, rgba($RGB014,0) 100%);
 }
 .p-staffBar .hScroller-action.hScroller-action--end {
-  background: $HEX22;
-  background: linear-gradient(to right, $RGB22, 0) 0%, $HEX22 33%);
+  background:$HEX014;
+  background:linear-gradient(to right, rgba($RGB014,0) 0%, $HEX014 33%);
 }
 .p-staffBar-link:hover {
-  background: $HEX14;
+  background:$HEX013;
 }
 .p-header {
-  background: $HEX03;
-  background: linear-gradient(0deg, $HEX03, $HEX13);
+  background:$HEX002;
+  background:linear-gradient(0deg, $HEX002, $HEX003);
 }
 .p-nav {
-  background: $HEX03;
+  color:$HEX090;
+  background:$HEX002;
+}
+.p-nav-scroller .hScroller-action {
+  color:$HEX090;
 }
 .p-nav-scroller .hScroller-action.hScroller-action--start {
-  background: $HEX03;
-  background: linear-gradient(to right, $HEX03 66%, $RGB03, 0) 100%);
+  background:$HEX002;
+  background:linear-gradient(to right, $HEX002 66%, rgba($RGB002,0) 100%);
 }
 .p-nav-scroller .hScroller-action.hScroller-action--end {
-  background: $HEX03;
-  background: linear-gradient(to right, $RGB03, 0) 0%, $HEX03 33%);
+  background:$HEX002;
+  background:linear-gradient(to right, rgba($RGB002,0) 0%, $HEX002 33%);
+}
+.p-nav-list .p-navEl {
+  color:$HEX090;
 }
 .p-nav-list .p-navEl.is-selected {
-  background: $HEX22;
-  border-color: $HEX22;
-  background: linear-gradient(to bottom, $HEX36 0%, $HEX26 20%, $HEX22 100%);
+  color:$HEX090;
+  background:$HEX014;
+  border:1px solid $HEX045;
+  background:linear-gradient(to bottom, $HEX022 0%, $HEX017 20%, $HEX014 100%);
+}
+.p-nav-list .p-navEl:not(.is-selected):not(.is-menuOpen):hover,.p-nav-list .p-navEl:not(.is-selected):not(.is-menuOpen) .p-navEl-link:hover,.p-nav-list .p-navEl:not(.is-selected):not(.is-menuOpen) .p-navEl-splitTrigger:hover {
+  background:rgba($RGB090,0.06);
 }
 .p-nav-list .p-navEl.is-menuOpen {
-  background: $RGB03, 0.5);
+  color:$HEX090;
+  background:rgba($RGB002,0.5);
+}
+.p-navSticky--primary.is-sticky .p-nav-list .p-navEl.is-selected .p-navEl-splitTrigger:before {
+  border-left:1px solid rgba($RGB090,0.35);
 }
 .p-navgroup-link.is-menuOpen {
-  background: $RGB03, 0.5);
+  color:$HEX090;
+  background:rgba($RGB002,0.5);
 }
 .p-sectionLinks {
-  background: $HEX22;
+  color:$HEX090;
+  background:$HEX014;
+}
+.p-sectionLinks .hScroller-action {
+  color:$HEX090;
 }
 .p-sectionLinks .hScroller-action.hScroller-action--start {
-  background: $HEX22;
-  background: linear-gradient(to right, $HEX22 66%, $RGB22, 0) 100%);
+  background:$HEX014;
+  background:linear-gradient(to right, $HEX014 66%, rgba($RGB014,0) 100%);
 }
 .p-sectionLinks .hScroller-action.hScroller-action--end {
-  background: $HEX22;
-  background: linear-gradient(to right, $RGB22, 0) 0%, $HEX22 33%);
+  background:$HEX014;
+  background:linear-gradient(to right, rgba($RGB014,0) 0%, $HEX014 33%);
 }
 .p-sectionLinks-list .p-navEl:hover {
-  border-color: $HEX22;
-  background-color: $HEX29;
+  border:1px solid $HEX045;
+  background-color:$HEX018;
 }
 .p-sectionLinks-list .p-navEl.is-menuOpen {
-  background: $RGB03, 0.65);
+  background:rgba($RGB002,0.65);
 }
 .p-footer {
-  background: $HEX03;
-  border-top-color: $HEX22;
+  color:$HEX090;
+  background:$HEX002;
+  border-top:1px solid $HEX045;
+}
+.p-footer a {
+  color:$HEX090;
+}
+.p-footer-linkList>li a:hover {
+  background-color:rgba($RGB090,0.1);
 }
 .inlineModButton-count {
-  background: $HEX27;
-  border-color: $HEX34;
+  background:$HEX014;
+  border:1px solid $HEX037;
 }
 .inlineModBar {
-  background: $HEX27;
-  border-bottom-color: $HEX32;
+  background:$HEX014;
+  border-bottom:1px solid $HEX057;
+}
+.userBanner.userBanner--staff,.userBanner.userBanner--primary {
+  color:$HEX052;
+  background:$HEX039;
+  border-color:$HEX056;
+  border-color:$HEX045;
+}
+.userBanner.userBanner--accent {
+  background:$HEX014;
+  border-color:$HEX019;
+  border-color:$HEX037;
+}
+.userBanner.userBanner--red {
+  border-color:$HEX091;
+}
+.userBanner.userBanner--green {
+  border-color:$HEX011;
+}
+.userBanner.userBanner--olive {
+  border-color:$HEX078;
+}
+.userBanner.userBanner--lightGreen {
+  border-color:$HEX089;
+  border-color:$HEX080;
+}
+.userBanner.userBanner--blue {
+  border-color:$HEX029;
+}
+.userBanner.userBanner--royalBlue {
+  border-color:$HEX069;
+}
+.userBanner.userBanner--skyBlue {
+  border-color:$HEX077;
+}
+.userBanner.userBanner--yellow {
+  border-color:$HEX099;
+  border-color:$HEX086;
+}
+.userBanner.userBanner--orange {
+  border-color:$HEX095;
 }
 
 /********* public:bb_code.less ********/
 .bbCodeBlock {
-  border-left-color: $HEX38;
+  border-left:3px solid $HEX060;
+}
+.bbCodeBlock--selfQuote .bbCodeBlock-title {
+  background:$HEX030;
+}
+.bbCodeBlock-title {
+  background:$HEX035;
 }
 .bbCodeBlock--unfurl {
-  background: $HEX06;
+  background:$HEX039;
+  border-left:2px solid $HEX045;
+}
+.bbCodeInline {
+  background:$HEX039;
 }
 
-/***** core/element.less *****/
-.fr-box a.fr-floating-btn {
-  color: $HEX03;
+/********* public:core.less ********/
+a {
+  color:$HEX052;
 }
-.fr-box a.fr-floating-btn svg {
-  fill: $HEX03;
+a:hover {
+  color:$HEX052;
 }
-.fr-box a.fr-floating-btn:hover svg {
-  fill: $HEX03;
+a.u-concealed:hover .fa,.u-concealed a:hover .fa {
+  color:$HEX052;
 }
-/***** core/wrapper.less *****/
-.fr-wrapper ::-moz-selection {
-  background: $HEX33;
+a.u-concealed--icon:hover .fa,.u-concealed--icon a:hover .fa {
+  color:$HEX052;
 }
-.fr-wrapper ::selection {
-  background: $HEX33;
+.u-featuredText {
+  color:$HEX065;
 }
-.fr-box.fr-basic .fr-wrapper {
-  background: $HEX07;
+.categoryList-header {
+  color:$HEX065;
 }
-/***** tooltip.less *****/
-.fr-tooltip {
-  background: $HEX27;
+.block-header {
+  color:$HEX090;
+  background:$HEX039;
+  background:linear-gradient(to bottom, $HEX022 0%, $HEX017 20%, $HEX014 100%);
 }
-/***** ui/buttons.less *****/
-.fr-toolbar .fr-command.fr-btn.fr-active,
-.fr-popup .fr-command.fr-btn.fr-active {
-  color: $HEX03;
+.block-header .block-desc {
+  color:rgba($RGB090,0.7);
 }
-.fr-desktop .fr-command.fr-active:hover,
-.fr-desktop .fr-command.fr-active:focus,
-.fr-desktop .fr-command.fr-active.fr-btn-hover,
-.fr-desktop .fr-command.fr-active.fr-expanded {
-  color: $HEX03;
+.block-minorHeader {
+  color:$HEX090;
+  background:$HEX000;
+  border-bottom:1px solid $HEX045;
 }
-.fr-desktop .fr-command.fr-active.fr-selected {
-  color: $HEX03;
+.block-tabHeader {
+  color:$HEX039;
+  background:$HEX014;
 }
-/***** ui/modal.less *****/
-.fr-modal .fr-modal-wrapper {
-  border-top-color: $HEX22;
+.block-tabHeader .tabs-tab.is-active {
+  border-color:$HEX039;
 }
-.fr-modal .fr-modal-wrapper div.fr-modal-body button.fr-command {
-  color: $HEX03;
+.block-tabHeader .hScroller-action {
+  color:$HEX039;
 }
-.fr-modal .fr-modal-wrapper div.fr-modal-body button.fr-command:hover,
-.fr-modal .fr-modal-wrapper div.fr-modal-body button.fr-command:focus {
-  color: $HEX03;
+.block-tabHeader .hScroller-action.hScroller-action--start {
+  background:$HEX014;
+  background:linear-gradient(to right, $HEX014 66%, rgba($RGB014,0) 100%);
 }
-.fr-modal .fr-modal-wrapper div.fr-modal-body button.fr-command:active {
-  color: $HEX03;
+.block-tabHeader .hScroller-action.hScroller-action--end {
+  background:$HEX014;
+  background:linear-gradient(to right, rgba($RGB014,0) 0%, $HEX014 33%);
 }
-/***** ui/popup.less *****/
-.fr-popup {
-  border-top-color: $HEX22;
+.block-minorTabHeader .tabs-tab:hover {
+  color:$HEX065;
 }
-.fr-popup.fr-above {
-  border-bottom-color: $HEX22;
+.block-minorTabHeader .tabs-tab.is-active {
+  color:$HEX065;
+  border-color:$HEX065;
 }
-.fr-popup .fr-input-line input[type="text"]:focus,
-.fr-popup .fr-input-line textarea:focus {
-  border-bottom-color: $HEX03;
+.block-minorTabHeader .hScroller-action:hover {
+  color:$HEX065;
 }
-.fr-popup .fr-input-line input.fr-not-empty:focus + label,
-.fr-popup .fr-input-line textarea.fr-not-empty:focus + label {
-  color: $HEX03;
+.block-filterBar {
+  background:$HEX039;
+  background:linear-gradient(0deg, $HEX002, $HEX003);
 }
-.fr-popup .fr-action-buttons button.fr-command {
-  color: $HEX03;
+.block-filterBar .filterBar-filterToggle {
+  background:$HEX054;
 }
-.fr-popup .fr-action-buttons button.fr-command:hover,
-.fr-popup .fr-action-buttons button.fr-command:focus {
-  color: $HEX03;
+.block-filterBar .filterBar-filterToggle:hover,.block-filterBar .filterBar-menuTrigger:hover {
+  background:$HEX059;
 }
-.fr-popup .fr-action-buttons button.fr-command:active {
-  color: $HEX03;
+.block-formSectionHeader {
+  color:$HEX065;
 }
-.fr-popup .fr-checkbox input:checked + span {
-  background: $HEX03;
-  border-color: $HEX03;
+.block-row.block-row--alt {
+  background:$HEX039;
 }
-.fr-popup .fr-checkbox input:focus + span {
-  border-color: $HEX03;
+.block-row.block-row--highlighted {
+  background:$HEX039;
 }
-.fr-popup .fr-arrow {
-  border-bottom-color: $HEX22;
+.block-row.block-row--clickable:hover {
+  background:$HEX039;
 }
-.fr-popup.fr-above .fr-arrow {
-  border-top-color: $HEX22;
+.block-row.is-mod-selected {
+  background:$HEX023;
 }
-/***** ui/toolbar.less *****/
-.fr-toolbar {
-  border-top-color: $HEX22;
+.block-footer {
+  background:$HEX039;
+  background:linear-gradient(180deg, $HEX039, $HEX034);
 }
-.fr-toolbar.fr-inline .fr-arrow {
-  border-bottom-color: $HEX22;
+.block-rowMessage.block-rowMessage--highlight {
+  background:$HEX039;
 }
-.fr-toolbar.fr-inline.fr-above {
-  border-bottom-color: $HEX22;
+.block-rowMessage.block-rowMessage--important {
+  background:$HEX014;
+  border-left:3px solid $HEX060;
 }
-/***** plugins/colors.less *****/
-.fr-popup .fr-colors-tabs .fr-colors-tab:hover,
-.fr-popup .fr-colors-tabs .fr-colors-tab:focus {
-  color: $HEX03;
+.blockMessage.blockMessage--highlight {
+  background:$HEX039;
 }
-.fr-popup .fr-colors-tabs .fr-colors-tab[data-param1="background"]::after {
-  background: $HEX03;
+.blockMessage.blockMessage--important {
+  background:$HEX014;
+  border-left:3px solid $HEX060;
 }
-.fr-popup .fr-colors-tabs .fr-colors-tab.fr-selected-tab {
-  color: $HEX03;
+.blockStatus {
+  background:$HEX039;
+  border-left:3px solid $HEX060;
 }
-.fr-popup .fr-color-hex-layer .fr-action-buttons button {
-  background-color: $HEX03;
+.blockStatus.blockStatus--info {
+  border-left-color:$HEX045;
 }
-.fr-popup .fr-color-hex-layer .fr-action-buttons button:hover {
-  background-color: $HEX02;
+.blockLink.is-selected {
+  background:$HEX039;
+  border-left:3px solid $HEX045;
 }
-/***** plugins/draggable.less *****/
-.fr-drag-helper {
-  background: $HEX03;
+.blockLink:hover {
+  background:$HEX039;
 }
-/***** plugins/file.less *****/
-.fr-popup .fr-file-upload-layer.fr-drop {
-  border-color: $HEX03;
+.blockLinkSplitToggle.is-selected {
+  background:$HEX039;
 }
-.fr-popup .fr-file-progress-bar-layer > div.fr-loader {
-  background: $HEX45;
+.blockLinkSplitToggle:hover {
+  background:$HEX039;
 }
-.fr-popup .fr-file-progress-bar-layer > div.fr-loader span {
-  background: $HEX03;
+.blockLinkSplitToggle.is-selected .blockLinkSplitToggle-link {
+  border-left:3px solid $HEX045;
 }
-/***** plugins/image.less *****/
-.fr-image-resizer {
-  border-color: $HEX03;
+.button.button--provider--nfDiscord,a.button.button--provider--nfDiscord {
+  border-color:$HEX066 $HEX074 #869adf #5e78d5;
 }
-.fr-image-resizer .fr-handler {
-  background: $HEX03;
+.button.button--provider--nfDiscord.button--splitTrigger>.button-text,a.button.button--provider--nfDiscord.button--splitTrigger>.button-text {
+  border-right-color:$HEX074;
 }
-.fr-popup .fr-image-upload-layer.fr-drop {
-  border-color: $HEX03;
+.button.button--provider--nfDiscord.button--splitTrigger>.button-menu,a.button.button--provider--nfDiscord.button--splitTrigger>.button-menu {
+  border-left-color:$HEX066;
 }
-.fr-popup .fr-image-progress-bar-layer > div.fr-loader {
-  background: $HEX45;
+.button.button--provider--nfDiscord:hover,a.button.button--provider--nfDiscord:hover,.button.button--provider--nfDiscord:active,a.button.button--provider--nfDiscord:active,.button.button--provider--nfDiscord:focus,a.button.button--provider--nfDiscord:focus {
+  background-color:$HEX070;
 }
-.fr-popup .fr-image-progress-bar-layer > div.fr-loader span {
-  background: $HEX03;
+.button,a.button {
+  color:$HEX090;
+  background:$HEX045;
+  border-color:$HEX038 $HEX055 #385876 #283e54;
 }
-.fr-popup .fr-input-line input[type="text"],
-.fr-popup .fr-input-line textarea {
-  background: $HEX07;
+.button.button--splitTrigger>.button-text,a.button.button--splitTrigger>.button-text {
+  border-right-color:$HEX055;
 }
-.fr-popup .fr-input-line input[type="text"]:focus,
-.fr-popup .fr-input-line textarea:focus {
-  background: $HEX04;
+.button.button--splitTrigger>.button-menu,a.button.button--splitTrigger>.button-menu {
+  border-left-color:$HEX038;
 }
-.fr-popup .fr-action-buttons button.fr-command {
-  background: $HEX22;
-  border-color: $HEX15 $HEX26 $HEX26 $HEX15;
+.button:not(.button--splitTrigger):hover,a.button:not(.button--splitTrigger):hover,.button.button--splitTrigger>.button-text:hover,a.button.button--splitTrigger>.button-text:hover,.button.button--splitTrigger>.button-menu:hover,a.button.button--splitTrigger>.button-menu:hover,.button:not(.button--splitTrigger):focus,a.button:not(.button--splitTrigger):focus,.button.button--splitTrigger>.button-text:focus,a.button.button--splitTrigger>.button-text:focus,.button.button--splitTrigger>.button-menu:focus,a.button.button--splitTrigger>.button-menu:focus,.button:not(.button--splitTrigger):active,a.button:not(.button--splitTrigger):active,.button.button--splitTrigger>.button-text:active,a.button.button--splitTrigger>.button-text:active,.button.button--splitTrigger>.button-menu:active,a.button.button--splitTrigger>.button-menu:active {
+  background-color:$HEX043;
 }
-.fr-popup .fr-action-buttons button.fr-command.button--splitTrigger > .button-text {
-  border-right-color: $HEX26;
+.button.button--primary,a.button.button--primary {
+  color:$HEX090;
+  background:$HEX045;
+  border-color:$HEX038 $HEX055 #385876 #283e54;
 }
-.fr-popup .fr-action-buttons button.fr-command.button--splitTrigger > .button-menu {
-  border-left-color: $HEX15;
+.button.button--primary.button--splitTrigger>.button-text,a.button.button--primary.button--splitTrigger>.button-text {
+  border-right-color:$HEX055;
 }
-.fr-popup .fr-action-buttons button.fr-command:not(.button--splitTrigger):hover,
-.fr-popup .fr-action-buttons button.fr-command.button--splitTrigger > .button-text:hover,
-.fr-popup .fr-action-buttons button.fr-command.button--splitTrigger > .button-menu:hover,
-.fr-popup .fr-action-buttons button.fr-command:not(.button--splitTrigger):focus,
-.fr-popup .fr-action-buttons button.fr-command.button--splitTrigger > .button-text:focus,
-.fr-popup .fr-action-buttons button.fr-command.button--splitTrigger > .button-menu:focus,
-.fr-popup .fr-action-buttons button.fr-command:not(.button--splitTrigger):active,
-.fr-popup .fr-action-buttons button.fr-command.button--splitTrigger > .button-text:active,
-.fr-popup .fr-action-buttons button.fr-command.button--splitTrigger > .button-menu:active {
-  background-color: $HEX21;
+.button.button--primary.button--splitTrigger>.button-menu,a.button.button--primary.button--splitTrigger>.button-menu {
+  border-left-color:$HEX038;
 }
-.tabs--editor {
-  color: $HEX22;
+.button.button--primary:not(.button--splitTrigger):hover,a.button.button--primary:not(.button--splitTrigger):hover,.button.button--primary.button--splitTrigger>.button-text:hover,a.button.button--primary.button--splitTrigger>.button-text:hover,.button.button--primary.button--splitTrigger>.button-menu:hover,a.button.button--primary.button--splitTrigger>.button-menu:hover,.button.button--primary:not(.button--splitTrigger):focus,a.button.button--primary:not(.button--splitTrigger):focus,.button.button--primary.button--splitTrigger>.button-text:focus,a.button.button--primary.button--splitTrigger>.button-text:focus,.button.button--primary.button--splitTrigger>.button-menu:focus,a.button.button--primary.button--splitTrigger>.button-menu:focus,.button.button--primary:not(.button--splitTrigger):active,a.button.button--primary:not(.button--splitTrigger):active,.button.button--primary.button--splitTrigger>.button-text:active,a.button.button--primary.button--splitTrigger>.button-text:active,.button.button--primary.button--splitTrigger>.button-menu:active,a.button.button--primary.button--splitTrigger>.button-menu:active {
+  background-color:$HEX043;
 }
-.tabs--editor .tabs-tab.is-active {
-  color: $HEX41;
-  border-color: $HEX22;
+.button.button--cta,a.button.button--cta {
+  color:$HEX090;
+  background:$HEX045;
+  border-color:$HEX038 $HEX055 #385876 #283e54;
 }
-.tabs--editor .hScroller-action:hover {
-  color: $HEX41;
+.button.button--cta.button--splitTrigger>.button-text,a.button.button--cta.button--splitTrigger>.button-text {
+  border-right-color:$HEX055;
 }
-
-/********* public:message.less ********/
-.message.is-mod-selected,
-.block--messages .message.is-mod-selected {
-  background: $HEX24;
+.button.button--cta.button--splitTrigger>.button-menu,a.button.button--cta.button--splitTrigger>.button-menu {
+  border-left-color:$HEX038;
 }
-.message.is-mod-selected .message-userArrow:after,
-.block--messages .message.is-mod-selected .message-userArrow:after {
-  border-right-color: $HEX24;
+.button.button--cta:not(.button--splitTrigger):hover,a.button.button--cta:not(.button--splitTrigger):hover,.button.button--cta.button--splitTrigger>.button-text:hover,a.button.button--cta.button--splitTrigger>.button-text:hover,.button.button--cta.button--splitTrigger>.button-menu:hover,a.button.button--cta.button--splitTrigger>.button-menu:hover,.button.button--cta:not(.button--splitTrigger):focus,a.button.button--cta:not(.button--splitTrigger):focus,.button.button--cta.button--splitTrigger>.button-text:focus,a.button.button--cta.button--splitTrigger>.button-text:focus,.button.button--cta.button--splitTrigger>.button-menu:focus,a.button.button--cta.button--splitTrigger>.button-menu:focus,.button.button--cta:not(.button--splitTrigger):active,a.button.button--cta:not(.button--splitTrigger):active,.button.button--cta.button--splitTrigger>.button-text:active,a.button.button--cta.button--splitTrigger>.button-text:active,.button.button--cta.button--splitTrigger>.button-menu:active,a.button.button--cta.button--splitTrigger>.button-menu:active {
+  background-color:$HEX043;
 }
-.message-cell.message-cell--alert {
-  background: $HEX27;
+.button.button--link,a.button.button--link {
+  color:$HEX052;
 }
-@media (max-width: 650px) {
-  .message:not(.message--forceColumns).is-mod-selected .message-userArrow:after {
-    border-bottom-color: $HEX24;
-  }
+.button.button--link:hover,a.button.button--link:hover,.button.button--link:active,a.button.button--link:active,.button.button--link:focus,a.button.button--link:focus {
+  background:$HEX039;
 }
-.message-newIndicator {
-  background: $HEX38;
+.button.button--plain,a.button.button--plain {
+  color:$HEX052;
 }
-.message-minorHighlight {
-  color: $HEX41;
+.button.button--alt,a.button.button--alt {
+  background-color:$HEX026;
+  color:$HEX052;
+  border-color:$HEX032 $HEX049 #353b3e #1d2122;
 }
-.messageNotice {
-  background: $HEX27;
-  border-left-color: $HEX38;
+.button.button--alt.button--splitTrigger>.button-text,a.button.button--alt.button--splitTrigger>.button-text {
+  border-right-color:$HEX049;
 }
-.notice.notice--primary {
-  background: $HEX06;
+.button.button--alt.button--splitTrigger>.button-menu,a.button.button--alt.button--splitTrigger>.button-menu {
+  border-left-color:$HEX032;
 }
-.notice.notice--accent {
-  background: $HEX27;
+.button.button--alt:hover,a.button.button--alt:hover,.button.button--alt:active,a.button.button--alt:active,.button.button--alt:focus,a.button.button--alt:focus {
+  background-color:$HEX026;
+  color:$HEX052;
 }
-.notices--floating .notice.notice--primary {
-  background-color: $RGB06, 0.8);
+.button.button--scroll,a.button.button--scroll {
+  background:rgba($RGB045,0.75);
 }
-.notices--floating .notice.notice--accent {
-  background-color: $RGB27, 0.8);
+.button.button--provider--facebook,a.button.button--provider--facebook {
+  border-color:$HEX048 $HEX058 #4264aa #344e86;
 }
-
-/********* public:select2.less ********/
-.select2-results__options {
-  border-top-color: $HEX22 !important;
+.button.button--provider--facebook.button--splitTrigger>.button-text,a.button.button--provider--facebook.button--splitTrigger>.button-text {
+  border-right-color:$HEX058;
 }
-.select2-results__options li.is-selected {
-  background: $HEX06;
+.button.button--provider--facebook.button--splitTrigger>.button-menu,a.button.button--provider--facebook.button--splitTrigger>.button-menu {
+  border-left-color:$HEX048;
 }
-.select2-results__option.select2-results__option--highlighted {
-  background: $HEX06;
+.button.button--provider--facebook:hover,a.button.button--provider--facebook:hover,.button.button--provider--facebook:active,a.button.button--provider--facebook:active,.button.button--provider--facebook:focus,a.button.button--provider--facebook:focus {
+  background-color:$HEX047;
 }
-
-/********* public:share_controls.less ********/
-.shareInput-button {
-  color: $HEX16;
+.button.button--provider--twitter,a.button.button--provider--twitter {
+  border-color:$HEX024 $HEX050 #35abf4 #0c95ea;
 }
-
-/********* public:sticky_post.less ********/
-article.message.sticky-container {
-  border-bottom-color: $HEX22;
+.button.button--provider--twitter.button--splitTrigger>.button-text,a.button.button--provider--twitter.button--splitTrigger>.button-text {
+  border-right-color:$HEX050;
 }
-article.message.sticky-container .message-cell--user {
-  background-color: $HEX06;
+.button.button--provider--twitter.button--splitTrigger>.button-menu,a.button.button--provider--twitter.button--splitTrigger>.button-menu {
+  border-left-color:$HEX024;
 }
-
-/********* public:structured_list.less ********/
-.structItem.is-highlighted,
-.structItem.is-moderated {
-  background: $HEX06;
+.button.button--provider--twitter:hover,a.button.button--provider--twitter:hover,.button.button--provider--twitter:active,a.button.button--provider--twitter:active,.button.button--provider--twitter:focus,a.button.button--provider--twitter:focus {
+  background-color:$HEX036;
 }
-.structItem.is-mod-selected {
-  background: $HEX24;
+.button.button--provider--github:hover,a.button.button--provider--github:hover,.button.button--provider--github:active,a.button.button--provider--github:active,.button.button--provider--github:focus,a.button.button--provider--github:focus {
+  background-color:$HEX071;
 }
-.structItem-status--starred::before {
-  color: $HEX34;
+.button.button--provider--linkedin,a.button.button--provider--linkedin {
+  border-color:$HEX006 $HEX008 #0088cf #00669c;
 }
-.structItem-status--watched::before {
-  color: $HEX41;
+.button.button--provider--linkedin.button--splitTrigger>.button-text,a.button.button--provider--linkedin.button--splitTrigger>.button-text {
+  border-right-color:$HEX008;
 }
-.structItem.structItem--note {
-  background: $HEX06;
-  color: $HEX41;
+.button.button--provider--linkedin.button--splitTrigger>.button-menu,a.button.button--provider--linkedin.button--splitTrigger>.button-menu {
+  border-left-color:$HEX006;
 }
-
-/********* public:svESE_autocomplete.less ********/
-.quickSearch-ResultCloser {
-  border-top-color: $HEX22 !important;
+.button.button--provider--linkedin:hover,a.button.button--provider--linkedin:hover,.button.button--provider--linkedin:active,a.button.button--provider--linkedin:active,.button.button--provider--linkedin:focus,a.button.button--provider--linkedin:focus {
+  background-color:$HEX007;
 }
-.quickSearch-ResultCloser li.is-selected {
-  background: $HEX06;
+.button.button--provider--microsoft,a.button.button--provider--microsoft {
+  border-color:$HEX010 $HEX025 #0dc9ff #00a8d9;
 }
-
-/********* public:svThreadmarks_macros_content_bar.less ********/
-.block--messages .message-cell--threadmark-header .threadmarkLabel {
-  color: $HEX16;
-  background: $HEX06;
-  border-color: $HEX22;
+.button.button--provider--microsoft.button--splitTrigger>.button-text,a.button.button--provider--microsoft.button--splitTrigger>.button-text {
+  border-right-color:$HEX025;
 }
-.block--messages .message-cell--threadmark-header .threadmarkLabel--unread {
-  background: $HEX38;
+.button.button--provider--microsoft.button--splitTrigger>.button-menu,a.button.button--provider--microsoft.button--splitTrigger>.button-menu {
+  border-left-color:$HEX010;
 }
-.block--messages .message-cell--threadmark-header .threadmark-control,
-.block--messages .message-cell--threadmark-footer .threadmark-control {
-  color: $HEX16;
-  border-color: $HEX22;
-  background: $HEX06;
+.button.button--provider--microsoft:hover,a.button.button--provider--microsoft:hover,.button.button--provider--microsoft:active,a.button.button--provider--microsoft:active,.button.button--provider--microsoft:focus,a.button.button--provider--microsoft:focus {
+  background-color:$HEX020;
 }
-.block--messages .message-cell--threadmark-header .threadmark-control:hover,
-.block--messages .message-cell--threadmark-footer .threadmark-control:hover {
-  background: $HEX11;
-  color: $HEX16;
+.button.button--provider--yahoo,a.button.button--provider--yahoo {
+  border-color:$HEX051 $HEX063 #4c00ac #36007a;
 }
-
-/********* public:svThreadmarks_threadmark_list.less ********/
-.threadmarkListingHeader-main {
-  background: $HEX06;
-  border-bottom: 1px solid $HEX35;
+.button.button--provider--yahoo.button--splitTrigger>.button-text,a.button.button--provider--yahoo.button--splitTrigger>.button-text {
+  border-right-color:$HEX063;
 }
-
-/********* public:sv_bbcode_accordion.less ********/
-.accordion {
-  border-color: $HEX44;
+.button.button--provider--yahoo.button--splitTrigger>.button-menu,a.button.button--provider--yahoo.button--splitTrigger>.button-menu {
+  border-left-color:$HEX051;
 }
-.accordion dt {
-  border-color: $HEX44;
-  background: url("background: linear-gradient(0deg, $HEX03, mix($HEX03, lighten($HEX03, 20%), 50%));");
+.button.button--provider--yahoo:hover,a.button.button--provider--yahoo:hover,.button.button--provider--yahoo:active,a.button.button--provider--yahoo:active,.button.button--provider--yahoo:focus,a.button.button--provider--yahoo:focus {
+  background-color:$HEX061;
 }
-.accordion dt.accordion-slide-active {
-  background: linear-gradient(0deg, $HEX03, $HEX19);
+.toggleButton>input:checked+span {
+  color:$HEX090;
+  background:$HEX045;
+  border-color:$HEX038 $HEX055 #385876 #283e54;
 }
-.accordion dt:hover {
-  background: $HEX38;
+.toggleButton>input:checked+span.button--splitTrigger>.button-text {
+  border-right-color:$HEX055;
 }
-.accordion dd {
-  border-color: $HEX44;
+.toggleButton>input:checked+span.button--splitTrigger>.button-menu {
+  border-left-color:$HEX038;
+}
+.toggleButton>input:checked+span:not(.button--splitTrigger):hover,.toggleButton>input:checked+span.button--splitTrigger>.button-text:hover,.toggleButton>input:checked+span.button--splitTrigger>.button-menu:hover,.toggleButton>input:checked+span:not(.button--splitTrigger):focus,.toggleButton>input:checked+span.button--splitTrigger>.button-text:focus,.toggleButton>input:checked+span.button--splitTrigger>.button-menu:focus,.toggleButton>input:checked+span:not(.button--splitTrigger):active,.toggleButton>input:checked+span.button--splitTrigger>.button-text:active,.toggleButton>input:checked+span.button--splitTrigger>.button-menu:active {
+  background-color:$HEX043;
+}
+.input {
+  background:$HEX028;
+}
+.input:focus,.input.is-focused {
+  background:$HEX026;
+}
+.input[readonly],.input.is-readonly {
+  background:$HEX033;
+}
+.formRow .iconic>i,.inputGroup .iconic>i,.inputChoices .iconic>i,.block-footer .iconic>i,.dataList-cell .iconic>i,.message-cell--extra .iconic>i,.formRow.dataList-cell--fa>a>i,.inputGroup.dataList-cell--fa>a>i,.inputChoices.dataList-cell--fa>a>i,.block-footer.dataList-cell--fa>a>i,.dataList-cell.dataList-cell--fa>a>i,.message-cell--extra.dataList-cell--fa>a>i {
+  color:$HEX045;
+}
+.formRow .iconic:hover>i,.inputGroup .iconic:hover>i,.inputChoices .iconic:hover>i,.block-footer .iconic:hover>i,.dataList-cell .iconic:hover>i,.message-cell--extra .iconic:hover>i,.formRow.dataList-cell--fa>a:hover>i,.inputGroup.dataList-cell--fa>a:hover>i,.inputChoices.dataList-cell--fa>a:hover>i,.block-footer.dataList-cell--fa>a:hover>i,.dataList-cell.dataList-cell--fa>a:hover>i,.message-cell--extra.dataList-cell--fa>a:hover>i {
+  color:$HEX067;
+}
+.inputGroup.inputGroup--joined .inputGroup-text {
+  background:$HEX026;
+}
+.inputNumber-button {
+  color:$HEX045;
+}
+.inputGroup.inputGroup--joined .inputNumber-button:hover,.inputGroup.inputGroup--joined .inputNumber-button:active,.inputGroup.inputGroup--joined .inputNumber-button:focus {
+  background-color:$HEX027;
+  color:$HEX067;
+}
+.input.input--number[readonly]~.inputNumber-button {
+  background:$HEX033;
+}
+.inputDate .inputDate-icon {
+  color:$HEX052;
+}
+.formRow>dt {
+  background:$HEX039;
+}
+.formRow .formRow-hint .formRow-hint-featured {
+  color:$HEX065;
+}
+.formSubmitRow-bar {
+  background:$HEX039;
+}
+.badge,.badgeContainer:after {
+  background:$HEX014;
+}
+.tooltip--basic .tooltip-content {
+  background:$HEX014;
+}
+.tooltip--basic.tooltip--top .tooltip-arrow {
+  border-top-color:$HEX014;
+}
+.tooltip--basic.tooltip--bottom .tooltip-arrow {
+  border-bottom-color:$HEX014;
+}
+.tooltip--basic.tooltip--right .tooltip-arrow {
+  border-right-color:$HEX014;
+}
+.tooltip--basic.tooltip--left .tooltip-arrow {
+  border-left-color:$HEX014;
+}
+.tooltip--member.tooltip--bottom .tooltip-arrow:after {
+  border-bottom-color:$HEX039;
+}
+.menu-arrow {
+  border-bottom-color:$HEX045;
+}
+.menu-content {
+  background:$HEX039;
+  border-top:4px solid $HEX045 !important;
+  border-top:3px solid $HEX045;
+}
+.menu-header {
+  background:$HEX039;
+}
+.menu-tabHeader {
+  background:$HEX039;
+  background:linear-gradient(0deg, $HEX039, $HEX034);
+}
+.menu-tabHeader .tabs-tab:hover {
+  color:$HEX065;
+}
+.menu-tabHeader .tabs-tab.is-active {
+  color:$HEX065;
+  border-color:$HEX045;
+}
+.menu-tabHeader .hScroller-action:hover {
+  color:$HEX065;
+}
+.menu-tabHeader .hScroller-action.hScroller-action--start {
+  background:$HEX039;
+  background:linear-gradient(to right, $HEX039 66%, rgba($RGB039,0) 100%);
+}
+.menu-tabHeader .hScroller-action.hScroller-action--end {
+  background:$HEX039;
+  background:linear-gradient(to right, rgba($RGB039,0) 0%, $HEX039 33%);
+}
+.menu-row.menu-row--alt {
+  background:$HEX039;
+}
+.menu-row.menu-row--highlighted {
+  background:$HEX039;
+}
+.menu-row.menu-row--clickable:hover {
+  background:$HEX039;
+}
+.menu-linkRow.menu-linkRow--alt {
+  background:$HEX039;
+}
+.menu-linkRow.is-selected,.menu-linkRow:hover,.menu-linkRow:focus {
+  color:$HEX052;
+  background:$HEX039;
+  border-left-color:rgba($RGB045,0.5);
+}
+.menu-linkRow.is-selected.is-selected,.menu-linkRow:hover.is-selected,.menu-linkRow:focus.is-selected {
+  border-left-color:$HEX045;
+}
+.menu-linkRow:hover i[aria-hidden=true]:after {
+  color:$HEX052;
+}
+.menu-footer {
+  background:$HEX039;
+  background:linear-gradient(180deg, $HEX039, $HEX034);
+}
+.offCanvasMenu--blocks .offCanvasMenu-header {
+  background:$HEX039;
+}
+.offCanvasMenu--nav .offCanvasMenu-content {
+  color:$HEX090;
+  background:$HEX002;
+}
+.offCanvasMenu--nav .offCanvasMenu-linkHolder.is-selected {
+  color:$HEX090;
+  background:$HEX014;
+  background:linear-gradient(to bottom, $HEX022 0%, $HEX017 20%, $HEX014 100%);
+}
+.offCanvasMenu--nav .offCanvasMenu-linkHolder.is-selected .offCanvasMenu-link.offCanvasMenu-link--splitToggle:before {
+  border-left-color:rgba($RGB090,0.2);
+}
+.tabs--standalone {
+  background:$HEX039;
+}
+.tabs--standalone .tabs-tab:hover {
+  color:$HEX065;
+}
+.tabs--standalone .tabs-tab.is-active {
+  color:$HEX065;
+  border-color:$HEX045;
+}
+.tabs--standalone .hScroller-action:hover {
+  color:$HEX065;
+}
+.tabs--standalone .hScroller-action.hScroller-action--start {
+  background:$HEX039;
+  background:linear-gradient(to right, $HEX039 66%, rgba($RGB039,0) 100%);
+}
+.tabs--standalone .hScroller-action.hScroller-action--end {
+  background:$HEX039;
+  background:linear-gradient(to right, rgba($RGB039,0) 0%, $HEX039 33%);
+}
+.overlay-title {
+  background:$HEX039;
+  background:linear-gradient(0deg, $HEX039, $HEX034);
+}
+.globalAction-bar {
+  background:$HEX060;
+}
+.globalAction-bar:before {
+  box-shadow:0 0 10px 2px $HEX060;
+}
+.globalAction-block i {
+  background-color:$HEX060;
+}
+.dataList-row:hover:not(.dataList-row--noHover):not(.dataList-row--header):not(.is-spHovered),.is-spActive .dataList-row.is-spChecked {
+  background:rgba($RGB039,0.5);
+}
+.is-spActive .dataList-row.is-spHovered {
+  background:rgba($RGB039,0.75);
+}
+.dataList-row.dataList-row--header .dataList-cell {
+  background:rgba($RGB039,0.65);
+}
+.dataList-row.dataList-row--subSection .dataList-cell {
+  background:$HEX039;
+}
+.dataList-row.dataList-row--subSection:hover:not(.dataList-row--noHover) .dataList-cell {
+  background:$HEX039;
+}
+.dataList-row.dataList-row--protected>.dataList-cell:first-child {
+  border-left:3px solid $HEX045;
+}
+.dataList-cell.dataList-cell--alt,.dataList-cell.dataList-cell--action {
+  background:$HEX039;
+}
+.dataList-cell.dataList-cell--highlighted {
+  background:$HEX039;
+}
+.dataList-cell.dataList-cell--action.dataList-cell--alt:hover,.dataList-cell.dataList-cell--link.dataList-cell--alt:hover,.dataList-cell.dataList-cell--action.dataList-cell--action:hover,.dataList-cell.dataList-cell--link.dataList-cell--action:hover {
+  background:$HEX039;
+}
+.dataList-row--footer .dataList-cell {
+  background:$HEX039;
+}
+.quickFilter .js-filterClear {
+  color:$HEX045;
+}
+.quickFilter .js-filterClear:hover {
+  color:$HEX067;
+}
+.contentRow-figureIcon {
+  color:$HEX065;
+}
+.pageNav-jump {
+  background:linear-gradient(0deg, $HEX039, $HEX031);
+  color:$HEX052;
+}
+.pageNav-jump:hover,.pageNav-jump:active {
+  background:$HEX044;
+}
+.pageNav-page {
+  background:linear-gradient(0deg, $HEX039, $HEX031);
+  color:$HEX052;
+}
+.pageNav-page:hover,.pageNav-page:active {
+  background:$HEX044;
+}
+.pageNav-page.pageNav-page--current {
+  background:$HEX014;
+  border:1px solid $HEX037;
+}
+.pageNav-page.pageNav-page--current:hover,.pageNav-page.pageNav-page--current:active {
+  background:$HEX015;
+}
+.pageNavSimple-el.pageNavSimple-el--current {
+  background:$HEX014;
+}
+.pageNavSimple-el.pageNavSimple-el--current:hover,.pageNavSimple-el.pageNavSimple-el--current:active {
+  background:$HEX015;
+}
+.pageNavSimple-el.pageNavSimple-el--prev,.pageNavSimple-el.pageNavSimple-el--next {
+  background:linear-gradient(0deg, $HEX039, $HEX031);
+  color:$HEX052;
+}
+.pageNavSimple-el.pageNavSimple-el--prev:hover,.pageNavSimple-el.pageNavSimple-el--next:hover,.pageNavSimple-el.pageNavSimple-el--prev:active,.pageNavSimple-el.pageNavSimple-el--next:active {
+  background:$HEX044;
+}
+.pageNavSimple-el.pageNavSimple-el--first,.pageNavSimple-el.pageNavSimple-el--last {
+  color:rgba($RGB052,0.6);
+}
+.pageNavSimple-el.pageNavSimple-el--first:hover,.pageNavSimple-el.pageNavSimple-el--last:hover,.pageNavSimple-el.pageNavSimple-el--first:active,.pageNavSimple-el.pageNavSimple-el--last:active {
+  background:$HEX044;
+  color:$HEX052;
+}
+.autoCompleteList {
+  background:$HEX039;
+  border-top:4px solid $HEX045 !important;
+}
+.autoCompleteList li.is-selected {
+  background:$HEX039;
+}
+.tagItem {
+  background:$HEX039;
+}
+.likesBar {
+  background:$HEX039;
+  border-left:2px solid $HEX045;
+}
+.likeIcon:before {
+  color:$HEX065;
+}
+.reactionsBar {
+  background:$HEX039;
+  border-left:2px solid $HEX045;
+}
+.reactionsBar .reactionSummary>li,.message-responseRow .reactionSummary>li {
+  background:$HEX039;
+}
+.actionBar-action.actionBar-action--inlineMod label {
+  color:$HEX052;
+}
+.actionBar-action.actionBar-action--mq.is-selected {
+  background-color:$HEX039;
+  border-color:$HEX045;
+}
+/*
+.label.label--subtle {
+  background:$HEX039;
+  border-color:$HEX056;
+}
+a.label.label--subtle:hover,a:hover .label.label--subtle {
+  background:$HEX046;
+  border-color:$HEX062;
+}
+.label.label--primary {
+  color:$HEX052;
+  background:$HEX039;
+  border-color:$HEX056;
+  border-color:$HEX045;
+}
+a.label.label--primary:hover,a:hover .label.label--primary {
+  background:$HEX046;
+  border-color:$HEX062;
+  border-color:$HEX053;
+}
+.label.label--accent {
+  background:$HEX014;
+  border-color:$HEX019;
+  border-color:$HEX037;
+}
+a.label.label--accent:hover,a:hover .label.label--accent {
+  background:$HEX016;
+  border-color:$HEX021;
+  border-color:$HEX042;
+}
+.label.label--red {
+  border-color:$HEX092;
+}
+a.label.label--red:hover,a:hover .label.label--red {
+  background:$HEX088;
+  border-color:$HEX093;
+}
+.label.label--green {
+  border-color:$HEX011;
+}
+a.label.label--green:hover,a:hover .label.label--green {
+  background:$HEX009;
+  border-color:$HEX012;
+}
+.label.label--olive {
+  border-color:$HEX078;
+}
+a.label.label--olive:hover,a:hover .label.label--olive {
+  background:$HEX076;
+  border-color:$HEX081;
+}
+.label.label--lightGreen {
+  border-color:$HEX089;
+  border-color:$HEX080;
+}
+a.label.label--lightGreen:hover,a:hover .label.label--lightGreen {
+  background:$HEX085;
+  border-color:$HEX083;
+}
+.label.label--blue {
+  border-color:$HEX029;
+}
+a.label.label--blue:hover,a:hover .label.label--blue {
+  background:$HEX001;
+  border-color:$HEX040;
+}
+.label.label--royalBlue {
+  border-color:$HEX069;
+}
+a.label.label--royalBlue:hover,a:hover .label.label--royalBlue {
+  background:$HEX064;
+  border-color:$HEX072;
+}
+.label.label--skyBlue {
+  border-color:$HEX077;
+}
+a.label.label--skyBlue:hover,a:hover .label.label--skyBlue {
+  background:$HEX075;
+  border-color:$HEX079;
+}
+.label.label--yellow {
+  border-color:$HEX099;
+  border-color:$HEX086;
+}
+a.label.label--yellow:hover,a:hover .label.label--yellow {
+  background:$HEX098;
+  border-color:$HEX100;
+  border-color:$HEX087;
+}
+.label.label--orange {
+  border-color:$HEX095;
+}
+a.label.label--orange:hover,a:hover .label.label--orange {
+  background:$HEX094;
+  border-color:$HEX096;
+}
+.label.label--error {
+  border-color:$HEX082;
+}
+a.label.label--error:hover,a:hover .label.label--error {
+  background:$HEX097;
+  border-color:$HEX084;
+}
+*/
+.pika-button {
+  background:$HEX039;
+}
+.is-today .pika-button {
+  color:$HEX065;
+}
+.is-inrange .pika-button,.is-startrange .pika-button,.is-endrange .pika-button {
+  background:$HEX014;
+}
+.is-startrange .pika-button {
+  border-left:2px solid $HEX037;
+}
+.is-endrange .pika-button {
+  border-right:2px solid $HEX037;
+}
+.is-selected .pika-button {
+  background:$HEX065;
+}
+.pika-button:hover {
+  background:$HEX049;
+}
+.reactionScore {
+  background:$HEX039;
+}
+.reaction--1 .reaction-text {
+  color:$HEX052;
+}
+.is-active.tabs-tab--reaction1 {
+  border-color:$HEX052 !important;
+}
+.bbMediaWrapper-fallback {
+  background:$HEX039;
+}
+.bbTable>table>thead>tr>th,.bbTable>table>tbody>tr>th {
+  background:$HEX026;
+  border-bottom-color:$HEX045;
 }
 
 /********* public:extra.less ********/
 .p-body-sidebar .block-container {
-  border-color: $HEX22;
+  border:1px solid $HEX045;
 }
 .is-sticky .p-nav {
-  background: $HEX03;
+  background:$HEX002;
 }
-.structItemContainer-group.structItemContainer-group--sticky-block,
-.structItemContainer-group.structItemContainer-group--normal-block {
-  background: $HEX06;
+.structItemContainer-group.structItemContainer-group--sticky-block,.structItemContainer-group.structItemContainer-group--normal-block {
+  background:$HEX039;
 }
 .notice.notice--primary {
-  background: $HEX26;
-  border-color: $HEX22;
+  background:$HEX017;
+  border:1px solid $HEX014;
 }
 .notice.notice--primary .notice-content {
-  background: $HEX22;
-}
-
-/********* public:node_list.less ********/
-.node-icon i:before {
-  color: $HEX20;
-  text-shadow: 1px 1px 0.5px $RGB46, 0.5);
-}
-.node--unread .node-icon i:before {
-  color: $HEX43;
-  text-shadow: 1px 1px 0.5px rgba(255, 255, 255, 0.5);
-}
-.subNodeLink:before {
-  color: $HEX20;
-  text-shadow: 1px 1px 0 $RGB46, 0.5);
-}
-.subNodeLink.subNodeLink--unread:before {
-  color: $HEX43;
-}
-.subNodeMenu .subNodeLink:hover {
-  background: $HEX06;
-}
-
-.diceRoller_dice_svg .top_face path {
-  fill: $HEX22;
-}
-.diceRoller_dice_svg .back_face path {
-  fill: $HEX22;
-}
-.diceRoller_dice_svg .front_face path {
-  fill: $HEX22;
-}
-
-/********* public:sv_bbcode_tab.less ********/
-.sv-tabs-tab:hover {
-  color: $HEX41;
-}
-.sv-tabs-tab.sv-tabs-tab--active {
-  color: $HEX41;
-  border-color: $HEX22;
-}
-
-/********* public:sv_bbcode_tabs.less ********/
-.sv-tabs .sv-tabs-tabs .sv-tabs-tab:hover {
-  color: $HEX41;
-}
-.sv-tabs .sv-tabs-tabs .sv-tabs-tab--active {
-  color: $HEX41;
-  border-color: $HEX47;
-}
-
-/********* public:sv_bbcode_slider.less ********/
-.swiper-pagination-bullet-active {
-  background: $HEX01;
-}
-.swiper-pagination.swiper-pagination-bullets .swiper-pagination-bullet-active {
-  background: $HEX22;
-}
-.swiper-pagination.swiper-pagination--numeric .swiper-pagination-bullet.swiper-pagination-bullet-active {
-  background: $HEX22;
-}
-
-/********* public:poll.less ********/
-.pollResult.pollResult--showVoters:hover {
-  background: $HEX06;
-}
-.pollResult-bar > i {
-  background: $HEX38;
-}
-.pollResult-voters {
-  background: $HEX06;
+  background:$HEX014;
+  color:$HEX090;
 }
 
 /********* public:member.less ********/
 .memberHeader-main {
-  background: $HEX06;
+  background:$HEX039;
+}
+.memberOverviewBlock-seeMore {
+  background:$HEX039;
+}
+
+/********* public:message.less ********/
+.message.is-mod-selected,.block--messages .message.is-mod-selected {
+  background:$HEX023;
+}
+.message.is-mod-selected .message-cell--user,.block--messages .message.is-mod-selected .message-cell--user {
+  background:$HEX023;
+}
+.message.is-mod-selected .message-userArrow:after,.block--messages .message.is-mod-selected .message-userArrow:after {
+  border-right-color:$HEX023;
+}
+.message-cell.message-cell--user,.message-cell.message-cell--action {
+  background:$HEX039;
+}
+.message-cell.message-cell--alert {
+  background:$HEX014;
+}
+.message-cell.message-cell--extra {
+  background:$HEX039;
+}
+.message-avatar-wrapper .message-avatar-online:before {
+  color:$HEX073;
+  background:$HEX039;
+  border:$HEX039 solid 2px;
+}
+.message:not(.message--forceColumns).is-mod-selected .message-userArrow:after {
+  border-bottom-color:$HEX023;
+}
+.message-attribution-opposite a:hover {
+  color:$HEX052;
+}
+.message-newIndicator {
+  background:$HEX060;
+}
+.message-minorHighlight {
+  color:$HEX065;
+}
+.message-responseRow {
+  background:$HEX039;
+}
+.messageNotice {
+  background:$HEX014;
+  border-left:2px solid $HEX060;
+}
+.messageNotice.messageNotice--highlighted {
+  background:$HEX039;
+  border-left-color:$HEX045;
+}
+.messageNotice.messageNotice--highlighted:before {
+  color:$HEX065;
+}
+
+/********* public:node_list.less ********/
+.node-icon i:before {
+  color:$HEX041;
+}
+.node--unread .node-icon i:before {
+  color:$HEX068;
+}
+.subNodeLink:before {
+  color:$HEX041;
+}
+.subNodeLink.subNodeLink--unread:before {
+  color:$HEX068;
+}
+.subNodeMenu .subNodeLink:hover {
+  background:$HEX039;
+}
+
+/********* public:poll.less ********/
+.pollResult.pollResult--showVoters:hover {
+  background:$HEX039;
+}
+.pollResult-bar>i {
+  background:$HEX060;
+}
+.pollResult-voters {
+  background:$HEX039;
+}
+
+/********* public:select2.less ********/
+.select2 .select2-selection ul>li.select2-selection__choice {
+  background:$HEX039;
+}
+.select2-results__options {
+  background:$HEX039;
+  border-top:4px solid $HEX045 !important;
+}
+.select2-results__options li.is-selected {
+  background:$HEX039;
+}
+.select2-results__option.select2-results__option--highlighted {
+  background:$HEX039;
+}
+
+/********* public:share_controls.less ********/
+.shareInput-button {
+  color:$HEX052;
+}
+
+/********* public:sticky_post.less ********/
+article.message.sticky-container {
+  border-bottom:5px solid $HEX045;
+}
+article.message.sticky-container .message-cell--user {
+  background-color:$HEX039;
+}
+
+/********* public:structured_list.less ********/
+.structItem.is-highlighted,.structItem.is-moderated {
+  background:$HEX039;
+}
+.structItem.is-mod-selected {
+  background:$HEX023;
+}
+.structItem-pageJump a {
+  background:$HEX039;
+}
+.structItem-status--starred::before {
+  color:$HEX037;
+}
+.structItem-status--watched::before {
+  color:$HEX065;
+}
+.structItem.structItem--note {
+  background:$HEX039;
+  color:$HEX065;
+}
+
+/********* public:svESE_autocomplete.less ********/
+.quickSearch-ResultCloser {
+  background:$HEX039;
+  border-top:4px solid $HEX045 !important;
+}
+.quickSearch-ResultCloser li.is-selected {
+  background:$HEX039;
 }
 
 /********* public:svThreadReplyBanner.less ********/
-.thread-reply-banner{
-  background: $HEX06;
+.thread-reply-banner {
+  background:$HEX039;
 }
 
-/********* public:sv_bbcode_accordion.less ********/
-.sv-accordion {
-  border-color: $HEX44
+/********* public:svThreadmarks_macros_content_bar.less ********/
+.block--messages .message-cell--threadmark-header .threadmarkLabel {
+  color:$HEX052;
+  background:$HEX039;
+  border:1px solid $HEX045;
 }
-.sv-accordion dt {
-  border-color: $HEX44;
-  background:linear-gradient(0deg, $HEX03, $HEX13);
+.block--messages .message-cell--threadmark-header .threadmarkLabel--unread {
+  background:$HEX037;
 }
-.sv-accordion dt:hover {
-  background: $HEX38;
+.block--messages .message-cell--threadmark-header .threadmark-control,.block--messages .message-cell--threadmark-footer .threadmark-control {
+  color:$HEX052;
+  border:1px solid $HEX045;
+  background:$HEX039;
 }
-.sv-accordion dt.sv-accordion-slide--active {
-  background:linear-gradient(0deg, $HEX03, $HEX19);
+.block--messages .message-cell--threadmark-header .threadmark-control:hover,.block--messages .message-cell--threadmark-footer .threadmark-control:hover {
+  background:$HEX049;
+  color:$HEX052;
 }
-.sv-accordion dd {
-  border-color: $HEX44;
-  }
 
-/********* public:sv_bbcode_slider.less ********/
-.sv-slider .swiper-pagination.swiper-pagination-bullets .swiper-pagination-bullet-active {
-  background: $HEX22;
+/********* public:svThreadmarks_threadmark_list.less ********/
+.threadmarkListingHeader-main {
+  background:$HEX039;
 }
 
 /********* public:sv_af_account_forum_aggregation.less ********/
 .dataList-row.dataList-row--sv-active {
-  background: $HEX27;
+  background:$HEX014;
 }
 
-/********* Other stuff ********/
+/********* public:sv_bbcode_accordion.less ********/
+.sv-accordion dt {
+  background:linear-gradient(0deg, $HEX002, $HEX004);
+}
+.sv-accordion dt:hover {
+  background:$HEX060;
+}
+.sv-accordion dt.sv-accordion-slide--active {
+  background:linear-gradient(0deg, $HEX002, $HEX005);
+}
+
+/********* public:sv_bbcode_slider.less ********/
+.sv-slider .swiper-pagination.swiper-pagination-bullets .swiper-pagination-bullet-active {
+  background:$HEX014;
+}
+.sv-slider .swiper-pagination.swiper-pagination--numeric .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background:$HEX014;
+}
+.sv-slider .swiper-cmd {
+  color:$HEX014;
+}
+.sv-slider .swiper-button-prev {
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'rgb($RGB014)'%2F%3E%3C%2Fsvg%3E");
+}
+.sv-slider .swiper-button-next {
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'rgb($RGB014)'%2F%3E%3C%2Fsvg%3E");
+}
+
+/********* public:sv_bbcode_tabs.less ********/
+.sv-tabs .sv-tabs-tabs {
+  background:$HEX039;
+}
+.sv-tabs .sv-tabs-tabs .sv-tabs-tab:hover {
+  color:$HEX065;
+}
+.sv-tabs .sv-tabs-tabs .sv-tabs-tab--active {
+  color:$HEX065;
+  border-color:$HEX045;
+}
+
+/********* Things that I didn't spot the location of ********/
 .memberTooltip-header {
-  background: $HEX06;
+  background:$HEX039;
+}
+</textarea>
+		<textarea id="cssin18" style="display:none">
+/********* public:app.less ********/
+.p-staffBar {
+  color:$HEX094;
+  background:$HEX015;
+  border-bottom:1px solid $HEX050;
+}
+.p-staffBar .hScroller-action {
+  color:$HEX094;
+}
+.p-staffBar .hScroller-action.hScroller-action--start {
+  background:$HEX015;
+  background:linear-gradient(to right, $HEX015 66%, rgba($RGB015,0) 100%);
+}
+.p-staffBar .hScroller-action.hScroller-action--end {
+  background:$HEX015;
+  background:linear-gradient(to right, rgba($RGB015,0) 0%, $HEX015 33%);
+}
+.p-staffBar-link:hover {
+  background:$HEX010;
+}
+.p-header {
+  background:rgba($RGB009,0.4);
+}
+.p-nav {
+  color:$HEX094;
+  background:rgba($RGB009,0.4);
+}
+.p-nav-scroller .hScroller-action {
+  color:$HEX094;
+}
+.p-nav-scroller .hScroller-action.hScroller-action--start {
+  background:rgba($RGB009,0.4);
+  background:linear-gradient(to right, rgba($RGB009,0.4) 66%, rgba(1,27,50,0) 100%);
+}
+.p-nav-scroller .hScroller-action.hScroller-action--end {
+  background:rgba($RGB009,0.4);
+  background:linear-gradient(to right, rgba($RGB009,0) 0%, rgba(1,27,50,0.4) 33%);
+}
+.p-nav-list .p-navEl {
+  color:$HEX094;
+}
+.p-nav-list .p-navEl.is-selected {
+  color:$HEX094;
+  background:$HEX015;
+  border:1px solid $HEX050;
+  background:linear-gradient(to bottom, $HEX023 0%, $HEX018 20%, $HEX015 100%);
+}
+.p-nav-list .p-navEl:not(.is-selected):not(.is-menuOpen):hover,.p-nav-list .p-navEl:not(.is-selected):not(.is-menuOpen) .p-navEl-link:hover,.p-nav-list .p-navEl:not(.is-selected):not(.is-menuOpen) .p-navEl-splitTrigger:hover {
+  background:rgba($RGB094,0.06);
+}
+.p-nav-list .p-navEl.is-menuOpen {
+  color:$HEX094;
+  background:rgba($RGB001,0.5);
+}
+.p-navSticky--primary.is-sticky .p-nav-list .p-navEl.is-selected .p-navEl-splitTrigger:before {
+  border-left:1px solid rgba($RGB094,0.35);
+}
+.p-navgroup-link.is-menuOpen {
+  color:$HEX094;
+  background:rgba($RGB001,0.5);
+}
+.p-sectionLinks {
+  color:$HEX094;
+  background:rgba($RGB015,0.9);
+}
+.p-sectionLinks .hScroller-action {
+  color:$HEX094;
+}
+.p-sectionLinks .hScroller-action.hScroller-action--start {
+  background:rgba($RGB015,0.9);
+  background:linear-gradient(to right, rgba($RGB015,0.9) 66%, rgba(4,38,74,0) 100%);
+}
+.p-sectionLinks .hScroller-action.hScroller-action--end {
+  background:rgba($RGB015,0.9);
+  background:linear-gradient(to right, rgba($RGB015,0) 0%, rgba(4,38,74,0.9) 33%);
+}
+.p-sectionLinks-list .p-navEl:hover {
+  border:1px solid $HEX050;
+}
+.p-sectionLinks-list .p-navEl.is-menuOpen {
+  background:rgba($RGB001,0.65);
+}
+.p-footer {
+  color:$HEX094;
+  background:rgba($RGB009,0.4);
+  border-top:1px solid $HEX050;
+}
+.p-footer a {
+  color:$HEX094;
+}
+.p-footer-linkList>li a:hover {
+  background-color:rgba($RGB094,0.1);
+}
+.inlineModButton-count {
+  background:$HEX015;
+  border:1px solid $HEX040;
+}
+.inlineModBar {
+  background:$HEX015;
+  border-bottom:1px solid $HEX062;
+}
+.userBanner.userBanner--staff,.userBanner.userBanner--primary {
+  color:$HEX042;
+  background:$HEX034;
+  border-color:$HEX046;
+  border-color:$HEX050;
+}
+.userBanner.userBanner--accent {
+  background:$HEX015;
+  border-color:$HEX020;
+  border-color:$HEX040;
+}
+.userBanner.userBanner--red {
+  border-color:$HEX095;
+}
+.userBanner.userBanner--green {
+  border-color:$HEX007;
+}
+.userBanner.userBanner--olive {
+  border-color:$HEX082;
+}
+.userBanner.userBanner--lightGreen {
+  border-color:$HEX093;
+  border-color:$HEX084;
+}
+.userBanner.userBanner--blue {
+  border-color:$HEX031;
+}
+.userBanner.userBanner--royalBlue {
+  border-color:$HEX073;
+}
+.userBanner.userBanner--skyBlue {
+  border-color:$HEX081;
+}
+.userBanner.userBanner--yellow {
+  border-color:$HEX103;
+  border-color:$HEX090;
+}
+.userBanner.userBanner--orange {
+  border-color:$HEX099;
+}
+
+/********* public:bb_code.less ********/
+.bbCodeBlock {
+  border-left:3px solid $HEX015;
+}
+.bbCodeBlock--selfQuote .bbCodeBlock-title {
+  background:$HEX012;
+}
+.bbCodeBlock-title {
+  color:$HEX094;
+  background:$HEX015;
+  background:linear-gradient(to bottom, $HEX023 0%, $HEX018 20%, $HEX015 100%);
+}
+.bbCodeBlock--unfurl {
+  background:$HEX034;
+  border-left:2px solid $HEX050;
+}
+.bbCodeInline {
+  background:$HEX043;
+}
+
+/********* public:core.less ********/
+a {
+  color:$HEX042;
+}
+a:hover {
+  color:$HEX042;
+}
+a.u-concealed:hover .fa,.u-concealed a:hover .fa {
+  color:$HEX042;
+}
+a.u-concealed--icon:hover .fa,.u-concealed--icon a:hover .fa {
+  color:$HEX042;
+}
+.u-featuredText {
+  color:$HEX069;
+}
+.categoryList-header {
+  color:$HEX069;
+}
+.block-header {
+  color:$HEX094;
+  background:rgba($RGB013,0.7);
+}
+.block-header .block-desc {
+  color:rgba($RGB094,0.7);
+}
+.block-minorHeader {
+  color:$HEX094;
+  background:rgba($RGB009,0.4);
+  border-bottom:1px solid $HEX050;
+}
+.block-tabHeader {
+  color:$HEX043;
+  background:$HEX015;
+}
+.block-tabHeader .tabs-tab.is-active {
+  border-color:$HEX043;
+}
+.block-tabHeader .hScroller-action {
+  color:$HEX043;
+}
+.block-tabHeader .hScroller-action.hScroller-action--start {
+  background:$HEX015;
+  background:linear-gradient(to right, $HEX015 66%, rgba($RGB015,0) 100%);
+}
+.block-tabHeader .hScroller-action.hScroller-action--end {
+  background:$HEX015;
+  background:linear-gradient(to right, rgba($RGB015,0) 0%, $HEX015 33%);
+}
+.block-minorTabHeader .tabs-tab:hover {
+  color:$HEX069;
+}
+.block-minorTabHeader .tabs-tab.is-active {
+  color:$HEX069;
+  border-color:$HEX069;
+}
+.block-minorTabHeader .hScroller-action:hover {
+  color:$HEX069;
+}
+.block-filterBar {
+  background:$HEX034;
+  background:linear-gradient(0deg, rgba($RGB009,0.4), rgba($RGB011,0.4));
+}
+.block-filterBar .filterBar-filterToggle {
+  background:$HEX045;
+}
+.block-filterBar .filterBar-filterToggle:hover,.block-filterBar .filterBar-menuTrigger:hover {
+  background:$HEX060;
+}
+.block-formSectionHeader {
+  color:$HEX069;
+}
+.block-row.block-row--alt {
+  background:$HEX043;
+}
+.block-row.block-row--highlighted {
+  background:$HEX034;
+}
+.block-row.block-row--clickable:hover {
+  background:$HEX034;
+}
+.block-row.is-mod-selected {
+  background:rgba($RGB019,0.9825);
+}
+.block-footer {
+  background:$HEX043;
+  background:linear-gradient(180deg, $HEX043, rgba($RGB032,0.975));
+}
+.block-rowMessage.block-rowMessage--highlight {
+  background:$HEX034;
+}
+.block-rowMessage.block-rowMessage--important {
+  background:$HEX015;
+  border-left:3px solid $HEX064;
+}
+.blockMessage.blockMessage--highlight {
+  background:$HEX034;
+}
+.blockMessage.blockMessage--important {
+  background:$HEX015;
+  border-left:3px solid $HEX064;
+}
+.blockStatus {
+  background:$HEX043;
+  border-left:3px solid $HEX064;
+}
+.blockStatus.blockStatus--info {
+  border-left-color:$HEX050;
+}
+.blockLink.is-selected {
+  background:$HEX034;
+  border-left:3px solid $HEX050;
+}
+.blockLink:hover {
+  background:$HEX034;
+}
+.blockLinkSplitToggle.is-selected {
+  background:$HEX034;
+}
+.blockLinkSplitToggle:hover {
+  background:$HEX034;
+}
+.blockLinkSplitToggle.is-selected .blockLinkSplitToggle-link {
+  border-left:3px solid $HEX050;
+}
+.button.button--provider--nfDiscord,a.button.button--provider--nfDiscord {
+  border-color:$HEX070 $HEX078 #869adf #5e78d5;
+}
+.button.button--provider--nfDiscord.button--splitTrigger>.button-text,a.button.button--provider--nfDiscord.button--splitTrigger>.button-text {
+  border-right-color:$HEX078;
+}
+.button.button--provider--nfDiscord.button--splitTrigger>.button-menu,a.button.button--provider--nfDiscord.button--splitTrigger>.button-menu {
+  border-left-color:$HEX070;
+}
+.button.button--provider--nfDiscord:hover,a.button.button--provider--nfDiscord:hover,.button.button--provider--nfDiscord:active,a.button.button--provider--nfDiscord:active,.button.button--provider--nfDiscord:focus,a.button.button--provider--nfDiscord:focus {
+  background-color:$HEX074;
+}
+.button,a.button {
+  color:$HEX094;
+  background:$HEX050;
+  border-color:$HEX041 $HEX059 #385876 #283e54;
+}
+.button.button--splitTrigger>.button-text,a.button.button--splitTrigger>.button-text {
+  border-right-color:$HEX059;
+}
+.button.button--splitTrigger>.button-menu,a.button.button--splitTrigger>.button-menu {
+  border-left-color:$HEX041;
+}
+.button:not(.button--splitTrigger):hover,a.button:not(.button--splitTrigger):hover,.button.button--splitTrigger>.button-text:hover,a.button.button--splitTrigger>.button-text:hover,.button.button--splitTrigger>.button-menu:hover,a.button.button--splitTrigger>.button-menu:hover,.button:not(.button--splitTrigger):focus,a.button:not(.button--splitTrigger):focus,.button.button--splitTrigger>.button-text:focus,a.button.button--splitTrigger>.button-text:focus,.button.button--splitTrigger>.button-menu:focus,a.button.button--splitTrigger>.button-menu:focus,.button:not(.button--splitTrigger):active,a.button:not(.button--splitTrigger):active,.button.button--splitTrigger>.button-text:active,a.button.button--splitTrigger>.button-text:active,.button.button--splitTrigger>.button-menu:active,a.button.button--splitTrigger>.button-menu:active {
+  background-color:$HEX049;
+}
+.button.button--primary,a.button.button--primary {
+  color:$HEX094;
+  background:$HEX050;
+  border-color:$HEX041 $HEX059 #385876 #283e54;
+}
+.button.button--primary.button--splitTrigger>.button-text,a.button.button--primary.button--splitTrigger>.button-text {
+  border-right-color:$HEX059;
+}
+.button.button--primary.button--splitTrigger>.button-menu,a.button.button--primary.button--splitTrigger>.button-menu {
+  border-left-color:$HEX041;
+}
+.button.button--primary:not(.button--splitTrigger):hover,a.button.button--primary:not(.button--splitTrigger):hover,.button.button--primary.button--splitTrigger>.button-text:hover,a.button.button--primary.button--splitTrigger>.button-text:hover,.button.button--primary.button--splitTrigger>.button-menu:hover,a.button.button--primary.button--splitTrigger>.button-menu:hover,.button.button--primary:not(.button--splitTrigger):focus,a.button.button--primary:not(.button--splitTrigger):focus,.button.button--primary.button--splitTrigger>.button-text:focus,a.button.button--primary.button--splitTrigger>.button-text:focus,.button.button--primary.button--splitTrigger>.button-menu:focus,a.button.button--primary.button--splitTrigger>.button-menu:focus,.button.button--primary:not(.button--splitTrigger):active,a.button.button--primary:not(.button--splitTrigger):active,.button.button--primary.button--splitTrigger>.button-text:active,a.button.button--primary.button--splitTrigger>.button-text:active,.button.button--primary.button--splitTrigger>.button-menu:active,a.button.button--primary.button--splitTrigger>.button-menu:active {
+  background-color:$HEX049;
+}
+.button.button--cta,a.button.button--cta {
+  color:$HEX094;
+  background:$HEX050;
+  border-color:$HEX041 $HEX059 #385876 #283e54;
+}
+.button.button--cta.button--splitTrigger>.button-text,a.button.button--cta.button--splitTrigger>.button-text {
+  border-right-color:$HEX059;
+}
+.button.button--cta.button--splitTrigger>.button-menu,a.button.button--cta.button--splitTrigger>.button-menu {
+  border-left-color:$HEX041;
+}
+.button.button--cta:not(.button--splitTrigger):hover,a.button.button--cta:not(.button--splitTrigger):hover,.button.button--cta.button--splitTrigger>.button-text:hover,a.button.button--cta.button--splitTrigger>.button-text:hover,.button.button--cta.button--splitTrigger>.button-menu:hover,a.button.button--cta.button--splitTrigger>.button-menu:hover,.button.button--cta:not(.button--splitTrigger):focus,a.button.button--cta:not(.button--splitTrigger):focus,.button.button--cta.button--splitTrigger>.button-text:focus,a.button.button--cta.button--splitTrigger>.button-text:focus,.button.button--cta.button--splitTrigger>.button-menu:focus,a.button.button--cta.button--splitTrigger>.button-menu:focus,.button.button--cta:not(.button--splitTrigger):active,a.button.button--cta:not(.button--splitTrigger):active,.button.button--cta.button--splitTrigger>.button-text:active,a.button.button--cta.button--splitTrigger>.button-text:active,.button.button--cta.button--splitTrigger>.button-menu:active,a.button.button--cta.button--splitTrigger>.button-menu:active {
+  background-color:$HEX049;
+}
+.button.button--link,a.button.button--link {
+  color:$HEX042;
+}
+.button.button--link:hover,a.button.button--link:hover,.button.button--link:active,a.button.button--link:active,.button.button--link:focus,a.button.button--link:focus {
+  background:$HEX034;
+}
+.button.button--plain,a.button.button--plain {
+  color:$HEX042;
+}
+.button.button--alt,a.button.button--alt {
+  background-color:$HEX029;
+  color:$HEX042;
+  border-color:$HEX035 $HEX055 #353b3e #1d2122;
+}
+.button.button--alt.button--splitTrigger>.button-text,a.button.button--alt.button--splitTrigger>.button-text {
+  border-right-color:$HEX055;
+}
+.button.button--alt.button--splitTrigger>.button-menu,a.button.button--alt.button--splitTrigger>.button-menu {
+  border-left-color:$HEX035;
+}
+.button.button--alt:hover,a.button.button--alt:hover,.button.button--alt:active,a.button.button--alt:active,.button.button--alt:focus,a.button.button--alt:focus {
+  background-color:$HEX029;
+  color:$HEX042;
+}
+.button.button--scroll,a.button.button--scroll {
+  background:rgba($RGB050,0.75);
+}
+.button.button--provider--facebook,a.button.button--provider--facebook {
+  border-color:$HEX054 $HEX063 #4264aa #344e86;
+}
+.button.button--provider--facebook.button--splitTrigger>.button-text,a.button.button--provider--facebook.button--splitTrigger>.button-text {
+  border-right-color:$HEX063;
+}
+.button.button--provider--facebook.button--splitTrigger>.button-menu,a.button.button--provider--facebook.button--splitTrigger>.button-menu {
+  border-left-color:$HEX054;
+}
+.button.button--provider--facebook:hover,a.button.button--provider--facebook:hover,.button.button--provider--facebook:active,a.button.button--provider--facebook:active,.button.button--provider--facebook:focus,a.button.button--provider--facebook:focus {
+  background-color:$HEX053;
+}
+.button.button--provider--twitter,a.button.button--provider--twitter {
+  border-color:$HEX024 $HEX056 #35abf4 #0c95ea;
+}
+.button.button--provider--twitter.button--splitTrigger>.button-text,a.button.button--provider--twitter.button--splitTrigger>.button-text {
+  border-right-color:$HEX056;
+}
+.button.button--provider--twitter.button--splitTrigger>.button-menu,a.button.button--provider--twitter.button--splitTrigger>.button-menu {
+  border-left-color:$HEX024;
+}
+.button.button--provider--twitter:hover,a.button.button--provider--twitter:hover,.button.button--provider--twitter:active,a.button.button--provider--twitter:active,.button.button--provider--twitter:focus,a.button.button--provider--twitter:focus {
+  background-color:$HEX039;
+}
+.button.button--provider--github:hover,a.button.button--provider--github:hover,.button.button--provider--github:active,a.button.button--provider--github:active,.button.button--provider--github:focus,a.button.button--provider--github:focus {
+  background-color:$HEX075;
+}
+.button.button--provider--linkedin,a.button.button--provider--linkedin {
+  border-color:$HEX002 $HEX004 #0088cf #00669c;
+}
+.button.button--provider--linkedin.button--splitTrigger>.button-text,a.button.button--provider--linkedin.button--splitTrigger>.button-text {
+  border-right-color:$HEX004;
+}
+.button.button--provider--linkedin.button--splitTrigger>.button-menu,a.button.button--provider--linkedin.button--splitTrigger>.button-menu {
+  border-left-color:$HEX002;
+}
+.button.button--provider--linkedin:hover,a.button.button--provider--linkedin:hover,.button.button--provider--linkedin:active,a.button.button--provider--linkedin:active,.button.button--provider--linkedin:focus,a.button.button--provider--linkedin:focus {
+  background-color:$HEX003;
+}
+.button.button--provider--microsoft,a.button.button--provider--microsoft {
+  border-color:$HEX006 $HEX025 #0dc9ff #00a8d9;
+}
+.button.button--provider--microsoft.button--splitTrigger>.button-text,a.button.button--provider--microsoft.button--splitTrigger>.button-text {
+  border-right-color:$HEX025;
+}
+.button.button--provider--microsoft.button--splitTrigger>.button-menu,a.button.button--provider--microsoft.button--splitTrigger>.button-menu {
+  border-left-color:$HEX006;
+}
+.button.button--provider--microsoft:hover,a.button.button--provider--microsoft:hover,.button.button--provider--microsoft:active,a.button.button--provider--microsoft:active,.button.button--provider--microsoft:focus,a.button.button--provider--microsoft:focus {
+  background-color:$HEX021;
+}
+.button.button--provider--yahoo,a.button.button--provider--yahoo {
+  border-color:$HEX057 $HEX067 #4c00ac #36007a;
+}
+.button.button--provider--yahoo.button--splitTrigger>.button-text,a.button.button--provider--yahoo.button--splitTrigger>.button-text {
+  border-right-color:$HEX067;
+}
+.button.button--provider--yahoo.button--splitTrigger>.button-menu,a.button.button--provider--yahoo.button--splitTrigger>.button-menu {
+  border-left-color:$HEX057;
+}
+.button.button--provider--yahoo:hover,a.button.button--provider--yahoo:hover,.button.button--provider--yahoo:active,a.button.button--provider--yahoo:active,.button.button--provider--yahoo:focus,a.button.button--provider--yahoo:focus {
+  background-color:$HEX065;
+}
+.toggleButton>input:checked+span {
+  color:$HEX094;
+  background:$HEX050;
+  border-color:$HEX041 $HEX059 #385876 #283e54;
+}
+.toggleButton>input:checked+span.button--splitTrigger>.button-text {
+  border-right-color:$HEX059;
+}
+.toggleButton>input:checked+span.button--splitTrigger>.button-menu {
+  border-left-color:$HEX041;
+}
+.toggleButton>input:checked+span:not(.button--splitTrigger):hover,.toggleButton>input:checked+span.button--splitTrigger>.button-text:hover,.toggleButton>input:checked+span.button--splitTrigger>.button-menu:hover,.toggleButton>input:checked+span:not(.button--splitTrigger):focus,.toggleButton>input:checked+span.button--splitTrigger>.button-text:focus,.toggleButton>input:checked+span.button--splitTrigger>.button-menu:focus,.toggleButton>input:checked+span:not(.button--splitTrigger):active,.toggleButton>input:checked+span.button--splitTrigger>.button-text:active,.toggleButton>input:checked+span.button--splitTrigger>.button-menu:active {
+  background-color:$HEX049;
+}
+.input {
+  background:rgba($RGB026,0.97);
+}
+.input:focus,.input.is-focused {
+  background:$HEX029;
+}
+.input[readonly],.input.is-readonly {
+  background:rgba($RGB033,0.985);
+}
+.formRow .iconic>i,.inputGroup .iconic>i,.inputChoices .iconic>i,.block-footer .iconic>i,.dataList-cell .iconic>i,.message-cell--extra .iconic>i,.formRow.dataList-cell--fa>a>i,.inputGroup.dataList-cell--fa>a>i,.inputChoices.dataList-cell--fa>a>i,.block-footer.dataList-cell--fa>a>i,.dataList-cell.dataList-cell--fa>a>i,.message-cell--extra.dataList-cell--fa>a>i {
+  color:$HEX050;
+}
+.formRow .iconic:hover>i,.inputGroup .iconic:hover>i,.inputChoices .iconic:hover>i,.block-footer .iconic:hover>i,.dataList-cell .iconic:hover>i,.message-cell--extra .iconic:hover>i,.formRow.dataList-cell--fa>a:hover>i,.inputGroup.dataList-cell--fa>a:hover>i,.inputChoices.dataList-cell--fa>a:hover>i,.block-footer.dataList-cell--fa>a:hover>i,.dataList-cell.dataList-cell--fa>a:hover>i,.message-cell--extra.dataList-cell--fa>a:hover>i {
+  color:$HEX071;
+}
+.inputGroup.inputGroup--joined .inputGroup-text {
+  background:$HEX029;
+}
+.inputNumber-button {
+  color:$HEX050;
+}
+.inputGroup.inputGroup--joined .inputNumber-button:hover,.inputGroup.inputGroup--joined .inputNumber-button:active,.inputGroup.inputGroup--joined .inputNumber-button:focus {
+  background-color:$HEX030;
+  color:$HEX071;
+}
+.input.input--number[readonly]~.inputNumber-button {
+  background:rgba($RGB033,0.985);
+}
+.inputDate .inputDate-icon {
+  color:$HEX042;
+}
+.formRow>dt {
+  background:$HEX043;
+}
+.formRow .formRow-hint .formRow-hint-featured {
+  color:$HEX069;
+}
+.formSubmitRow-bar {
+  background:$HEX034;
+}
+.badge,.badgeContainer:after {
+  background:$HEX015;
+}
+.tooltip--basic .tooltip-content {
+  background:$HEX015;
+}
+.tooltip--basic.tooltip--top .tooltip-arrow {
+  border-top-color:$HEX015;
+}
+.tooltip--basic.tooltip--bottom .tooltip-arrow {
+  border-bottom-color:$HEX015;
+}
+.tooltip--basic.tooltip--right .tooltip-arrow {
+  border-right-color:$HEX015;
+}
+.tooltip--basic.tooltip--left .tooltip-arrow {
+  border-left-color:$HEX015;
+}
+.tooltip--member.tooltip--bottom .tooltip-arrow:after {
+  border-bottom-color:$HEX034;
+}
+.menu-arrow {
+  border-bottom-color:$HEX050;
+}
+.menu-content {
+  background:$HEX043;
+  border-top:4px solid $HEX050 !important;
+  border-top:3px solid $HEX050;
+}
+.menu-header {
+  background:$HEX034;
+}
+.menu-tabHeader {
+  background:$HEX034;
+  background:linear-gradient(0deg, $HEX034, rgba($RGB028,0.975));
+}
+.menu-tabHeader .tabs-tab:hover {
+  color:$HEX069;
+}
+.menu-tabHeader .tabs-tab.is-active {
+  color:$HEX069;
+  border-color:$HEX050;
+}
+.menu-tabHeader .hScroller-action:hover {
+  color:$HEX069;
+}
+.menu-tabHeader .hScroller-action.hScroller-action--start {
+  background:$HEX034;
+  background:linear-gradient(to right, $HEX034 66%, rgba($RGB034,0) 100%);
+}
+.menu-tabHeader .hScroller-action.hScroller-action--end {
+  background:$HEX034;
+  background:linear-gradient(to right, rgba($RGB034,0) 0%, $HEX034 33%);
+}
+.menu-row.menu-row--alt {
+  background:$HEX043;
+}
+.menu-row.menu-row--highlighted {
+  background:$HEX034;
+}
+.menu-row.menu-row--clickable:hover {
+  background:$HEX034;
+}
+.menu-linkRow.menu-linkRow--alt {
+  background:$HEX043;
+}
+.menu-linkRow.is-selected,.menu-linkRow:hover,.menu-linkRow:focus {
+  color:$HEX042;
+  background:$HEX034;
+  border-left-color:rgba($RGB050,0.5);
+}
+.menu-linkRow.is-selected.is-selected,.menu-linkRow:hover.is-selected,.menu-linkRow:focus.is-selected {
+  border-left-color:$HEX050;
+}
+.menu-linkRow:hover i[aria-hidden=true]:after {
+  color:$HEX042;
+}
+.menu-footer {
+  background:$HEX043;
+  background:linear-gradient(180deg, $HEX043, rgba($RGB032,0.975));
+}
+.offCanvasMenu--blocks .offCanvasMenu-header {
+  background:$HEX034;
+}
+.offCanvasMenu--nav .offCanvasMenu-content {
+  color:$HEX094;
+  background:rgba($RGB009,0.4);
+}
+.offCanvasMenu--nav .offCanvasMenu-linkHolder.is-selected {
+  color:$HEX094;
+  background:$HEX015;
+  background:linear-gradient(to bottom, $HEX023 0%, $HEX018 20%, $HEX015 100%);
+}
+.offCanvasMenu--nav .offCanvasMenu-linkHolder.is-selected .offCanvasMenu-link.offCanvasMenu-link--splitToggle:before {
+  border-left-color:rgba($RGB094,0.2);
+}
+.tabs--standalone {
+  background:$HEX043;
+}
+.tabs--standalone .tabs-tab:hover {
+  color:$HEX069;
+}
+.tabs--standalone .tabs-tab.is-active {
+  color:$HEX069;
+  border-color:$HEX050;
+}
+.tabs--standalone .hScroller-action:hover {
+  color:$HEX069;
+}
+.tabs--standalone .hScroller-action.hScroller-action--start {
+  background:$HEX043;
+  background:linear-gradient(to right, $HEX043 66%, rgba($RGB043,0) 100%);
+}
+.tabs--standalone .hScroller-action.hScroller-action--end {
+  background:$HEX043;
+  background:linear-gradient(to right, rgba($RGB043,0) 0%, $HEX043 33%);
+}
+.overlay-title {
+  background:$HEX034;
+  background:linear-gradient(0deg, $HEX034, rgba($RGB028,0.975));
+}
+.globalAction-bar {
+  background:$HEX064;
+}
+.globalAction-bar:before {
+  box-shadow:0 0 10px 2px $HEX064;
+}
+.globalAction-block i {
+  background-color:$HEX064;
+}
+.dataList-row:hover:not(.dataList-row--noHover):not(.dataList-row--header):not(.is-spHovered),.is-spActive .dataList-row.is-spChecked {
+  background:rgba($RGB034,0.5);
+}
+.is-spActive .dataList-row.is-spHovered {
+  background:rgba($RGB034,0.75);
+}
+.dataList-row.dataList-row--header .dataList-cell {
+  background:rgba($RGB034,0.65);
+}
+.dataList-row.dataList-row--subSection .dataList-cell {
+  background:$HEX034;
+}
+.dataList-row.dataList-row--subSection:hover:not(.dataList-row--noHover) .dataList-cell {
+  background:$HEX034;
+}
+.dataList-row.dataList-row--protected>.dataList-cell:first-child {
+  border-left:3px solid $HEX050;
+}
+.dataList-cell.dataList-cell--alt,.dataList-cell.dataList-cell--action {
+  background:$HEX043;
+}
+.dataList-cell.dataList-cell--highlighted {
+  background:$HEX034;
+}
+.dataList-cell.dataList-cell--action.dataList-cell--alt:hover,.dataList-cell.dataList-cell--link.dataList-cell--alt:hover,.dataList-cell.dataList-cell--action.dataList-cell--action:hover,.dataList-cell.dataList-cell--link.dataList-cell--action:hover {
+  background:$HEX034;
+}
+.dataList-row--footer .dataList-cell {
+  background:$HEX043;
+}
+.quickFilter .js-filterClear {
+  color:$HEX050;
+}
+.quickFilter .js-filterClear:hover {
+  color:$HEX071;
+}
+.contentRow-figureIcon {
+  color:$HEX069;
+}
+.pageNav-jump {
+  background:linear-gradient(0deg, $HEX034, rgba($RGB027,0.9625));
+  color:$HEX042;
+}
+.pageNav-jump:hover,.pageNav-jump:active {
+  background:$HEX036;
+}
+.pageNav-page {
+  background:linear-gradient(0deg, $HEX034, rgba($RGB027,0.9625));
+  color:$HEX042;
+}
+.pageNav-page:hover,.pageNav-page:active {
+  background:$HEX036;
+}
+.pageNav-page.pageNav-page--current {
+  background:$HEX015;
+  border:1px solid $HEX040;
+}
+.pageNav-page.pageNav-page--current:hover,.pageNav-page.pageNav-page--current:active {
+  background:$HEX016;
+}
+.pageNavSimple-el.pageNavSimple-el--current {
+  background:$HEX015;
+}
+.pageNavSimple-el.pageNavSimple-el--current:hover,.pageNavSimple-el.pageNavSimple-el--current:active {
+  background:$HEX016;
+}
+.pageNavSimple-el.pageNavSimple-el--prev,.pageNavSimple-el.pageNavSimple-el--next {
+  background:linear-gradient(0deg, $HEX034, rgba($RGB027,0.9625));
+  color:$HEX042;
+}
+.pageNavSimple-el.pageNavSimple-el--prev:hover,.pageNavSimple-el.pageNavSimple-el--next:hover,.pageNavSimple-el.pageNavSimple-el--prev:active,.pageNavSimple-el.pageNavSimple-el--next:active {
+  background:$HEX036;
+}
+.pageNavSimple-el.pageNavSimple-el--first,.pageNavSimple-el.pageNavSimple-el--last {
+  color:rgba($RGB042,0.6);
+}
+.pageNavSimple-el.pageNavSimple-el--first:hover,.pageNavSimple-el.pageNavSimple-el--last:hover,.pageNavSimple-el.pageNavSimple-el--first:active,.pageNavSimple-el.pageNavSimple-el--last:active {
+  background:$HEX036;
+  color:$HEX042;
+}
+.autoCompleteList {
+  background:$HEX043;
+  border-top:4px solid $HEX050 !important;
+}
+.autoCompleteList li.is-selected {
+  background:$HEX034;
+}
+.tagItem {
+  background:$HEX043;
+}
+.likesBar {
+  background:$HEX043;
+  border-left:2px solid $HEX050;
+}
+.likeIcon:before {
+  color:$HEX069;
+}
+.reactionsBar {
+  background:$HEX043;
+  border-left:2px solid $HEX050;
+}
+.reactionsBar .reactionSummary>li,.message-responseRow .reactionSummary>li {
+  background:$HEX043;
+}
+.actionBar-action.actionBar-action--inlineMod label {
+  color:$HEX042;
+}
+.actionBar-action.actionBar-action--mq.is-selected {
+  background-color:$HEX034;
+  border-color:$HEX050;
+}
+/*
+.label.label--subtle {
+  background:$HEX043;
+  border-color:$HEX061;
+}
+a.label.label--subtle:hover,a:hover .label.label--subtle {
+  background:$HEX051;
+  border-color:$HEX066;
+}
+.label.label--primary {
+  color:$HEX042;
+  background:$HEX034;
+  border-color:$HEX046;
+  border-color:$HEX050;
+}
+a.label.label--primary:hover,a:hover .label.label--primary {
+  background:$HEX037;
+  border-color:$HEX052;
+  border-color:$HEX058;
+}
+.label.label--accent {
+  background:$HEX015;
+  border-color:$HEX020;
+  border-color:$HEX040;
+}
+a.label.label--accent:hover,a:hover .label.label--accent {
+  background:$HEX017;
+  border-color:$HEX022;
+  border-color:$HEX048;
+}
+.label.label--red {
+  border-color:$HEX096;
+}
+a.label.label--red:hover,a:hover .label.label--red {
+  background:$HEX092;
+  border-color:$HEX097;
+}
+.label.label--green {
+  border-color:$HEX007;
+}
+a.label.label--green:hover,a:hover .label.label--green {
+  background:$HEX005;
+  border-color:$HEX008;
+}
+.label.label--olive {
+  border-color:$HEX082;
+}
+a.label.label--olive:hover,a:hover .label.label--olive {
+  background:$HEX080;
+  border-color:$HEX085;
+}
+.label.label--lightGreen {
+  border-color:$HEX093;
+  border-color:$HEX084;
+}
+a.label.label--lightGreen:hover,a:hover .label.label--lightGreen {
+  background:$HEX089;
+  border-color:$HEX087;
+}
+.label.label--blue {
+  border-color:$HEX031;
+}
+a.label.label--blue:hover,a:hover .label.label--blue {
+  background:$HEX000;
+  border-color:$HEX044;
+}
+.label.label--royalBlue {
+  border-color:$HEX073;
+}
+a.label.label--royalBlue:hover,a:hover .label.label--royalBlue {
+  background:$HEX068;
+  border-color:$HEX076;
+}
+.label.label--skyBlue {
+  border-color:$HEX081;
+}
+a.label.label--skyBlue:hover,a:hover .label.label--skyBlue {
+  background:$HEX079;
+  border-color:$HEX083;
+}
+.label.label--yellow {
+  border-color:$HEX103;
+  border-color:$HEX090;
+}
+a.label.label--yellow:hover,a:hover .label.label--yellow {
+  background:$HEX102;
+  border-color:$HEX104;
+  border-color:$HEX091;
+}
+.label.label--orange {
+  border-color:$HEX099;
+}
+a.label.label--orange:hover,a:hover .label.label--orange {
+  background:$HEX098;
+  border-color:$HEX100;
+}
+.label.label--error {
+  border-color:$HEX086;
+}
+a.label.label--error:hover,a:hover .label.label--error {
+  background:$HEX101;
+  border-color:$HEX088;
+}
+*/
+.pika-button {
+  background:$HEX034;
+}
+.is-today .pika-button {
+  color:$HEX069;
+}
+.is-inrange .pika-button,.is-startrange .pika-button,.is-endrange .pika-button {
+  background:$HEX015;
+}
+.is-startrange .pika-button {
+  border-left:2px solid $HEX040;
+}
+.is-endrange .pika-button {
+  border-right:2px solid $HEX040;
+}
+.is-selected .pika-button {
+  background:$HEX069;
+}
+.pika-button:hover {
+  background:$HEX038;
+}
+.reactionScore {
+  background:$HEX043;
+}
+.reaction--1 .reaction-text {
+  color:$HEX042;
+}
+.is-active.tabs-tab--reaction1 {
+  border-color:$HEX042 !important;
+}
+.bbMediaWrapper-fallback {
+  background:$HEX043;
+}
+.bbTable>table>thead>tr>th,.bbTable>table>tbody>tr>th {
+  background:$HEX029;
+  border-bottom-color:$HEX050;
+}
+
+/********* public:extra.less ********/
+.p-body-sidebar .block-container {
+  border:1px solid $HEX050;
+}
+.is-sticky .p-nav {
+  background:$HEX001;
+}
+.structItemContainer-group.structItemContainer-group--sticky-block,.structItemContainer-group.structItemContainer-group--normal-block {
+  background:$HEX034;
+}
+.notice.notice--primary {
+  background:$HEX018;
+  border:1px solid $HEX015;
+}
+.notice.notice--primary .notice-content {
+  background:$HEX015;
+  color:$HEX094;
+}
+
+/********* public:member.less ********/
+.memberHeader-main {
+  background:$HEX034;
+}
+.memberOverviewBlock-seeMore {
+  background:$HEX043;
+}
+
+/********* public:message.less ********/
+.message.is-mod-selected,.block--messages .message.is-mod-selected {
+  background:rgba($RGB019,0.9825);
+}
+.message.is-mod-selected .message-cell--user,.block--messages .message.is-mod-selected .message-cell--user {
+  background:rgba($RGB019,0.9825);
+}
+.message.is-mod-selected .message-userArrow:after,.block--messages .message.is-mod-selected .message-userArrow:after {
+  border-right-color:rgba($RGB019,0.9825);
+}
+.message-cell.message-cell--user,.message-cell.message-cell--action {
+  background:$HEX043;
+}
+.message-cell.message-cell--alert {
+  background:$HEX015;
+}
+.message-cell.message-cell--extra {
+  background:$HEX043;
+}
+.message-avatar-wrapper .message-avatar-online:before {
+  color:$HEX077;
+  background:$HEX043;
+  border:$HEX043 solid 2px;
+}
+.message:not(.message--forceColumns).is-mod-selected .message-userArrow:after {
+  border-bottom-color:rgba($RGB019,0.9825);
+}
+.message-attribution-opposite a:hover {
+  color:$HEX042;
+}
+.message-newIndicator {
+  background:$HEX064;
+}
+.message-minorHighlight {
+  color:$HEX069;
+}
+.message-responseRow {
+  background:$HEX043;
+}
+.messageNotice {
+  background:$HEX015;
+  border-left:2px solid $HEX064;
+}
+.messageNotice.messageNotice--highlighted {
+  background:$HEX034;
+  border-left-color:$HEX050;
+}
+.messageNotice.messageNotice--highlighted:before {
+  color:$HEX069;
+}
+
+/********* public:node_list.less ********/
+.node-icon i:before {
+  color:$HEX047;
+}
+.node--unread .node-icon i:before {
+  color:$HEX072;
+}
+.subNodeLink:before {
+  color:$HEX047;
+}
+.subNodeLink.subNodeLink--unread:before {
+  color:$HEX072;
+}
+.subNodeMenu .subNodeLink:hover {
+  background:$HEX034;
+}
+
+/********* public:poll.less ********/
+.pollResult.pollResult--showVoters:hover {
+  background:$HEX034;
+}
+.pollResult-bar>i {
+  background:$HEX064;
+}
+.pollResult-voters {
+  background:$HEX034;
+}
+
+/********* public:select2.less ********/
+.select2 .select2-selection ul>li.select2-selection__choice {
+  background:$HEX043;
+}
+.select2-results__options {
+  background:$HEX043;
+  border-top:4px solid $HEX050 !important;
+}
+.select2-results__options li.is-selected {
+  background:$HEX034;
+}
+.select2-results__option.select2-results__option--highlighted {
+  background:$HEX034;
+}
+
+/********* public:share_controls.less ********/
+.shareInput-button {
+  color:$HEX042;
+}
+
+/********* public:sticky_post.less ********/
+article.message.sticky-container {
+  border-bottom:5px solid $HEX050;
+}
+article.message.sticky-container .message-cell--user {
+  background-color:$HEX034;
+}
+
+/********* public:structured_list.less ********/
+.structItem.is-highlighted,.structItem.is-moderated {
+  background:$HEX034;
+}
+.structItem.is-mod-selected {
+  background:rgba($RGB019,0.9825);
+}
+.structItem-pageJump a {
+  background:$HEX043;
+}
+.structItem-status--starred::before {
+  color:$HEX040;
+}
+.structItem-status--watched::before {
+  color:$HEX069;
+}
+.structItem.structItem--note {
+  background:$HEX034;
+  color:$HEX069;
+}
+
+/********* public:svESE_autocomplete.less ********/
+.quickSearch-ResultCloser {
+  background:$HEX043;
+  border-top:4px solid $HEX050 !important;
+}
+.quickSearch-ResultCloser li.is-selected {
+  background:$HEX034;
+}
+
+/********* public:svThreadReplyBanner.less ********/
+.thread-reply-banner {
+  background:$HEX034;
+}
+
+/********* public:svThreadmarks_macros_content_bar.less ********/
+.block--messages .message-cell--threadmark-header .threadmarkLabel {
+  color:$HEX042;
+  background:$HEX034;
+  border:1px solid $HEX050;
+}
+.block--messages .message-cell--threadmark-header .threadmarkLabel--unread {
+  background:$HEX040;
+}
+.block--messages .message-cell--threadmark-header .threadmark-control,.block--messages .message-cell--threadmark-footer .threadmark-control {
+  color:$HEX042;
+  border:1px solid $HEX050;
+  background:$HEX034;
+}
+.block--messages .message-cell--threadmark-header .threadmark-control:hover,.block--messages .message-cell--threadmark-footer .threadmark-control:hover {
+  background:$HEX038;
+  color:$HEX042;
+}
+
+/********* public:svThreadmarks_threadmark_list.less ********/
+.threadmarkListingHeader-main {
+  background:$HEX034;
+}
+
+/********* public:sv_af_account_forum_aggregation.less ********/
+.dataList-row.dataList-row--sv-active {
+  background:$HEX015;
+}
+
+/********* public:sv_bbcode_accordion.less ********/
+.sv-accordion dt {
+  background:linear-gradient(0deg, rgba($RGB009,0.4), rgba($RGB011,0.4));
+}
+.sv-accordion dt:hover {
+  background:$HEX064;
+}
+.sv-accordion dt.sv-accordion-slide--active {
+  background:linear-gradient(0deg, rgba($RGB009,0.4), rgba($RGB014,0.4));
+}
+
+/********* public:sv_bbcode_slider.less ********/
+.sv-slider .swiper-pagination.swiper-pagination-bullets .swiper-pagination-bullet-active {
+  background:$HEX015;
+}
+.sv-slider .swiper-pagination.swiper-pagination--numeric .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background:$HEX015;
+}
+.sv-slider .swiper-cmd {
+  color:$HEX015;
+}
+.sv-slider .swiper-button-prev {
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'rgb($RGB015)'%2F%3E%3C%2Fsvg%3E");
+}
+.sv-slider .swiper-button-next {
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'rgb($RGB015)'%2F%3E%3C%2Fsvg%3E");
+}
+
+/********* public:sv_bbcode_tabs.less ********/
+.sv-tabs .sv-tabs-tabs {
+  background:$HEX043;
+}
+.sv-tabs .sv-tabs-tabs .sv-tabs-tab:hover {
+  color:$HEX069;
+}
+.sv-tabs .sv-tabs-tabs .sv-tabs-tab--active {
+  color:$HEX069;
+  border-color:$HEX050;
+}
+
+/********* Things that I didn't spot the location of ********/
+.memberTooltip-header {
+  background:rgba($RGB013,0.7);
+}
+</textarea>
+		<textarea id="cssin19" style="display:none">
+/********* public:app.less ********/
+.p-staffBar {
+  color:$HEX018;
+  background:$HEX063;
+  border-bottom:1px solid $HEX043;
+}
+.p-staffBar .hScroller-action {
+  color:$HEX018;
+}
+.p-staffBar .hScroller-action:hover {
+  color:$HEX014;
+}
+.p-staffBar .hScroller-action.hScroller-action--start {
+  background:$HEX063;
+  background:linear-gradient(to right, $HEX063 66%, rgba($RGB063,0) 100%);
+}
+.p-staffBar .hScroller-action.hScroller-action--end {
+  background:$HEX063;
+  background:linear-gradient(to right, rgba($RGB063,0) 0%, $HEX063 33%);
+}
+.p-staffBar-link:hover {
+  background:$HEX078;
+}
+.p-header {
+  background:$HEX092;
+  background:linear-gradient(0deg, $HEX092, $HEX079);
+}
+.p-nav {
+  color:$HEX018;
+  background:$HEX092;
+}
+.p-nav-scroller .hScroller-action {
+  color:$HEX018;
+}
+.p-nav-scroller .hScroller-action:hover {
+  color:$HEX014;
+}
+.p-nav-scroller .hScroller-action.hScroller-action--start {
+  background:$HEX092;
+  background:linear-gradient(to right, $HEX092 66%, rgba($RGB092,0) 100%);
+}
+.p-nav-scroller .hScroller-action.hScroller-action--end {
+  background:$HEX092;
+  background:linear-gradient(to right, rgba($RGB092,0) 0%, $HEX092 33%);
+}
+.p-nav-list .p-navEl {
+  color:$HEX016;
+}
+.p-nav-list .p-navEl.is-selected {
+  color:$HEX018;
+  background:$HEX063;
+  border:1px solid $HEX043;
+  background:linear-gradient(to bottom, $HEX087 0%, $HEX063 60%, #c9d3de 100%);
+}
+.p-nav-list .p-navEl:not(.is-selected):not(.is-menuOpen):hover,.p-nav-list .p-navEl:not(.is-selected):not(.is-menuOpen) .p-navEl-link:hover,.p-nav-list .p-navEl:not(.is-selected):not(.is-menuOpen) .p-navEl-splitTrigger:hover {
+  background:rgba($RGB016,0.06);
+}
+.p-nav-list .p-navEl.is-menuOpen {
+  color:$HEX016;
+  background:rgba($RGB092,0.5);
+}
+.p-navSticky--primary.is-sticky .p-nav-list .p-navEl.is-selected .p-navEl-splitTrigger:before {
+  border-left:1px solid rgba($RGB018,0.35);
+}
+.p-navgroup-link.is-menuOpen {
+  color:$HEX016;
+  background:rgba($RGB092,0.5);
+}
+.p-sectionLinks {
+  color:$HEX016;
+  background:$HEX063;
+}
+.p-sectionLinks .hScroller-action {
+  color:$HEX016;
+}
+.p-sectionLinks .hScroller-action:hover {
+  color:$HEX018;
+}
+.p-sectionLinks .hScroller-action.hScroller-action--start {
+  background:$HEX063;
+  background:linear-gradient(to right, $HEX063 66%, rgba($RGB063,0) 100%);
+}
+.p-sectionLinks .hScroller-action.hScroller-action--end {
+  background:$HEX063;
+  background:linear-gradient(to right, rgba($RGB063,0) 0%, $HEX063 33%);
+}
+.p-sectionLinks-list .p-navEl:hover {
+  color:$HEX018;
+  border:1px solid $HEX043;
+  background-color:$HEX049;
+}
+.p-sectionLinks-list .p-navEl.is-menuOpen {
+  background:rgba($RGB092,0.65);
+}
+.p-footer {
+  color:$HEX018;
+  background:$HEX098;
+  border-top:1px solid $HEX043;
+}
+.p-footer a {
+  color:$HEX018;
+}
+.p-footer-linkList>li a:hover {
+  background-color:rgba($RGB018,0.1);
+}
+.inlineModButton.is-mod-active {
+  color:$HEX061;
+}
+.inlineModButton-count {
+  color:$HEX046;
+  background:$HEX097;
+  border:1px solid $HEX081;
+}
+.inlineModBar {
+  color:$HEX046;
+  background:$HEX097;
+  border-bottom:1px solid $HEX036;
+}
+.userBanner.userBanner--staff,.userBanner.userBanner--primary {
+  color:$HEX018;
+  background:$HEX080;
+  border-color:$HEX055;
+  border-color:$HEX043;
+}
+.userBanner.userBanner--accent {
+  color:$HEX046;
+  background:$HEX097;
+  border-color:$HEX090;
+  border-color:$HEX081;
+}
+.userBanner.userBanner--red {
+  border-color:$HEX045;
+}
+.userBanner.userBanner--green {
+  border-color:$HEX004;
+}
+.userBanner.userBanner--olive {
+  border-color:$HEX029;
+}
+.userBanner.userBanner--lightGreen {
+  border-color:$HEX044;
+  border-color:$HEX057;
+}
+.userBanner.userBanner--blue {
+  border-color:$HEX001;
+}
+.userBanner.userBanner--royalBlue {
+  border-color:$HEX017;
+}
+.userBanner.userBanner--skyBlue {
+  border-color:$HEX030;
+}
+.userBanner.userBanner--yellow {
+  border-color:$HEX108;
+  border-color:$HEX086;
+}
+.userBanner.userBanner--orange {
+  border-color:$HEX066;
+}
+
+/********* public:bb_code.less ********/
+.bbCodeBlock {
+  border-left:3px solid $HEX061;
+}
+.bbCodeBlock-title {
+  color:$HEX061;
+  background:$HEX106;
+}
+.bbCodeBlock-shrinkLink a,.bbCodeBlock-expandLink a {
+  color:$HEX061;
+}
+.bbCodeBlock--unfurl {
+  background:$HEX080;
+  border-left:2px solid $HEX043;
+}
+.bbCodeInline {
+  background:$HEX098;
+}
+
+/********* public:core.less ********/
+a {
+  color:$HEX018;
+}
+a:hover {
+  color:$HEX018;
+}
+a.u-concealed:hover .fa,.u-concealed a:hover .fa {
+  color:$HEX018;
+}
+a.u-concealed--icon:hover .fa,.u-concealed--icon a:hover .fa {
+  color:$HEX018;
+}
+.u-featuredText {
+  color:$HEX046;
+}
+.u-accentText {
+  color:$HEX046;
+}
+.u-accentText a {
+  color:$HEX061;
+}
+.textHighlight.textHighlight--attention {
+  color:$HEX061;
+}
+.categoryList-header {
+  color:$HEX046;
+}
+.block-header {
+  color:$HEX018;
+  background:$HEX080;
+  background:linear-gradient(to bottom, $HEX087 0%, $HEX063 60%, #c9d3de 100%);
+}
+.block-header .block-desc {
+  color:rgba($RGB018,0.7);
+}
+.block-minorHeader {
+  color:$HEX018;
+  background:$HEX098;
+  border-bottom:1px solid $HEX043;
+}
+.block-tabHeader {
+  color:$HEX098;
+  background:$HEX063;
+}
+.block-tabHeader .tabs-tab.is-active {
+  border-color:$HEX098;
+}
+.block-tabHeader .hScroller-action {
+  color:$HEX098;
+}
+.block-tabHeader .hScroller-action.hScroller-action--start {
+  background:$HEX063;
+  background:linear-gradient(to right, $HEX063 66%, rgba($RGB063,0) 100%);
+}
+.block-tabHeader .hScroller-action.hScroller-action--end {
+  background:$HEX063;
+  background:linear-gradient(to right, rgba($RGB063,0) 0%, $HEX063 33%);
+}
+.block-minorTabHeader {
+  color:$HEX043;
+}
+.block-minorTabHeader .tabs-tab:hover {
+  color:$HEX046;
+}
+.block-minorTabHeader .tabs-tab.is-active {
+  color:$HEX046;
+  border-color:$HEX046;
+}
+.block-minorTabHeader .hScroller-action {
+  color:$HEX043;
+}
+.block-minorTabHeader .hScroller-action:hover {
+  color:$HEX046;
+}
+.block-filterBar {
+  color:$HEX043;
+  background:$HEX080;
+  background:linear-gradient(0deg, $HEX092, $HEX079);
+}
+.block-filterBar .filterBar-filterToggle {
+  background:$HEX075;
+}
+.block-filterBar .filterBar-filterToggle:hover,.block-filterBar .filterBar-menuTrigger:hover {
+  background:$HEX073;
+}
+.block-formSectionHeader {
+  color:$HEX046;
+}
+.block-row.block-row--alt {
+  background:$HEX098;
+}
+.block-row.block-row--highlighted {
+  background:$HEX080;
+}
+.block-row.block-row--clickable:hover {
+  background:$HEX080;
+}
+.block-row.is-mod-selected {
+  background:$HEX102;
+}
+.block-footer {
+  background:$HEX098;
+  background:linear-gradient(180deg, $HEX098, $HEX104);
+}
+.block-rowMessage.block-rowMessage--highlight {
+  background:$HEX080;
+}
+.block-rowMessage.block-rowMessage--important {
+  color:$HEX046;
+  background:$HEX097;
+  border-left:3px solid $HEX061;
+}
+.block-rowMessage.block-rowMessage--important a {
+  color:$HEX061;
+}
+.blockMessage.blockMessage--highlight {
+  background:$HEX080;
+}
+.blockMessage.blockMessage--important {
+  color:$HEX046;
+  background:$HEX097;
+  border-left:3px solid $HEX061;
+}
+.blockMessage.blockMessage--important a {
+  color:$HEX061;
+}
+.blockStatus {
+  background:$HEX098;
+  border-left:3px solid $HEX061;
+}
+.blockStatus.blockStatus--info {
+  border-left-color:$HEX043;
+}
+.blockStatus-message:before {
+  color:$HEX061;
+}
+.blockLink.is-selected {
+  background:$HEX080;
+  border-left:3px solid $HEX043;
+}
+.blockLink:hover {
+  background:$HEX080;
+}
+.blockLinkSplitToggle.is-selected {
+  background:$HEX080;
+}
+.blockLinkSplitToggle:hover {
+  background:$HEX080;
+}
+.blockLinkSplitToggle.is-selected .blockLinkSplitToggle-link {
+  border-left:3px solid $HEX043;
+}
+.button.button--provider--nfDiscord,a.button.button--provider--nfDiscord {
+  border-color:$HEX038 $HEX032 #5e78d5 #869adf;
+}
+.button.button--provider--nfDiscord.button--splitTrigger>.button-text,a.button.button--provider--nfDiscord.button--splitTrigger>.button-text {
+  border-right-color:$HEX032;
+}
+.button.button--provider--nfDiscord.button--splitTrigger>.button-menu,a.button.button--provider--nfDiscord.button--splitTrigger>.button-menu {
+  border-left-color:$HEX038;
+}
+.button.button--provider--nfDiscord:hover,a.button.button--provider--nfDiscord:hover,.button.button--provider--nfDiscord:active,a.button.button--provider--nfDiscord:active,.button.button--provider--nfDiscord:focus,a.button.button--provider--nfDiscord:focus {
+  background-color:$HEX031;
+}
+.button,a.button {
+  color:$HEX018;
+  background:$HEX063;
+  border-color:$HEX077 $HEX054 #b9c6d4 #d9e0e8;
+}
+.button.button--splitTrigger>.button-text,a.button.button--splitTrigger>.button-text {
+  border-right-color:$HEX054;
+}
+.button.button--splitTrigger>.button-menu,a.button.button--splitTrigger>.button-menu {
+  border-left-color:$HEX077;
+}
+.button:not(.button--splitTrigger):hover,a.button:not(.button--splitTrigger):hover,.button.button--splitTrigger>.button-text:hover,a.button.button--splitTrigger>.button-text:hover,.button.button--splitTrigger>.button-menu:hover,a.button.button--splitTrigger>.button-menu:hover,.button:not(.button--splitTrigger):focus,a.button:not(.button--splitTrigger):focus,.button.button--splitTrigger>.button-text:focus,a.button.button--splitTrigger>.button-text:focus,.button.button--splitTrigger>.button-menu:focus,a.button.button--splitTrigger>.button-menu:focus,.button:not(.button--splitTrigger):active,a.button:not(.button--splitTrigger):active,.button.button--splitTrigger>.button-text:active,a.button.button--splitTrigger>.button-text:active,.button.button--splitTrigger>.button-menu:active,a.button.button--splitTrigger>.button-menu:active {
+  background-color:$HEX051;
+}
+.button.button--primary,a.button.button--primary {
+  color:$HEX018;
+  background:$HEX092;
+  border-color:#fff $HEX079 #dce5f2 #fff;
+}
+.button.button--primary.button--splitTrigger>.button-text,a.button.button--primary.button--splitTrigger>.button-text {
+  border-right-color:$HEX079;
+}
+.button.button--primary:not(.button--splitTrigger):hover,a.button.button--primary:not(.button--splitTrigger):hover,.button.button--primary.button--splitTrigger>.button-text:hover,a.button.button--primary.button--splitTrigger>.button-text:hover,.button.button--primary.button--splitTrigger>.button-menu:hover,a.button.button--primary.button--splitTrigger>.button-menu:hover,.button.button--primary:not(.button--splitTrigger):focus,a.button.button--primary:not(.button--splitTrigger):focus,.button.button--primary.button--splitTrigger>.button-text:focus,a.button.button--primary.button--splitTrigger>.button-text:focus,.button.button--primary.button--splitTrigger>.button-menu:focus,a.button.button--primary.button--splitTrigger>.button-menu:focus,.button.button--primary:not(.button--splitTrigger):active,a.button.button--primary:not(.button--splitTrigger):active,.button.button--primary.button--splitTrigger>.button-text:active,a.button.button--primary.button--splitTrigger>.button-text:active,.button.button--primary.button--splitTrigger>.button-menu:active,a.button.button--primary.button--splitTrigger>.button-menu:active {
+  background-color:$HEX082;
+}
+.button.button--cta,a.button.button--cta {
+  background:$HEX061;
+  border-color:$HEX070 $HEX059 #c0a164 #ceb788;
+}
+.button.button--cta.button--splitTrigger>.button-text,a.button.button--cta.button--splitTrigger>.button-text {
+  border-right-color:$HEX059;
+}
+.button.button--cta.button--splitTrigger>.button-menu,a.button.button--cta.button--splitTrigger>.button-menu {
+  border-left-color:$HEX070;
+}
+.button.button--cta:not(.button--splitTrigger):hover,a.button.button--cta:not(.button--splitTrigger):hover,.button.button--cta.button--splitTrigger>.button-text:hover,a.button.button--cta.button--splitTrigger>.button-text:hover,.button.button--cta.button--splitTrigger>.button-menu:hover,a.button.button--cta.button--splitTrigger>.button-menu:hover,.button.button--cta:not(.button--splitTrigger):focus,a.button.button--cta:not(.button--splitTrigger):focus,.button.button--cta.button--splitTrigger>.button-text:focus,a.button.button--cta.button--splitTrigger>.button-text:focus,.button.button--cta.button--splitTrigger>.button-menu:focus,a.button.button--cta.button--splitTrigger>.button-menu:focus,.button.button--cta:not(.button--splitTrigger):active,a.button.button--cta:not(.button--splitTrigger):active,.button.button--cta.button--splitTrigger>.button-text:active,a.button.button--cta.button--splitTrigger>.button-text:active,.button.button--cta.button--splitTrigger>.button-menu:active,a.button.button--cta.button--splitTrigger>.button-menu:active {
+  background-color:$HEX069;
+}
+.button.button--link,a.button.button--link {
+  color:$HEX018;
+}
+.button.button--link:hover,a.button.button--link:hover,.button.button--link:active,a.button.button--link:active,.button.button--link:focus,a.button.button--link:focus {
+  background:$HEX080;
+}
+.button.button--plain,a.button.button--plain {
+  color:$HEX018;
+}
+.button.button--alt,a.button.button--alt {
+  background-color:$HEX080;
+  color:$HEX018;
+  border-color:#fff $HEX083 #e1e7f4 #fff;
+}
+.button.button--alt.button--splitTrigger>.button-text,a.button.button--alt.button--splitTrigger>.button-text {
+  border-right-color:$HEX083;
+}
+.button.button--alt:hover,a.button.button--alt:hover,.button.button--alt:active,a.button.button--alt:active,.button.button--alt:focus,a.button.button--alt:focus {
+  background-color:$HEX080;
+  color:$HEX018;
+}
+.button.button--scroll,a.button.button--scroll {
+  background:rgba($RGB063,0.75);
+}
+.button.button--icon--bookmark.is-bookmarked .button-text:before,a.button.button--icon--bookmark.is-bookmarked .button-text:before {
+  color:$HEX061;
+}
+.button.button--provider--facebook,a.button.button--provider--facebook {
+  border-color:$HEX026 $HEX021 #344e86 #4264aa;
+}
+.button.button--provider--facebook.button--splitTrigger>.button-text,a.button.button--provider--facebook.button--splitTrigger>.button-text {
+  border-right-color:$HEX021;
+}
+.button.button--provider--facebook.button--splitTrigger>.button-menu,a.button.button--provider--facebook.button--splitTrigger>.button-menu {
+  border-left-color:$HEX026;
+}
+.button.button--provider--facebook:hover,a.button.button--provider--facebook:hover,.button.button--provider--facebook:active,a.button.button--provider--facebook:active,.button.button--provider--facebook:focus,a.button.button--provider--facebook:focus {
+  background-color:$HEX019;
+}
+.button.button--provider--twitter,a.button.button--provider--twitter {
+  border-color:$HEX022 $HEX012 #0c95ea #35abf4;
+}
+.button.button--provider--twitter.button--splitTrigger>.button-text,a.button.button--provider--twitter.button--splitTrigger>.button-text {
+  border-right-color:$HEX012;
+}
+.button.button--provider--twitter.button--splitTrigger>.button-menu,a.button.button--provider--twitter.button--splitTrigger>.button-menu {
+  border-left-color:$HEX022;
+}
+.button.button--provider--twitter:hover,a.button.button--provider--twitter:hover,.button.button--provider--twitter:active,a.button.button--provider--twitter:active,.button.button--provider--twitter:focus,a.button.button--provider--twitter:focus {
+  background-color:$HEX009;
+}
+.button.button--provider--google:hover,a.button.button--provider--google:hover,.button.button--provider--google:active,a.button.button--provider--google:active,.button.button--provider--google:focus,a.button.button--provider--google:focus {
+  background-color:$HEX099;
+}
+.button.button--provider--github:hover,a.button.button--provider--github:hover,.button.button--provider--github:active,a.button.button--provider--github:active,.button.button--provider--github:focus,a.button.button--provider--github:focus {
+  background-color:$HEX033;
+}
+.button.button--provider--linkedin,a.button.button--provider--linkedin {
+  border-color:$HEX008 $HEX005 #00669c #0088cf;
+}
+.button.button--provider--linkedin.button--splitTrigger>.button-text,a.button.button--provider--linkedin.button--splitTrigger>.button-text {
+  border-right-color:$HEX005;
+}
+.button.button--provider--linkedin.button--splitTrigger>.button-menu,a.button.button--provider--linkedin.button--splitTrigger>.button-menu {
+  border-left-color:$HEX008;
+}
+.button.button--provider--linkedin:hover,a.button.button--provider--linkedin:hover,.button.button--provider--linkedin:active,a.button.button--provider--linkedin:active,.button.button--provider--linkedin:focus,a.button.button--provider--linkedin:focus {
+  background-color:$HEX006;
+}
+.button.button--provider--microsoft,a.button.button--provider--microsoft {
+  border-color:$HEX013 $HEX010 #00a8d9 #0dc9ff;
+}
+.button.button--provider--microsoft.button--splitTrigger>.button-text,a.button.button--provider--microsoft.button--splitTrigger>.button-text {
+  border-right-color:$HEX010;
+}
+.button.button--provider--microsoft.button--splitTrigger>.button-menu,a.button.button--provider--microsoft.button--splitTrigger>.button-menu {
+  border-left-color:$HEX013;
+}
+.button.button--provider--microsoft:hover,a.button.button--provider--microsoft:hover,.button.button--provider--microsoft:active,a.button.button--provider--microsoft:active,.button.button--provider--microsoft:focus,a.button.button--provider--microsoft:focus {
+  background-color:$HEX011;
+}
+.button.button--provider--yahoo,a.button.button--provider--yahoo {
+  border-color:$HEX028 $HEX023 #36007a #4c00ac;
+}
+.button.button--provider--yahoo.button--splitTrigger>.button-text,a.button.button--provider--yahoo.button--splitTrigger>.button-text {
+  border-right-color:$HEX023;
+}
+.button.button--provider--yahoo.button--splitTrigger>.button-menu,a.button.button--provider--yahoo.button--splitTrigger>.button-menu {
+  border-left-color:$HEX028;
+}
+.button.button--provider--yahoo:hover,a.button.button--provider--yahoo:hover,.button.button--provider--yahoo:active,a.button.button--provider--yahoo:active,.button.button--provider--yahoo:focus,a.button.button--provider--yahoo:focus {
+  background-color:$HEX024;
+}
+.toggleButton>input:checked+span {
+  color:$HEX018;
+  background:$HEX063;
+  border-color:$HEX077 $HEX054 #b9c6d4 #d9e0e8;
+}
+.toggleButton>input:checked+span.button--splitTrigger>.button-text {
+  border-right-color:$HEX054;
+}
+.toggleButton>input:checked+span.button--splitTrigger>.button-menu {
+  border-left-color:$HEX077;
+}
+.toggleButton>input:checked+span:not(.button--splitTrigger):hover,.toggleButton>input:checked+span.button--splitTrigger>.button-text:hover,.toggleButton>input:checked+span.button--splitTrigger>.button-menu:hover,.toggleButton>input:checked+span:not(.button--splitTrigger):focus,.toggleButton>input:checked+span.button--splitTrigger>.button-text:focus,.toggleButton>input:checked+span.button--splitTrigger>.button-menu:focus,.toggleButton>input:checked+span:not(.button--splitTrigger):active,.toggleButton>input:checked+span.button--splitTrigger>.button-text:active,.toggleButton>input:checked+span.button--splitTrigger>.button-menu:active {
+  background-color:$HEX051;
+}
+.input {
+  background:$HEX094;
+}
+.input:focus,.input.is-focused {
+  background:$HEX080;
+}
+.input[readonly],.input.is-readonly {
+  background:$HEX093;
+}
+.formRow .iconic>i,.inputGroup .iconic>i,.inputChoices .iconic>i,.block-footer .iconic>i,.dataList-cell .iconic>i,.message-cell--extra .iconic>i,.formRow.dataList-cell--fa>a>i,.inputGroup.dataList-cell--fa>a>i,.inputChoices.dataList-cell--fa>a>i,.block-footer.dataList-cell--fa>a>i,.dataList-cell.dataList-cell--fa>a>i,.message-cell--extra.dataList-cell--fa>a>i {
+  color:$HEX092;
+}
+.formRow .iconic:hover>i,.inputGroup .iconic:hover>i,.inputChoices .iconic:hover>i,.block-footer .iconic:hover>i,.dataList-cell .iconic:hover>i,.message-cell--extra .iconic:hover>i,.formRow.dataList-cell--fa>a:hover>i,.inputGroup.dataList-cell--fa>a:hover>i,.inputChoices.dataList-cell--fa>a:hover>i,.block-footer.dataList-cell--fa>a:hover>i,.dataList-cell.dataList-cell--fa>a:hover>i,.message-cell--extra.dataList-cell--fa>a:hover>i {
+  color:$HEX041;
+}
+.inputGroup.inputGroup--joined .inputGroup-text {
+  background:$HEX080;
+}
+.inputNumber-button {
+  color:$HEX092;
+}
+.inputGroup.inputGroup--joined .inputNumber-button:hover,.inputGroup.inputGroup--joined .inputNumber-button:active,.inputGroup.inputGroup--joined .inputNumber-button:focus {
+  background-color:$HEX065;
+  color:$HEX041;
+}
+.input.input--number[readonly]~.inputNumber-button {
+  background:$HEX093;
+}
+.inputDate .inputDate-icon {
+  color:$HEX018;
+}
+.formRow>dt {
+  background:$HEX098;
+}
+.formRow .formRow-hint .formRow-hint-featured {
+  color:$HEX046;
+}
+.formSubmitRow-bar {
+  background:$HEX080;
+}
+.formRowSep {
+}
+.badge,.badgeContainer:after {
+  color:$HEX046;
+  background:$HEX097;
+}
+.tooltip--member.tooltip--bottom .tooltip-arrow:after {
+  border-bottom-color:$HEX080;
+}
+.menu-arrow {
+  border-bottom-color:$HEX043;
+}
+.menu-content {
+  background:$HEX098;
+  border-top:4px solid $HEX043 !important;
+  border-top:3px solid $HEX043;
+}
+.menu-header {
+  background:$HEX080;
+}
+.menu-tabHeader {
+  color:$HEX043;
+  background:$HEX080;
+  background:linear-gradient(0deg, $HEX080, $HEX091);
+}
+.menu-tabHeader .tabs-tab:hover {
+  color:$HEX046;
+}
+.menu-tabHeader .tabs-tab.is-active {
+  color:$HEX046;
+  border-color:$HEX043;
+}
+.menu-tabHeader .hScroller-action {
+  color:$HEX043;
+}
+.menu-tabHeader .hScroller-action:hover {
+  color:$HEX046;
+}
+.menu-tabHeader .hScroller-action.hScroller-action--start {
+  background:$HEX080;
+  background:linear-gradient(to right, $HEX080 66%, rgba($RGB080,0) 100%);
+}
+.menu-tabHeader .hScroller-action.hScroller-action--end {
+  background:$HEX080;
+  background:linear-gradient(to right, rgba($RGB080,0) 0%, $HEX080 33%);
+}
+.menu-row.menu-row--alt {
+  background:$HEX098;
+}
+.menu-row.menu-row--highlighted {
+  background:$HEX080;
+}
+.menu-row.menu-row--clickable:hover {
+  background:$HEX080;
+}
+.menu-linkRow.menu-linkRow--alt {
+  background:$HEX098;
+}
+.menu-linkRow.is-selected,.menu-linkRow:hover,.menu-linkRow:focus {
+  color:$HEX018;
+  background:$HEX080;
+  border-left-color:rgba($RGB043,0.5);
+}
+.menu-linkRow.is-selected.is-selected,.menu-linkRow:hover.is-selected,.menu-linkRow:focus.is-selected {
+  border-left-color:$HEX043;
+}
+.menu-linkRow:hover i[aria-hidden=true]:after {
+  color:$HEX018;
+}
+.menu-footer {
+  background:$HEX098;
+  background:linear-gradient(180deg, $HEX098, $HEX104);
+}
+.offCanvasMenu--blocks .offCanvasMenu-header {
+  color:$HEX043;
+  background:$HEX080;
+}
+.offCanvasMenu--nav .offCanvasMenu-content {
+  color:$HEX018;
+  background:$HEX092;
+}
+.offCanvasMenu--nav .offCanvasMenu-linkHolder.is-selected {
+  color:$HEX018;
+  background:$HEX063;
+  background:linear-gradient(to bottom, $HEX087 0%, $HEX063 60%, #c9d3de 100%);
+}
+.offCanvasMenu--nav .offCanvasMenu-linkHolder.is-selected .offCanvasMenu-link.offCanvasMenu-link--splitToggle:before {
+  border-left-color:rgba($RGB018,0.2);
+}
+.tabs--standalone {
+  background:$HEX098;
+}
+.tabs--standalone .tabs-tab:hover {
+  color:$HEX046;
+}
+.tabs--standalone .tabs-tab.is-active {
+  color:$HEX046;
+  border-color:$HEX043;
+}
+.tabs--standalone .hScroller-action:hover {
+  color:$HEX046;
+}
+.tabs--standalone .hScroller-action.hScroller-action--start {
+  background:$HEX098;
+  background:linear-gradient(to right, $HEX098 66%, rgba($RGB098,0) 100%);
+}
+.tabs--standalone .hScroller-action.hScroller-action--end {
+  background:$HEX098;
+  background:linear-gradient(to right, rgba($RGB098,0) 0%, $HEX098 33%);
+}
+.overlay-title {
+  color:$HEX043;
+  background:$HEX080;
+  background:linear-gradient(0deg, $HEX080, $HEX091);
+}
+.globalAction-bar {
+  background:$HEX061;
+}
+.globalAction-bar:before {
+  box-shadow:0 0 10px 2px $HEX061;
+}
+.globalAction-block i {
+  background-color:$HEX061;
+}
+.dataList-row:hover:not(.dataList-row--noHover):not(.dataList-row--header):not(.is-spHovered),.is-spActive .dataList-row.is-spChecked {
+  background:rgba($RGB080,0.5);
+}
+.is-spActive .dataList-row.is-spHovered {
+  background:rgba($RGB080,0.75);
+}
+.dataList-row.dataList-row--header .dataList-cell {
+  color:$HEX043;
+  background:rgba($RGB080,0.65);
+}
+.dataList-row.dataList-row--subSection .dataList-cell {
+  color:$HEX043;
+  background:$HEX080;
+}
+.dataList-row.dataList-row--subSection:hover:not(.dataList-row--noHover) .dataList-cell {
+  background:$HEX080;
+}
+.dataList-row.dataList-row--protected>.dataList-cell:first-child {
+  border-left:3px solid $HEX043;
+}
+.dataList-cell.dataList-cell--alt,.dataList-cell.dataList-cell--action {
+  background:$HEX098;
+}
+.dataList-cell.dataList-cell--highlighted {
+  background:$HEX080;
+}
+.dataList-cell.dataList-cell--action.dataList-cell--alt:hover,.dataList-cell.dataList-cell--link.dataList-cell--alt:hover,.dataList-cell.dataList-cell--action.dataList-cell--action:hover,.dataList-cell.dataList-cell--link.dataList-cell--action:hover {
+  background:$HEX080;
+}
+.dataList-row--footer .dataList-cell {
+  background:$HEX098;
+}
+.quickFilter .js-filterClear {
+  color:$HEX092;
+}
+.quickFilter .js-filterClear:hover {
+  color:$HEX041;
+}
+.contentRow-figureIcon {
+  color:$HEX046;
+}
+.pageNav-jump {
+  background:linear-gradient(0deg, $HEX080, $HEX100);
+  color:$HEX018;
+}
+.pageNav-jump:hover,.pageNav-jump:active {
+  background:$HEX074;
+}
+.pageNav-page {
+  background:linear-gradient(0deg, $HEX080, $HEX100);
+  color:$HEX018;
+}
+.pageNav-page:hover,.pageNav-page:active {
+  background:$HEX074;
+}
+.pageNav-page.pageNav-page--current {
+  background:$HEX097;
+  color:$HEX046;
+  border:1px solid $HEX081;
+}
+.pageNav-page.pageNav-page--current:hover,.pageNav-page.pageNav-page--current:active {
+  background:$HEX096;
+}
+.pageNavSimple-el.pageNavSimple-el--current {
+  color:$HEX046;
+  background:$HEX097;
+}
+.pageNavSimple-el.pageNavSimple-el--current:hover,.pageNavSimple-el.pageNavSimple-el--current:active {
+  background:$HEX096;
+}
+.pageNavSimple-el.pageNavSimple-el--prev,.pageNavSimple-el.pageNavSimple-el--next {
+  background:linear-gradient(0deg, $HEX080, $HEX100);
+  color:$HEX018;
+}
+.pageNavSimple-el.pageNavSimple-el--prev:hover,.pageNavSimple-el.pageNavSimple-el--next:hover,.pageNavSimple-el.pageNavSimple-el--prev:active,.pageNavSimple-el.pageNavSimple-el--next:active {
+  background:$HEX074;
+}
+.pageNavSimple-el.pageNavSimple-el--first,.pageNavSimple-el.pageNavSimple-el--last {
+  color:rgba($RGB018,0.6);
+}
+.pageNavSimple-el.pageNavSimple-el--first:hover,.pageNavSimple-el.pageNavSimple-el--last:hover,.pageNavSimple-el.pageNavSimple-el--first:active,.pageNavSimple-el.pageNavSimple-el--last:active {
+  background:$HEX074;
+  color:$HEX018;
+}
+.autoCompleteList {
+  background:$HEX098;
+  border-top:4px solid $HEX043 !important;
+}
+.autoCompleteList li.is-selected {
+  background:$HEX080;
+}
+.tagItem {
+  background:$HEX098;
+}
+.likesBar {
+  background:$HEX098;
+  border-left:2px solid $HEX043;
+}
+.likeIcon:before {
+  color:$HEX046;
+}
+.reactionsBar {
+  background:$HEX098;
+  border-left:2px solid $HEX043;
+}
+.reactionsBar .reactionSummary>li,.message-responseRow .reactionSummary>li {
+  background:$HEX098;
+}
+.bookmarkLink.bookmarkLink--highlightable.is-bookmarked {
+  color:$HEX061;
+}
+.bookmarkLink.bookmarkLink--highlightable.is-bookmarked:hover {
+  color:$HEX046;
+}
+.actionBar-action.actionBar-action--inlineMod label {
+  color:$HEX018;
+}
+.actionBar-action.actionBar-action--mq.is-selected {
+  background-color:$HEX080;
+  border-color:$HEX043;
+}
+/*
+.label.label--subtle {
+  background:$HEX098;
+  border-color:$HEX071;
+}
+a.label.label--subtle:hover,a:hover .label.label--subtle {
+  background:$HEX085;
+  border-color:$HEX060;
+}
+.label.label--primary {
+  color:$HEX018;
+  background:$HEX080;
+  border-color:$HEX055;
+  border-color:$HEX043;
+}
+a.label.label--primary:hover,a:hover .label.label--primary {
+  background:$HEX072;
+  border-color:$HEX047;
+  border-color:$HEX039;
+}
+.label.label--accent {
+  color:$HEX046;
+  background:$HEX097;
+  border-color:$HEX090;
+  border-color:$HEX081;
+}
+a.label.label--accent:hover,a:hover .label.label--accent {
+  background:$HEX095;
+  border-color:$HEX089;
+  border-color:$HEX076;
+}
+.label.label--red {
+  border-color:$HEX048;
+}
+a.label.label--red:hover,a:hover .label.label--red {
+  background:$HEX068;
+  border-color:$HEX042;
+}
+.label.label--green {
+  border-color:$HEX004;
+}
+a.label.label--green:hover,a:hover .label.label--green {
+  background:$HEX007;
+  border-color:$HEX003;
+}
+.label.label--olive {
+  border-color:$HEX029;
+}
+a.label.label--olive:hover,a:hover .label.label--olive {
+  background:$HEX034;
+  border-color:$HEX025;
+}
+.label.label--lightGreen {
+  border-color:$HEX044;
+  border-color:$HEX057;
+}
+a.label.label--lightGreen:hover,a:hover .label.label--lightGreen {
+  background:$HEX056;
+  border-color:$HEX040;
+  border-color:$HEX050;
+}
+.label.label--blue {
+  border-color:$HEX001;
+}
+a.label.label--blue:hover,a:hover .label.label--blue {
+  background:$HEX002;
+  border-color:$HEX000;
+}
+.label.label--royalBlue {
+  border-color:$HEX017;
+}
+a.label.label--royalBlue:hover,a:hover .label.label--royalBlue {
+  background:$HEX020;
+  border-color:$HEX015;
+}
+.label.label--skyBlue {
+  border-color:$HEX030;
+}
+a.label.label--skyBlue:hover,a:hover .label.label--skyBlue {
+  background:$HEX035;
+  border-color:$HEX027;
+}
+.label.label--yellow {
+  border-color:$HEX108;
+  border-color:$HEX086;
+}
+a.label.label--yellow:hover,a:hover .label.label--yellow {
+  background:$HEX109;
+  border-color:$HEX107;
+  border-color:$HEX084;
+}
+.label.label--orange {
+  border-color:$HEX066;
+}
+a.label.label--orange:hover,a:hover .label.label--orange {
+  background:$HEX088;
+  border-color:$HEX053;
+}
+.label.label--error {
+  border-color:$HEX103;
+  border-color:$HEX062;
+}
+a.label.label--error:hover,a:hover .label.label--error {
+  background:$HEX105;
+  border-color:$HEX101;
+  border-color:$HEX058;
+}
+*/
+.pika-label {
+  color:$HEX043;
+}
+.pika-prev,.pika-next {
+  color:$HEX043;
+}
+.pika-table th {
+  color:$HEX043;
+}
+.pika-button {
+  background:$HEX080;
+}
+.is-today .pika-button {
+  color:$HEX046;
+}
+.is-inrange .pika-button,.is-startrange .pika-button,.is-endrange .pika-button {
+  color:$HEX046;
+  background:$HEX097;
+}
+.is-startrange .pika-button {
+  border-left:2px solid $HEX081;
+}
+.is-endrange .pika-button {
+  border-right:2px solid $HEX081;
+}
+.is-selected .pika-button {
+  background:$HEX046;
+}
+.pika-button:hover {
+  background:$HEX067;
+}
+.pika-week {
+  color:$HEX043;
+}
+.reactionScore {
+  background:$HEX098;
+}
+.reaction--1 .reaction-text {
+  color:$HEX018;
+}
+.is-active.tabs-tab--reaction1 {
+  border-color:$HEX018 !important;
+}
+.bbMediaWrapper-fallback {
+  background:$HEX098;
+}
+.bbTable>table>thead>tr>th,.bbTable>table>tbody>tr>th {
+  background:$HEX080;
+  border-bottom-color:$HEX043;
+}
+
+/********* public:extra.less ********/
+.p-body-sidebar .block-container {
+  border:1px solid $HEX043;
+}
+.is-sticky .p-nav {
+  background:$HEX092;
+}
+.structItemContainer-group.structItemContainer-group--sticky-block,.structItemContainer-group.structItemContainer-group--normal-block {
+  background:$HEX080;
+}
+.notice.notice--primary {
+  background:$HEX054;
+  border:1px solid $HEX063;
+}
+.notice.notice--primary .notice-content {
+  background:$HEX063;
+  color:$HEX018;
+}
+
+/********* public:member.less ********/
+.memberHeader-main {
+  background:$HEX080;
+}
+.memberHeader-name {
+  color:$HEX043;
+}
+.memberOverviewBlock-seeMore {
+  background:$HEX098;
+}
+
+/********* public:message.less ********/
+.message.is-mod-selected,.block--messages .message.is-mod-selected {
+  background:$HEX102;
+}
+.message.is-mod-selected .message-cell--user,.block--messages .message.is-mod-selected .message-cell--user {
+  background:$HEX102;
+}
+.message.is-mod-selected .message-userArrow:after,.block--messages .message.is-mod-selected .message-userArrow:after {
+  border-right-color:$HEX102;
+}
+.message-cell.message-cell--user,.message-cell.message-cell--action {
+  background:$HEX098;
+}
+.message-cell.message-cell--alert {
+  color:$HEX046;
+  background:$HEX097;
+}
+.message-cell.message-cell--alert a {
+  color:$HEX061;
+}
+.message-cell.message-cell--extra {
+  background:$HEX098;
+}
+.message-avatar-wrapper .message-avatar-online:before {
+  color:$HEX037;
+  background:$HEX098;
+  border:$HEX098 solid 2px;
+}
+.message:not(.message--forceColumns).is-mod-selected .message-userArrow:after {
+  border-bottom-color:$HEX102;
+}
+.message-attribution-opposite a:hover {
+  color:$HEX018;
+}
+.message-newIndicator {
+  background:$HEX061;
+}
+.message-minorHighlight {
+  color:$HEX046;
+}
+.message-responseRow {
+  background:$HEX098;
+}
+.messageNotice {
+  color:$HEX046;
+  background:$HEX097;
+  border-left:2px solid $HEX061;
+}
+.messageNotice:not(.messageNotice--highlighted) a,.messageNotice:not(.messageNotice--highlighted) a:hover {
+  color:$HEX061;
+}
+.messageNotice:before {
+  color:$HEX061;
+}
+.messageNotice.messageNotice--highlighted {
+  background:$HEX080;
+  border-left-color:$HEX043;
+}
+.messageNotice.messageNotice--highlighted:before {
+  color:$HEX046;
+}
+
+/********* public:node_list.less ********/
+.node-icon i:before {
+  color:$HEX063;
+}
+.node--unread .node-icon i:before {
+  color:$HEX081;
+}
+.subNodeLink:before {
+  color:$HEX063;
+}
+.subNodeLink.subNodeLink--unread:before {
+  color:$HEX081;
+}
+.subNodeMenu .subNodeLink:hover {
+  background:$HEX080;
+}
+
+/********* public:poll.less ********/
+.pollResult.pollResult--showVoters:hover {
+  background:$HEX080;
+}
+.pollResult--voted .pollResult-response:before {
+  color:$HEX061;
+}
+.pollResult-bar>i {
+  background:$HEX061;
+}
+.pollResult-voters {
+  background:$HEX080;
+}
+
+/********* public:select2.less ********/
+.select2 .select2-selection ul>li.select2-selection__choice {
+  background:$HEX098;
+}
+.select2-results__options {
+  background:$HEX098;
+  border-top:4px solid $HEX043 !important;
+}
+.select2-results__options li.is-selected {
+  background:$HEX080;
+}
+.select2-results__option.select2-results__option--highlighted {
+  background:$HEX080;
+}
+
+/********* public:share_controls.less ********/
+.shareInput-button {
+  color:$HEX018;
+}
+
+/********* public:sticky_post.less ********/
+article.message.sticky-container {
+  border-bottom:5px solid $HEX043;
+}
+article.message.sticky-container .message-cell--user {
+  background-color:$HEX080;
+}
+
+/********* public:structured_list.less ********/
+.structItem.is-highlighted,.structItem.is-moderated {
+  background:$HEX080;
+}
+.structItem.is-mod-selected {
+  background:$HEX102;
+}
+.structItem-pageJump a {
+  background:$HEX098;
+}
+.structItem-status--moderated::before {
+  color:$HEX061;
+}
+.structItem-status--starred::before {
+  color:$HEX081;
+}
+.structItem-status--watched::before {
+  color:$HEX046;
+}
+.structItem-status--attention::before {
+  color:$HEX061;
+}
+.structItem.structItem--note {
+  background:$HEX080;
+  color:$HEX046;
+}
+
+/********* public:svESE_autocomplete.less ********/
+.quickSearch-ResultCloser {
+  background:$HEX098;
+  border-top:4px solid $HEX043 !important;
+}
+.quickSearch-ResultCloser li.is-selected {
+  background:$HEX080;
+}
+
+/********* public:svThreadReplyBanner.less ********/
+.thread-reply-banner {
+  background:$HEX080;
+}
+
+/********* public:svThreadmarks_macros_content_bar.less ********/
+.block--messages .message-cell--threadmark-header .threadmarkLabel {
+  color:$HEX018;
+  background:$HEX080;
+  border:1px solid $HEX043;
+}
+.block--messages .message-cell--threadmark-header .threadmarkLabel--unread {
+  background:$HEX081;
+}
+.block--messages .message-cell--threadmark-header .threadmark-control,.block--messages .message-cell--threadmark-footer .threadmark-control {
+  color:$HEX018;
+  border:1px solid $HEX043;
+  background:$HEX080;
+}
+.block--messages .message-cell--threadmark-header .threadmark-control:hover,.block--messages .message-cell--threadmark-footer .threadmark-control:hover {
+  background:$HEX067;
+  color:$HEX018;
+}
+
+/********* public:svThreadmarks_threadmark_list.less ********/
+.threadmarkListingHeader-main {
+  background:$HEX080;
+}
+.threadmarkListingHeader-name {
+  color:$HEX043;
+}
+
+/********* public:sv_af_account_forum_aggregation.less ********/
+.dataList-row.dataList-row--sv-active {
+  background:$HEX097;
+}
+
+/********* public:sv_bbcode_accordion.less ********/
+.sv-accordion dt {
+  background:linear-gradient(0deg, $HEX092, $HEX064);
+}
+.sv-accordion dt:hover {
+  background:$HEX061;
+}
+.sv-accordion dt.sv-accordion-slide--active {
+  background:linear-gradient(0deg, $HEX092, $HEX052);
+}
+
+/********* public:sv_bbcode_slider.less ********/
+.sv-slider .swiper-pagination.swiper-pagination-bullets .swiper-pagination-bullet-active {
+  background:$HEX063;
+}
+.sv-slider .swiper-pagination.swiper-pagination--numeric .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background:$HEX063;
+}
+.sv-slider .swiper-cmd {
+  color:$HEX063;
+}
+.sv-slider .swiper-button-prev {
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'rgb($RGB063)'%2F%3E%3C%2Fsvg%3E");
+}
+.sv-slider .swiper-button-next {
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'rgb($RGB063)'%2F%3E%3C%2Fsvg%3E");
+}
+
+/********* public:sv_bbcode_tabs.less ********/
+.sv-tabs .sv-tabs-tabs {
+  background:$HEX098;
+}
+.sv-tabs .sv-tabs-tabs .sv-tabs-tab:hover {
+  color:$HEX046;
+}
+.sv-tabs .sv-tabs-tabs .sv-tabs-tab--active {
+  color:$HEX046;
+  border-color:$HEX043;
+}
+
+/********* Things that I didn't spot the location of ********/
+.memberTooltip-header {
+  background:$HEX080;
+}
+</textarea>
+		<textarea id="cssin20" style="display:none">
+/********* public:app.less ********/
+.p-staffBar {
+  color:$HEX085;
+  background:$HEX034;
+  border-bottom:1px solid $HEX035;
+}
+.p-staffBar .hScroller-action {
+  color:$HEX085;
+}
+.p-staffBar .hScroller-action.hScroller-action--start {
+  background:$HEX034;
+  background:linear-gradient(to right, $HEX034 66%, rgba($RGB034,0) 100%);
+}
+.p-staffBar .hScroller-action.hScroller-action--end {
+  background:$HEX034;
+  background:linear-gradient(to right, rgba($RGB034,0) 0%, $HEX034 33%);
+}
+.p-staffBar-link:hover {
+  background:$HEX023;
+}
+.p-header {
+  background:$HEX011;
+  background:linear-gradient(0deg, $HEX011, $HEX022);
+}
+.p-nav {
+  color:$HEX085;
+  background:$HEX011;
+}
+.p-nav-scroller .hScroller-action {
+  color:$HEX085;
+}
+.p-nav-scroller .hScroller-action.hScroller-action--start {
+  background:$HEX011;
+  background:linear-gradient(to right, $HEX011 66%, rgba($RGB011,0) 100%);
+}
+.p-nav-scroller .hScroller-action.hScroller-action--end {
+  background:$HEX011;
+  background:linear-gradient(to right, rgba($RGB011,0) 0%, $HEX011 33%);
+}
+.p-nav-list .p-navEl {
+  color:$HEX085;
+}
+.p-nav-list .p-navEl.is-selected {
+  color:$HEX085;
+  background:$HEX034;
+  border:1px solid $HEX035;
+  background:linear-gradient(to bottom, $HEX053 0%, $HEX043 20%, $HEX034 100%);
+}
+.p-nav-list .p-navEl:not(.is-selected):not(.is-menuOpen):hover,.p-nav-list .p-navEl:not(.is-selected):not(.is-menuOpen) .p-navEl-link:hover,.p-nav-list .p-navEl:not(.is-selected):not(.is-menuOpen) .p-navEl-splitTrigger:hover {
+  background:rgba($RGB085,0.06);
+}
+.p-nav-list .p-navEl.is-menuOpen {
+  color:$HEX085;
+  background:rgba($RGB011,0.5);
+}
+.p-navSticky--primary.is-sticky .p-nav-list .p-navEl.is-selected .p-navEl-splitTrigger:before {
+  border-left:1px solid rgba($RGB085,0.35);
+}
+.p-navgroup-link.is-menuOpen {
+  color:$HEX085;
+  background:rgba($RGB011,0.5);
+}
+.p-sectionLinks {
+  color:$HEX085;
+  background:$HEX034;
+}
+.p-sectionLinks .hScroller-action {
+  color:$HEX085;
+}
+.p-sectionLinks .hScroller-action.hScroller-action--start {
+  background:$HEX034;
+  background:linear-gradient(to right, $HEX034 66%, rgba($RGB034,0) 100%);
+}
+.p-sectionLinks .hScroller-action.hScroller-action--end {
+  background:$HEX034;
+  background:linear-gradient(to right, rgba($RGB034,0) 0%, $HEX034 33%);
+}
+.p-sectionLinks-list .p-navEl:hover {
+  border:1px solid $HEX035;
+  background-color:$HEX047;
+}
+.p-sectionLinks-list .p-navEl.is-menuOpen {
+  background:rgba($RGB011,0.65);
+}
+.p-footer {
+  color:$HEX085;
+  background:$HEX011;
+  border-top:1px solid $HEX035;
+}
+.p-footer a {
+  color:$HEX085;
+}
+.p-footer-linkList>li a:hover {
+  background-color:rgba($RGB085,0.1);
+}
+.inlineModButton-count {
+  background:$HEX045;
+  border:1px solid $HEX051;
+}
+.inlineModBar {
+  background:$HEX045;
+  border-bottom:1px solid $HEX050;
+}
+.userBanner.userBanner--staff,.userBanner.userBanner--primary {
+  color:$HEX026;
+  background:$HEX015;
+  border-color:$HEX031;
+  border-color:$HEX035;
+}
+.userBanner.userBanner--accent {
+  background:$HEX045;
+  border-color:$HEX056;
+  border-color:$HEX051;
+}
+.userBanner.userBanner--red {
+  border-color:$HEX086;
+}
+.userBanner.userBanner--green {
+  border-color:$HEX006;
+}
+.userBanner.userBanner--olive {
+  border-color:$HEX073;
+}
+.userBanner.userBanner--lightGreen {
+  border-color:$HEX084;
+  border-color:$HEX075;
+}
+.userBanner.userBanner--blue {
+  border-color:$HEX014;
+}
+.userBanner.userBanner--royalBlue {
+  border-color:$HEX064;
+}
+.userBanner.userBanner--skyBlue {
+  border-color:$HEX072;
+}
+.userBanner.userBanner--yellow {
+  border-color:$HEX094;
+  border-color:$HEX081;
+}
+.userBanner.userBanner--orange {
+  border-color:$HEX090;
+}
+
+/********* public:bb_code.less ********/
+.bbCodeBlock {
+  border-left:3px solid $HEX055;
+}
+.bbCodeBlock--unfurl {
+  background:$HEX015;
+  border-left:2px solid $HEX035;
+}
+
+/********* public:core.less ********/
+a {
+  color:$HEX026;
+}
+a:hover {
+  color:$HEX026;
+}
+a.u-concealed:hover .fa,.u-concealed a:hover .fa {
+  color:$HEX026;
+}
+a.u-concealed--icon:hover .fa,.u-concealed--icon a:hover .fa {
+  color:$HEX026;
+}
+.u-featuredText {
+  color:$HEX061;
+}
+.categoryList-header {
+  color:$HEX061;
+}
+.block-header {
+  color:$HEX085;
+  background:$HEX015;
+  background:linear-gradient(to bottom, $HEX053 0%, $HEX043 20%, $HEX034 100%);
+}
+.block-header .block-desc {
+  color:rgba($RGB085,0.7);
+}
+.block-minorHeader {
+  color:$HEX085;
+  border-bottom:1px solid $HEX035;
+}
+.block-tabHeader {
+  background:$HEX034;
+}
+.block-tabHeader .hScroller-action.hScroller-action--start {
+  background:$HEX034;
+  background:linear-gradient(to right, $HEX034 66%, rgba($RGB034,0) 100%);
+}
+.block-tabHeader .hScroller-action.hScroller-action--end {
+  background:$HEX034;
+  background:linear-gradient(to right, rgba($RGB034,0) 0%, $HEX034 33%);
+}
+.block-minorTabHeader .tabs-tab:hover {
+  color:$HEX061;
+}
+.block-minorTabHeader .tabs-tab.is-active {
+  color:$HEX061;
+  border-color:$HEX061;
+}
+.block-minorTabHeader .hScroller-action:hover {
+  color:$HEX061;
+}
+.block-filterBar {
+  background:$HEX015;
+  background:linear-gradient(0deg, $HEX011, $HEX022);
+}
+.block-filterBar .filterBar-filterToggle {
+  background:$HEX029;
+}
+.block-filterBar .filterBar-filterToggle:hover,.block-filterBar .filterBar-menuTrigger:hover {
+  background:$HEX046;
+}
+.block-formSectionHeader {
+  color:$HEX061;
+}
+.block-row.block-row--highlighted {
+  background:$HEX015;
+}
+.block-row.block-row--clickable:hover {
+  background:$HEX015;
+}
+.block-row.is-mod-selected {
+  background:$HEX037;
+}
+.block-rowMessage.block-rowMessage--highlight {
+  background:$HEX015;
+}
+.block-rowMessage.block-rowMessage--important {
+  background:$HEX045;
+  border-left:3px solid $HEX055;
+}
+.blockMessage.blockMessage--highlight {
+  background:$HEX015;
+}
+.blockMessage.blockMessage--important {
+  background:$HEX045;
+  border-left:3px solid $HEX055;
+}
+.blockStatus {
+  border-left:3px solid $HEX055;
+}
+.blockStatus.blockStatus--info {
+  border-left-color:$HEX035;
+}
+.blockLink.is-selected {
+  background:$HEX015;
+  border-left:3px solid $HEX035;
+}
+.blockLink:hover {
+  background:$HEX015;
+}
+.blockLinkSplitToggle.is-selected {
+  background:$HEX015;
+}
+.blockLinkSplitToggle:hover {
+  background:$HEX015;
+}
+.blockLinkSplitToggle.is-selected .blockLinkSplitToggle-link {
+  border-left:3px solid $HEX035;
+}
+.button.button--provider--nfDiscord,a.button.button--provider--nfDiscord {
+  border-color:$HEX062 $HEX069 #869adf #5e78d5;
+}
+.button.button--provider--nfDiscord.button--splitTrigger>.button-text,a.button.button--provider--nfDiscord.button--splitTrigger>.button-text {
+  border-right-color:$HEX069;
+}
+.button.button--provider--nfDiscord.button--splitTrigger>.button-menu,a.button.button--provider--nfDiscord.button--splitTrigger>.button-menu {
+  border-left-color:$HEX062;
+}
+.button.button--provider--nfDiscord:hover,a.button.button--provider--nfDiscord:hover,.button.button--provider--nfDiscord:active,a.button.button--provider--nfDiscord:active,.button.button--provider--nfDiscord:focus,a.button.button--provider--nfDiscord:focus {
+  background-color:$HEX065;
+}
+.button,a.button {
+  color:$HEX085;
+  background:$HEX035;
+  border-color:$HEX025 $HEX044 #385876 #283e54;
+}
+.button.button--splitTrigger>.button-text,a.button.button--splitTrigger>.button-text {
+  border-right-color:$HEX044;
+}
+.button.button--splitTrigger>.button-menu,a.button.button--splitTrigger>.button-menu {
+  border-left-color:$HEX025;
+}
+.button:not(.button--splitTrigger):hover,a.button:not(.button--splitTrigger):hover,.button.button--splitTrigger>.button-text:hover,a.button.button--splitTrigger>.button-text:hover,.button.button--splitTrigger>.button-menu:hover,a.button.button--splitTrigger>.button-menu:hover,.button:not(.button--splitTrigger):focus,a.button:not(.button--splitTrigger):focus,.button.button--splitTrigger>.button-text:focus,a.button.button--splitTrigger>.button-text:focus,.button.button--splitTrigger>.button-menu:focus,a.button.button--splitTrigger>.button-menu:focus,.button:not(.button--splitTrigger):active,a.button:not(.button--splitTrigger):active,.button.button--splitTrigger>.button-text:active,a.button.button--splitTrigger>.button-text:active,.button.button--splitTrigger>.button-menu:active,a.button.button--splitTrigger>.button-menu:active {
+  background-color:$HEX033;
+}
+.button.button--primary,a.button.button--primary {
+  color:$HEX085;
+  background:$HEX035;
+  border-color:$HEX025 $HEX044 #385876 #283e54;
+}
+.button.button--primary.button--splitTrigger>.button-text,a.button.button--primary.button--splitTrigger>.button-text {
+  border-right-color:$HEX044;
+}
+.button.button--primary.button--splitTrigger>.button-menu,a.button.button--primary.button--splitTrigger>.button-menu {
+  border-left-color:$HEX025;
+}
+.button.button--primary:not(.button--splitTrigger):hover,a.button.button--primary:not(.button--splitTrigger):hover,.button.button--primary.button--splitTrigger>.button-text:hover,a.button.button--primary.button--splitTrigger>.button-text:hover,.button.button--primary.button--splitTrigger>.button-menu:hover,a.button.button--primary.button--splitTrigger>.button-menu:hover,.button.button--primary:not(.button--splitTrigger):focus,a.button.button--primary:not(.button--splitTrigger):focus,.button.button--primary.button--splitTrigger>.button-text:focus,a.button.button--primary.button--splitTrigger>.button-text:focus,.button.button--primary.button--splitTrigger>.button-menu:focus,a.button.button--primary.button--splitTrigger>.button-menu:focus,.button.button--primary:not(.button--splitTrigger):active,a.button.button--primary:not(.button--splitTrigger):active,.button.button--primary.button--splitTrigger>.button-text:active,a.button.button--primary.button--splitTrigger>.button-text:active,.button.button--primary.button--splitTrigger>.button-menu:active,a.button.button--primary.button--splitTrigger>.button-menu:active {
+  background-color:$HEX033;
+}
+.button.button--cta,a.button.button--cta {
+  color:$HEX085;
+  background:$HEX035;
+  border-color:$HEX025 $HEX044 #385876 #283e54;
+}
+.button.button--cta.button--splitTrigger>.button-text,a.button.button--cta.button--splitTrigger>.button-text {
+  border-right-color:$HEX044;
+}
+.button.button--cta.button--splitTrigger>.button-menu,a.button.button--cta.button--splitTrigger>.button-menu {
+  border-left-color:$HEX025;
+}
+.button.button--cta:not(.button--splitTrigger):hover,a.button.button--cta:not(.button--splitTrigger):hover,.button.button--cta.button--splitTrigger>.button-text:hover,a.button.button--cta.button--splitTrigger>.button-text:hover,.button.button--cta.button--splitTrigger>.button-menu:hover,a.button.button--cta.button--splitTrigger>.button-menu:hover,.button.button--cta:not(.button--splitTrigger):focus,a.button.button--cta:not(.button--splitTrigger):focus,.button.button--cta.button--splitTrigger>.button-text:focus,a.button.button--cta.button--splitTrigger>.button-text:focus,.button.button--cta.button--splitTrigger>.button-menu:focus,a.button.button--cta.button--splitTrigger>.button-menu:focus,.button.button--cta:not(.button--splitTrigger):active,a.button.button--cta:not(.button--splitTrigger):active,.button.button--cta.button--splitTrigger>.button-text:active,a.button.button--cta.button--splitTrigger>.button-text:active,.button.button--cta.button--splitTrigger>.button-menu:active,a.button.button--cta.button--splitTrigger>.button-menu:active {
+  background-color:$HEX033;
+}
+.button.button--link,a.button.button--link {
+  color:$HEX026;
+}
+.button.button--link:hover,a.button.button--link:hover,.button.button--link:active,a.button.button--link:active,.button.button--link:focus,a.button.button--link:focus {
+  background:$HEX015;
+}
+.button.button--plain,a.button.button--plain {
+  color:$HEX026;
+}
+.button.button--alt,a.button.button--alt {
+  background-color:$HEX012;
+  color:$HEX026;
+}
+.button.button--alt:hover,a.button.button--alt:hover,.button.button--alt:active,a.button.button--alt:active,.button.button--alt:focus,a.button.button--alt:focus {
+  background-color:$HEX012;
+  color:$HEX026;
+}
+.button.button--scroll,a.button.button--scroll {
+  background:rgba($RGB035,0.75);
+}
+.button.button--provider--facebook,a.button.button--provider--facebook {
+  border-color:$HEX039 $HEX052 #4264aa #344e86;
+}
+.button.button--provider--facebook.button--splitTrigger>.button-text,a.button.button--provider--facebook.button--splitTrigger>.button-text {
+  border-right-color:$HEX052;
+}
+.button.button--provider--facebook.button--splitTrigger>.button-menu,a.button.button--provider--facebook.button--splitTrigger>.button-menu {
+  border-left-color:$HEX039;
+}
+.button.button--provider--facebook:hover,a.button.button--provider--facebook:hover,.button.button--provider--facebook:active,a.button.button--provider--facebook:active,.button.button--provider--facebook:focus,a.button.button--provider--facebook:focus {
+  background-color:$HEX038;
+}
+.button.button--provider--twitter,a.button.button--provider--twitter {
+  border-color:$HEX009 $HEX040 #35abf4 #0c95ea;
+}
+.button.button--provider--twitter.button--splitTrigger>.button-text,a.button.button--provider--twitter.button--splitTrigger>.button-text {
+  border-right-color:$HEX040;
+}
+.button.button--provider--twitter.button--splitTrigger>.button-menu,a.button.button--provider--twitter.button--splitTrigger>.button-menu {
+  border-left-color:$HEX009;
+}
+.button.button--provider--twitter:hover,a.button.button--provider--twitter:hover,.button.button--provider--twitter:active,a.button.button--provider--twitter:active,.button.button--provider--twitter:focus,a.button.button--provider--twitter:focus {
+  background-color:$HEX024;
+}
+.button.button--provider--github:hover,a.button.button--provider--github:hover,.button.button--provider--github:active,a.button.button--provider--github:active,.button.button--provider--github:focus,a.button.button--provider--github:focus {
+  background-color:$HEX066;
+}
+.button.button--provider--linkedin,a.button.button--provider--linkedin {
+  border-color:$HEX001 $HEX003 #0088cf #00669c;
+}
+.button.button--provider--linkedin.button--splitTrigger>.button-text,a.button.button--provider--linkedin.button--splitTrigger>.button-text {
+  border-right-color:$HEX003;
+}
+.button.button--provider--linkedin.button--splitTrigger>.button-menu,a.button.button--provider--linkedin.button--splitTrigger>.button-menu {
+  border-left-color:$HEX001;
+}
+.button.button--provider--linkedin:hover,a.button.button--provider--linkedin:hover,.button.button--provider--linkedin:active,a.button.button--provider--linkedin:active,.button.button--provider--linkedin:focus,a.button.button--provider--linkedin:focus {
+  background-color:$HEX002;
+}
+.button.button--provider--microsoft,a.button.button--provider--microsoft {
+  border-color:$HEX005 $HEX010 #0dc9ff #00a8d9;
+}
+.button.button--provider--microsoft.button--splitTrigger>.button-text,a.button.button--provider--microsoft.button--splitTrigger>.button-text {
+  border-right-color:$HEX010;
+}
+.button.button--provider--microsoft.button--splitTrigger>.button-menu,a.button.button--provider--microsoft.button--splitTrigger>.button-menu {
+  border-left-color:$HEX005;
+}
+.button.button--provider--microsoft:hover,a.button.button--provider--microsoft:hover,.button.button--provider--microsoft:active,a.button.button--provider--microsoft:active,.button.button--provider--microsoft:focus,a.button.button--provider--microsoft:focus {
+  background-color:$HEX008;
+}
+.button.button--provider--yahoo,a.button.button--provider--yahoo {
+  border-color:$HEX041 $HEX058 #4c00ac #36007a;
+}
+.button.button--provider--yahoo.button--splitTrigger>.button-text,a.button.button--provider--yahoo.button--splitTrigger>.button-text {
+  border-right-color:$HEX058;
+}
+.button.button--provider--yahoo.button--splitTrigger>.button-menu,a.button.button--provider--yahoo.button--splitTrigger>.button-menu {
+  border-left-color:$HEX041;
+}
+.button.button--provider--yahoo:hover,a.button.button--provider--yahoo:hover,.button.button--provider--yahoo:active,a.button.button--provider--yahoo:active,.button.button--provider--yahoo:focus,a.button.button--provider--yahoo:focus {
+  background-color:$HEX057;
+}
+.toggleButton>input:checked+span {
+  color:$HEX085;
+  background:$HEX035;
+  border-color:$HEX025 $HEX044 #385876 #283e54;
+}
+.toggleButton>input:checked+span.button--splitTrigger>.button-text {
+  border-right-color:$HEX044;
+}
+.toggleButton>input:checked+span.button--splitTrigger>.button-menu {
+  border-left-color:$HEX025;
+}
+.toggleButton>input:checked+span:not(.button--splitTrigger):hover,.toggleButton>input:checked+span.button--splitTrigger>.button-text:hover,.toggleButton>input:checked+span.button--splitTrigger>.button-menu:hover,.toggleButton>input:checked+span:not(.button--splitTrigger):focus,.toggleButton>input:checked+span.button--splitTrigger>.button-text:focus,.toggleButton>input:checked+span.button--splitTrigger>.button-menu:focus,.toggleButton>input:checked+span:not(.button--splitTrigger):active,.toggleButton>input:checked+span.button--splitTrigger>.button-text:active,.toggleButton>input:checked+span.button--splitTrigger>.button-menu:active {
+  background-color:$HEX033;
+}
+.input {
+  background:$HEX016;
+}
+.input:focus,.input.is-focused {
+  background:$HEX012;
+}
+.input[readonly],.input.is-readonly {
+  background:$HEX027;
+}
+.formRow .iconic>i,.inputGroup .iconic>i,.inputChoices .iconic>i,.block-footer .iconic>i,.dataList-cell .iconic>i,.message-cell--extra .iconic>i,.formRow.dataList-cell--fa>a>i,.inputGroup.dataList-cell--fa>a>i,.inputChoices.dataList-cell--fa>a>i,.block-footer.dataList-cell--fa>a>i,.dataList-cell.dataList-cell--fa>a>i,.message-cell--extra.dataList-cell--fa>a>i {
+  color:$HEX035;
+}
+.formRow .iconic:hover>i,.inputGroup .iconic:hover>i,.inputChoices .iconic:hover>i,.block-footer .iconic:hover>i,.dataList-cell .iconic:hover>i,.message-cell--extra .iconic:hover>i,.formRow.dataList-cell--fa>a:hover>i,.inputGroup.dataList-cell--fa>a:hover>i,.inputChoices.dataList-cell--fa>a:hover>i,.block-footer.dataList-cell--fa>a:hover>i,.dataList-cell.dataList-cell--fa>a:hover>i,.message-cell--extra.dataList-cell--fa>a:hover>i {
+  color:$HEX063;
+}
+.inputGroup.inputGroup--joined .inputGroup-text {
+  background:$HEX012;
+}
+.inputNumber-button {
+  color:$HEX035;
+}
+.inputGroup.inputGroup--joined .inputNumber-button:hover,.inputGroup.inputGroup--joined .inputNumber-button:active,.inputGroup.inputGroup--joined .inputNumber-button:focus {
+  background-color:$HEX013;
+  color:$HEX063;
+}
+.input.input--number[readonly]~.inputNumber-button {
+  background:$HEX027;
+}
+.inputDate .inputDate-icon {
+  color:$HEX026;
+}
+.formRow .formRow-hint .formRow-hint-featured {
+  color:$HEX061;
+}
+.formSubmitRow-bar {
+  background:$HEX015;
+}
+.badge,.badgeContainer:after {
+  background:$HEX045;
+}
+.tooltip--basic .tooltip-content {
+  background:$HEX045;
+}
+.tooltip--basic.tooltip--top .tooltip-arrow {
+  border-top-color:$HEX045;
+}
+.tooltip--basic.tooltip--bottom .tooltip-arrow {
+  border-bottom-color:$HEX045;
+}
+.tooltip--basic.tooltip--right .tooltip-arrow {
+  border-right-color:$HEX045;
+}
+.tooltip--basic.tooltip--left .tooltip-arrow {
+  border-left-color:$HEX045;
+}
+.tooltip--member.tooltip--bottom .tooltip-arrow:after {
+  border-bottom-color:$HEX015;
+}
+.menu-arrow {
+  border-bottom-color:$HEX035;
+}
+.menu-content {
+  border-top:4px solid $HEX035 !important;
+  border-top:3px solid $HEX035;
+}
+.menu-header {
+  background:$HEX015;
+}
+.menu-tabHeader {
+  background:$HEX015;
+  background:linear-gradient(0deg, $HEX015, $HEX018);
+}
+.menu-tabHeader .tabs-tab:hover {
+  color:$HEX061;
+}
+.menu-tabHeader .tabs-tab.is-active {
+  color:$HEX061;
+  border-color:$HEX035;
+}
+.menu-tabHeader .hScroller-action:hover {
+  color:$HEX061;
+}
+.menu-tabHeader .hScroller-action.hScroller-action--start {
+  background:$HEX015;
+  background:linear-gradient(to right, $HEX015 66%, rgba($RGB015,0) 100%);
+}
+.menu-tabHeader .hScroller-action.hScroller-action--end {
+  background:$HEX015;
+  background:linear-gradient(to right, rgba($RGB015,0) 0%, $HEX015 33%);
+}
+.menu-row.menu-row--highlighted {
+  background:$HEX015;
+}
+.menu-row.menu-row--clickable:hover {
+  background:$HEX015;
+}
+.menu-linkRow.is-selected,.menu-linkRow:hover,.menu-linkRow:focus {
+  color:$HEX026;
+  background:$HEX015;
+  border-left-color:rgba($RGB035,0.5);
+}
+.menu-linkRow.is-selected.is-selected,.menu-linkRow:hover.is-selected,.menu-linkRow:focus.is-selected {
+  border-left-color:$HEX035;
+}
+.menu-linkRow:hover i[aria-hidden=true]:after {
+  color:$HEX026;
+}
+.offCanvasMenu--blocks .offCanvasMenu-header {
+  background:$HEX015;
+}
+.offCanvasMenu--nav .offCanvasMenu-content {
+  color:$HEX085;
+  background:$HEX011;
+}
+.offCanvasMenu--nav .offCanvasMenu-linkHolder.is-selected {
+  color:$HEX085;
+  background:$HEX034;
+  background:linear-gradient(to bottom, $HEX053 0%, $HEX043 20%, $HEX034 100%);
+}
+.offCanvasMenu--nav .offCanvasMenu-linkHolder.is-selected .offCanvasMenu-link.offCanvasMenu-link--splitToggle:before {
+  border-left-color:rgba($RGB085,0.2);
+}
+.tabs--standalone .tabs-tab:hover {
+  color:$HEX061;
+}
+.tabs--standalone .tabs-tab.is-active {
+  color:$HEX061;
+  border-color:$HEX035;
+}
+.tabs--standalone .hScroller-action:hover {
+  color:$HEX061;
+}
+.overlay-title {
+  background:$HEX015;
+  background:linear-gradient(0deg, $HEX015, $HEX018);
+}
+.globalAction-bar {
+  background:$HEX055;
+}
+.globalAction-bar:before {
+  box-shadow:0 0 10px 2px $HEX055;
+}
+.globalAction-block i {
+  background-color:$HEX055;
+}
+.dataList-row:hover:not(.dataList-row--noHover):not(.dataList-row--header):not(.is-spHovered),.is-spActive .dataList-row.is-spChecked {
+  background:rgba($RGB015,0.5);
+}
+.is-spActive .dataList-row.is-spHovered {
+  background:rgba($RGB015,0.75);
+}
+.dataList-row.dataList-row--header .dataList-cell {
+  background:rgba($RGB015,0.65);
+}
+.dataList-row.dataList-row--subSection .dataList-cell {
+  background:$HEX015;
+}
+.dataList-row.dataList-row--subSection:hover:not(.dataList-row--noHover) .dataList-cell {
+  background:$HEX015;
+}
+.dataList-row.dataList-row--protected>.dataList-cell:first-child {
+  border-left:3px solid $HEX035;
+}
+.dataList-cell.dataList-cell--highlighted {
+  background:$HEX015;
+}
+.dataList-cell.dataList-cell--action.dataList-cell--alt:hover,.dataList-cell.dataList-cell--link.dataList-cell--alt:hover,.dataList-cell.dataList-cell--action.dataList-cell--action:hover,.dataList-cell.dataList-cell--link.dataList-cell--action:hover {
+  background:$HEX015;
+}
+.quickFilter .js-filterClear {
+  color:$HEX035;
+}
+.quickFilter .js-filterClear:hover {
+  color:$HEX063;
+}
+.contentRow-figureIcon {
+  color:$HEX061;
+}
+.pageNav-jump {
+  background:linear-gradient(0deg, $HEX015, $HEX021);
+  color:$HEX026;
+}
+.pageNav-jump:hover,.pageNav-jump:active {
+  background:$HEX017;
+}
+.pageNav-page {
+  background:linear-gradient(0deg, $HEX015, $HEX021);
+  color:$HEX026;
+}
+.pageNav-page:hover,.pageNav-page:active {
+  background:$HEX017;
+}
+.pageNav-page.pageNav-page--current {
+  background:$HEX045;
+  border:1px solid $HEX051;
+}
+.pageNav-page.pageNav-page--current:hover,.pageNav-page.pageNav-page--current:active {
+  background:$HEX048;
+}
+.pageNavSimple-el.pageNavSimple-el--current {
+  background:$HEX045;
+}
+.pageNavSimple-el.pageNavSimple-el--current:hover,.pageNavSimple-el.pageNavSimple-el--current:active {
+  background:$HEX048;
+}
+.pageNavSimple-el.pageNavSimple-el--prev,.pageNavSimple-el.pageNavSimple-el--next {
+  background:linear-gradient(0deg, $HEX015, $HEX021);
+  color:$HEX026;
+}
+.pageNavSimple-el.pageNavSimple-el--prev:hover,.pageNavSimple-el.pageNavSimple-el--next:hover,.pageNavSimple-el.pageNavSimple-el--prev:active,.pageNavSimple-el.pageNavSimple-el--next:active {
+  background:$HEX017;
+}
+.pageNavSimple-el.pageNavSimple-el--first,.pageNavSimple-el.pageNavSimple-el--last {
+  color:rgba($RGB026,0.6);
+}
+.pageNavSimple-el.pageNavSimple-el--first:hover,.pageNavSimple-el.pageNavSimple-el--last:hover,.pageNavSimple-el.pageNavSimple-el--first:active,.pageNavSimple-el.pageNavSimple-el--last:active {
+  background:$HEX017;
+  color:$HEX026;
+}
+.autoCompleteList {
+  border-top:4px solid $HEX035 !important;
+}
+.autoCompleteList li.is-selected {
+  background:$HEX015;
+}
+.likesBar {
+  border-left:2px solid $HEX035;
+}
+.likeIcon:before {
+  color:$HEX061;
+}
+.reactionsBar {
+  border-left:2px solid $HEX035;
+}
+.actionBar-action.actionBar-action--inlineMod label {
+  color:$HEX026;
+}
+.actionBar-action.actionBar-action--mq.is-selected {
+  background-color:$HEX015;
+  border-color:$HEX035;
+}
+/*
+.label.label--primary {
+  color:$HEX026;
+  background:$HEX015;
+  border-color:$HEX031;
+  border-color:$HEX035;
+}
+a.label.label--primary:hover,a:hover .label.label--primary {
+  background:$HEX019;
+  border-color:$HEX036;
+  border-color:$HEX042;
+}
+.label.label--accent {
+  background:$HEX045;
+  border-color:$HEX056;
+  border-color:$HEX051;
+}
+a.label.label--accent:hover,a:hover .label.label--accent {
+  background:$HEX049;
+  border-color:$HEX059;
+  border-color:$HEX054;
+}
+.label.label--red {
+  border-color:$HEX087;
+}
+a.label.label--red:hover,a:hover .label.label--red {
+  background:$HEX083;
+  border-color:$HEX088;
+}
+.label.label--green {
+  border-color:$HEX006;
+}
+a.label.label--green:hover,a:hover .label.label--green {
+  background:$HEX004;
+  border-color:$HEX007;
+}
+.label.label--olive {
+  border-color:$HEX073;
+}
+a.label.label--olive:hover,a:hover .label.label--olive {
+  background:$HEX071;
+  border-color:$HEX076;
+}
+.label.label--lightGreen {
+  border-color:$HEX084;
+  border-color:$HEX075;
+}
+a.label.label--lightGreen:hover,a:hover .label.label--lightGreen {
+  background:$HEX080;
+  border-color:$HEX078;
+}
+.label.label--blue {
+  border-color:$HEX014;
+}
+a.label.label--blue:hover,a:hover .label.label--blue {
+  background:$HEX000;
+  border-color:$HEX028;
+}
+.label.label--royalBlue {
+  border-color:$HEX064;
+}
+a.label.label--royalBlue:hover,a:hover .label.label--royalBlue {
+  background:$HEX060;
+  border-color:$HEX067;
+}
+.label.label--skyBlue {
+  border-color:$HEX072;
+}
+a.label.label--skyBlue:hover,a:hover .label.label--skyBlue {
+  background:$HEX070;
+  border-color:$HEX074;
+}
+.label.label--yellow {
+  border-color:$HEX094;
+  border-color:$HEX081;
+}
+a.label.label--yellow:hover,a:hover .label.label--yellow {
+  background:$HEX093;
+  border-color:$HEX095;
+  border-color:$HEX082;
+}
+.label.label--orange {
+  border-color:$HEX090;
+}
+a.label.label--orange:hover,a:hover .label.label--orange {
+  background:$HEX089;
+  border-color:$HEX091;
+}
+.label.label--error {
+  border-color:$HEX077;
+}
+a.label.label--error:hover,a:hover .label.label--error {
+  background:$HEX092;
+  border-color:$HEX079;
+}
+*/
+.pika-button {
+  background:$HEX015;
+}
+.is-today .pika-button {
+  color:$HEX061;
+}
+.is-inrange .pika-button,.is-startrange .pika-button,.is-endrange .pika-button {
+  background:$HEX045;
+}
+.is-startrange .pika-button {
+  border-left:2px solid $HEX051;
+}
+.is-endrange .pika-button {
+  border-right:2px solid $HEX051;
+}
+.is-selected .pika-button {
+  background:$HEX061;
+}
+.pika-button:hover {
+  background:$HEX020;
+}
+.reaction--1 .reaction-text {
+  color:$HEX026;
+}
+.is-active.tabs-tab--reaction1 {
+  border-color:$HEX026 !important;
+}
+.bbTable>table>thead>tr>th,.bbTable>table>tbody>tr>th {
+  background:$HEX012;
+  border-bottom-color:$HEX035;
+}
+
+/********* public:extra.less ********/
+.p-body-sidebar .block-container {
+  border:1px solid $HEX035;
+}
+.is-sticky .p-nav {
+  background:$HEX011;
+}
+.structItemContainer-group.structItemContainer-group--sticky-block,.structItemContainer-group.structItemContainer-group--normal-block {
+  background:$HEX015;
+}
+.notice.notice--primary {
+  background:$HEX043;
+  border:1px solid $HEX034;
+}
+.notice.notice--primary .notice-content {
+  background:$HEX034;
+  color:$HEX085;
+}
+
+/********* public:member.less ********/
+.memberHeader-main {
+  background:$HEX015;
+}
+
+/********* public:message.less ********/
+.message.is-mod-selected,.block--messages .message.is-mod-selected {
+  background:$HEX037;
+}
+.message.is-mod-selected .message-cell--user,.block--messages .message.is-mod-selected .message-cell--user {
+  background:$HEX037;
+}
+.message.is-mod-selected .message-userArrow:after,.block--messages .message.is-mod-selected .message-userArrow:after {
+  border-right-color:$HEX037;
+}
+.message-cell.message-cell--alert {
+  background:$HEX045;
+}
+.message-avatar-wrapper .message-avatar-online:before {
+  color:$HEX068;
+}
+.message:not(.message--forceColumns).is-mod-selected .message-userArrow:after {
+  border-bottom-color:$HEX037;
+}
+.message-attribution-opposite a:hover {
+  color:$HEX026;
+}
+.message-newIndicator {
+  background:$HEX055;
+}
+.message-minorHighlight {
+  color:$HEX061;
+}
+.messageNotice {
+  background:$HEX045;
+  border-left:2px solid $HEX055;
+}
+.messageNotice.messageNotice--highlighted {
+  background:$HEX015;
+  border-left-color:$HEX035;
+}
+.messageNotice.messageNotice--highlighted:before {
+  color:$HEX061;
+}
+
+/********* public:node_list.less ********/
+.node-icon i:before {
+  color:$HEX032;
+}
+.node--unread .node-icon i:before {
+  color:$HEX026;
+}
+.subNodeLink:before {
+  color:$HEX032;
+}
+.subNodeLink.subNodeLink--unread:before {
+  color:$HEX026;
+}
+.subNodeMenu .subNodeLink:hover {
+  background:$HEX015;
+}
+
+/********* public:poll.less ********/
+.pollResult.pollResult--showVoters:hover {
+  background:$HEX015;
+}
+.pollResult-bar>i {
+  background:$HEX055;
+}
+.pollResult-voters {
+  background:$HEX015;
+}
+
+/********* public:select2.less ********/
+.select2-results__options {
+  border-top:4px solid $HEX035 !important;
+}
+.select2-results__options li.is-selected {
+  background:$HEX015;
+}
+.select2-results__option.select2-results__option--highlighted {
+  background:$HEX015;
+}
+
+/********* public:share_controls.less ********/
+.shareInput-button {
+  color:$HEX026;
+}
+
+/********* public:sticky_post.less ********/
+article.message.sticky-container {
+  border-bottom:5px solid $HEX035;
+}
+article.message.sticky-container .message-cell--user {
+  background-color:$HEX015;
+}
+
+/********* public:structured_list.less ********/
+.structItem.is-highlighted,.structItem.is-moderated {
+  background:$HEX015;
+}
+.structItem.is-mod-selected {
+  background:$HEX037;
+}
+.structItem-status--starred::before {
+  color:$HEX051;
+}
+.structItem-status--watched::before {
+  color:$HEX061;
+}
+.structItem.structItem--note {
+  background:$HEX015;
+  color:$HEX061;
+}
+
+/********* public:svESE_autocomplete.less ********/
+.quickSearch-ResultCloser {
+  border-top:4px solid $HEX035 !important;
+}
+.quickSearch-ResultCloser li.is-selected {
+  background:$HEX015;
+}
+
+/********* public:svThreadReplyBanner.less ********/
+.thread-reply-banner {
+  background:$HEX015;
+}
+
+/********* public:svThreadmarks_macros_content_bar.less ********/
+.block--messages .message-cell--threadmark-header .threadmarkLabel {
+  color:$HEX026;
+  background:$HEX015;
+  border:1px solid $HEX035;
+}
+.block--messages .message-cell--threadmark-header .threadmarkLabel--unread {
+  background:$HEX051;
+}
+.block--messages .message-cell--threadmark-header .threadmark-control,.block--messages .message-cell--threadmark-footer .threadmark-control {
+  color:$HEX026;
+  border:1px solid $HEX035;
+  background:$HEX015;
+}
+.block--messages .message-cell--threadmark-header .threadmark-control:hover,.block--messages .message-cell--threadmark-footer .threadmark-control:hover {
+  background:$HEX020;
+  color:$HEX026;
+}
+
+/********* public:svThreadmarks_threadmark_list.less ********/
+.threadmarkListingHeader-main {
+  background:$HEX015;
+}
+
+/********* public:sv_af_account_forum_aggregation.less ********/
+.dataList-row.dataList-row--sv-active {
+  background:$HEX045;
+}
+
+/********* public:sv_bbcode_accordion.less ********/
+.sv-accordion dt {
+  background:linear-gradient(0deg, $HEX011, $HEX022);
+}
+.sv-accordion dt:hover {
+  background:$HEX055;
+}
+.sv-accordion dt.sv-accordion-slide--active {
+  background:linear-gradient(0deg, $HEX011, $HEX030);
+}
+
+/********* public:sv_bbcode_slider.less ********/
+.sv-slider .swiper-pagination.swiper-pagination-bullets .swiper-pagination-bullet-active {
+  background:$HEX034;
+}
+.sv-slider .swiper-pagination.swiper-pagination--numeric .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background:$HEX034;
+}
+.sv-slider .swiper-cmd {
+  color:$HEX034;
+}
+.sv-slider .swiper-button-prev {
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'$HEX034'%2F%3E%3C%2Fsvg%3E");
+}
+.sv-slider .swiper-button-next {
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M27%2C22L27%2C22L5%2C44l-2.1-2.1L22.8%2C22L2.9%2C2.1L5%2C0L27%2C22L27%2C22z'%20fill%3D'$HEX034'%2F%3E%3C%2Fsvg%3E");
+}
+
+/********* public:sv_bbcode_tabs.less ********/
+.sv-tabs .sv-tabs-tabs .sv-tabs-tab:hover {
+  color:$HEX061;
+}
+.sv-tabs .sv-tabs-tabs .sv-tabs-tab--active {
+  color:$HEX061;
+  border-color:$HEX035;
+}
+
+/********* Things that I didn't spot the location of ********/
+.memberTooltip-header {
+  background:$HEX015;
 }
 </textarea>
 	</body>
