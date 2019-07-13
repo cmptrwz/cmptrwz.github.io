@@ -612,6 +612,11 @@ a:hover .label.label--accent {
 .pika-button:hover {
   background: $HEX11;
 }
+.bbTable>table>thead>tr>th,
+.bbTable>table>tbody>tr>th {
+  background: $HEX04;
+  border-bottom-color: $HEX47;
+}
 
 /********* public:app.less ********/
 .p-staffBar {
@@ -1075,6 +1080,15 @@ article.message.sticky-container .message-cell--user {
   border-color: $HEX22;
 }
 
+/********* public:sv_bbcode_tabs.less ********/
+.sv-tabs .sv-tabs-tabs .sv-tabs-tab:hover {
+  color: $HEX41;
+}
+.sv-tabs .sv-tabs-tabs .sv-tabs-tab--active {
+  color: $HEX41;
+  border-color: $HEX47;
+}
+
 /********* public:sv_bbcode_slider.less ********/
 .swiper-pagination-bullet-active {
   background: $HEX01;
@@ -1105,6 +1119,29 @@ article.message.sticky-container .message-cell--user {
 /********* public:svThreadReplyBanner.less ********/
 .thread-reply-banner{
   background: $HEX06;
+}
+
+/********* public:sv_bbcode_accordion.less ********/
+.sv-accordion {
+  border-color: $HEX44
+}
+.sv-accordion dt {
+  border-color: $HEX44;
+  background:linear-gradient(0deg, $HEX03, $HEX13);
+}
+.sv-accordion dt:hover {
+  background: $HEX38;
+}
+.sv-accordion dt.sv-accordion-slide--active {
+  background:linear-gradient(0deg, $HEX03, $HEX19);
+}
+.sv-accordion dd {
+  border-color: $HEX44;
+  }
+
+/********* public:sv_bbcode_slider.less ********/
+.sv-slider .swiper-pagination.swiper-pagination-bullets .swiper-pagination-bullet-active {
+  background: $HEX22;
 }
 
 /********* Other stuff ********/
