@@ -453,7 +453,6 @@ function rotateSVColor() {
 	var cssin = document.getElementById('cssin' + theme);
 	var rotate = Number(document.getElementById('rotdeg').value);
 	var tempcss = cssin.value;
-	tempcss = tempcss.replace(new RegExp('\\$ROTNUM', 'g'), rotate);
 	Object.keys(SVColorSet[theme]).sort().forEach(function(key) {
 		var oldcolor = SVColorSet[theme][key]["w3color"].toHsl();
 		var newcolor = w3color("hsl(" + (oldcolor.h + rotate) + "," + oldcolor.s + "," + oldcolor.l + ")");
@@ -476,5 +475,8 @@ function rotateSVColor() {
 	if (document.getElementById('onlineind').checked) {
 		cssbase += document.getElementById('cssinonlineind').value + "\n";
 	}
-	cssout.value = cssbase + tempcss;
+	cssbase += document.getElementById('cssinbase').value + "\n";
+	cssbase += tempcss;
+	cssbase = cssbase.replace(new RegExp('\\$ROTNUM', 'g'), rotate);
+	cssout.value = cssbase;
 }
