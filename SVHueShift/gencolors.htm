@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>General Color Rotator</title>
+		<script src="w3color.js"></script>
+		<script src="gencolors.js"></script>
+		<style>
+			thead {
+				font-weight: bold;
+				text-align: center;
+			}
+			#colorlist td {
+				height: 1em;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>General Color Rotator</h1>
+		<p>Current Rotation: <input id="rotdeg" type="number" step="1" min="-360" max="360" value="-149"/></p>
+		<p>Colors to change:<br /><textarea rows="10" cols="25" id="colorin"></textarea></p>
+		<p><input type="button" value="Update" onclick="rotateColor()"/></p>
+		<h2>Color Swatches</h2>
+		<table>
+			<thead>
+				<tr><td>Original Code</td><td width="200px">Original Color</td><td>New Code(s)</td><td width="200px">New Color</td></tr>
+			</thead>
+			<tbody id="colorlist"/>
+		</table>
+	</body>
+</html>
