@@ -1,5 +1,8 @@
 // Fandom-specific type
 fantypes["Hybrid Hive"] = {};
+fanfic_urls["Hybrid Hive"] = {
+	SV:"https://forums.sufficientvelocity.com/threads/hybrid-hive-eat-shard-worm-mgln.55056"
+};
 fantypes["Hybrid Hive"].hero_group = [
 	{name:"Mana Bullshit",member:"a member of",supermembers:"members of",simple_name:"Mana",article:"a"},
 ];

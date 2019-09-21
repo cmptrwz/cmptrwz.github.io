@@ -15,6 +15,8 @@ var basetypes = {}; // Base type data
 var fantypes = {}; // Fan type data
 var dynamic_types = {}; // Dynamic type definitions
 var types = {};
+var fanfic_urls = {}; // Links for fanfics
+var fanfic_site_order = []; // Order to spit out links
 // Other data we care about
 var advanced_selectors = []; // For letting people manually filter types
 var generate_modes = []; // Top-level mode definitions
@@ -410,6 +412,27 @@ function loadData() {
 			checkbox.addEventListener('click',buildTypes);
 			fandomdiv.appendChild(checkbox);
 			fandoms.appendChild(document.createTextNode(fandom));
+			if (fanfic_urls.hasOwnProperty(fandom)) {
+				var leader = false;
+				for (var site of fanfic_site_order) {
+					if (fanfic_urls[fandom][site]) {
+						if (leader) {
+							fandoms.appendChild(document.createTextNode(','));
+						} else {
+							fandoms.appendChild(document.createTextNode(' ('));
+							leader = true;
+						}
+						var link = document.createElement('a');
+						link.href = fanfic_urls[fandom][site];
+						link.target = '_blank';
+						link.appendChild(document.createTextNode(site));
+						fandoms.appendChild(link);
+					}
+				}
+				if (leader) {
+					fandoms.appendChild(document.createTextNode(')'));
+				}
+			}
 			hasprev = true;
 		}
 	}

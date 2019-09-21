@@ -1,5 +1,8 @@
 // Fandom-specific type
 fantypes["Mauling Snarks"] = {};
+fanfic_urls["Mauling Snarks"] = {
+	SV:"https://forums.sufficientvelocity.com/threads/mauling-snarks-worm.41471"
+};
 fantypes["Mauling Snarks"].hero = [
 	{name:"Maul",article:"a",possessive:"her",item:["maul","wok","entrenching tool","sword","stop sign"],itemarticle:["a maul","a wok","an entrenching tool","a sword","a stop sign"],group:basetypes.hero_group[1]},
 	{name:"Hulder",article:"a",possessive:"her",item:"chocolate",itemarticle:"some chocolate",group:basetypes.hero_group[1]},

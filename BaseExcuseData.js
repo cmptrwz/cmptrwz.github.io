@@ -1,4 +1,5 @@
 // Excuse Type Data
+fanfic_site_order = ['SB','SV','QQ','FF','AO3'];
 // Advanced Selection Groups
 advanced_selectors = [
 	{name:'Type of Person',category:'base_excuse',min:1},

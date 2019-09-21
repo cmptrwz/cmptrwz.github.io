@@ -1,5 +1,11 @@
 // Fandom-specific type
 fantypes["Constellations"] = {};
+fanfic_urls["Constellations"] = {
+	SB:"https://forums.spacebattles.com/threads/constellations-worm-okami.414320",
+	SV:"https://forums.sufficientvelocity.com/threads/constellations-worm-okami.31091",
+	FF:"https://www.fanfiction.net/s/12907110",
+	AO3:"https://archiveofourown.org/works/7754443"
+};
 fantypes["Constellations"].hero_group = [
 	{name:"Brushstroke and Good Dog",simple_name:"Brushstroke",article:"a"},
 ];

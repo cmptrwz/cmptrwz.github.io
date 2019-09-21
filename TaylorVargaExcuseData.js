@@ -1,5 +1,11 @@
 // Fandom-specific type
 fantypes["Taylor Varga"] = {};
+fanfic_urls["Taylor Varga"] = {
+	SV:"https://forums.sufficientvelocity.com/threads/taylor-varga-worm-luna-varga.32119",
+	FF:"https://www.fanfiction.net/s/12404721",
+	AO3:"https://archiveofourown.org/works/7830346",
+	QQ:"https://forum.questionablequesting.com/threads/taylor-varga-worm-luna-varga-crossover.8939"
+};
 fantypes["Taylor Varga"].other_group = [
 	{name:"the DWU",member:"a member of",supermembers:"superpowered members of",simple_name:"DWU"},
 ];
